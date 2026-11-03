@@ -114,3 +114,10 @@ footer { margin-top: 36px; border-top: 1px solid var(--line); padding-top: 18px;
   .sample-grid { grid-template-columns: 1fr 1fr 1fr; }
   .hero { padding: 56px 20px 60px; }
 }
+.btn-small {
+  background: var(--teal);
+  color: var(--white);
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  margin-top: 6px;
+}
