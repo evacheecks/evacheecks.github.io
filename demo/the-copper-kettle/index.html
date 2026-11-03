@@ -3,97 +3,173 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Copper Kettle (demo) - Eva Cheeks</title>
+<title>The Copper Kettle · Northern Quarter, Manchester (demo design)</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,500&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Caveat:wght@500;700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root { --paper: #f6efe3; --ink: #3a2a20; --muted: #7c6656; --copper: #b05f2c; --green: #2f4a3a; --frame: #d9c6ae; }
+  :root { --paper: #f3ead9; --ink: #3b2a1f; --muted: #7d6858; --copper: #a85a2a; --leaf: #4d5e3a; --rule: #d8c7ad; }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Lora", Georgia, serif; line-height: 1.55; }
-  .demo-banner { background: #111; color: #fff; font: 13px/1.4 system-ui, sans-serif; text-align: center; padding: 8px 14px; }
-  .demo-banner a { color: #ffd27a; font-weight: 700; }
-  header { text-align: center; padding: 44px 22px 36px; background: var(--green); color: #f6efe3; }
-  .est { font-family: "Playfair Display", serif; font-style: italic; letter-spacing: 1px; color: #e8c8a8; margin: 0 0 6px; }
-  h1 { font-family: "Playfair Display", serif; font-weight: 800; font-size: clamp(38px, 11vw, 60px); margin: 0; line-height: 1.05; }
-  .tag { margin: 12px auto 22px; max-width: 32ch; color: #e9e1d3; }
-  .divider { display: flex; align-items: center; justify-content: center; gap: 12px; color: var(--copper); margin: 0 auto; }
-  header .divider { color: #e8c8a8; }
-  .divider::before, .divider::after { content: ""; width: 48px; height: 1px; background: currentColor; }
-  .btn { display: inline-block; margin: 6px 4px 0; padding: 11px 22px; border: 1.5px solid #e8c8a8; color: #f6efe3; text-decoration: none; font-family: "Playfair Display", serif; font-weight: 600; letter-spacing: 0.5px; }
-  .btn.fill { background: var(--copper); border-color: var(--copper); }
-  .wrap { max-width: 620px; margin: 0 auto; padding: 0 18px 40px; }
-  .board { background: #fffaf2; border: 1px solid var(--frame); outline: 6px double var(--frame); outline-offset: 6px; margin: 40px 6px 0; padding: 26px 22px; }
-  h2 { font-family: "Playfair Display", serif; text-align: center; font-size: 30px; margin: 0 0 6px; }
-  h3 { font-family: "Playfair Display", serif; font-style: italic; font-weight: 500; text-align: center; color: var(--copper); font-size: 22px; margin: 28px 0 12px; }
-  .item { text-align: center; margin: 0 0 14px; }
-  .item b { font-weight: 600; }
-  .item .p { color: var(--copper); font-weight: 600; margin-left: 6px; }
-  .item small { display: block; color: var(--muted); font-style: italic; }
-  .note { text-align: center; color: var(--muted); font-size: 14px; font-style: italic; margin-top: 22px; }
-  .hours { text-align: center; }
-  .hours p { margin: 4px 0; }
-  .closed { color: var(--muted); font-style: italic; }
+  body { margin: 0; color: var(--ink); font: 16px/1.6 "Lora", Georgia, serif;
+    background-color: var(--paper);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.25 0 0 0 0 0.15 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .note { font: 12px system-ui, sans-serif; text-align: center; padding: 6px 12px; color: var(--muted); }
+  .note a { color: var(--ink); }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+  .top { text-align: center; padding: 26px 0 8px; }
+  .top .mark { font-family: "Cormorant Garamond", serif; letter-spacing: 6px; text-transform: uppercase; font-size: 13px; color: var(--muted); }
+  h1 { font-family: "Cormorant Garamond", serif; font-weight: 700; font-size: clamp(52px, 15vw, 96px); line-height: .9; margin: 8px 0 0; }
+  h1 small { display: block; font-size: .32em; font-style: italic; font-weight: 500; letter-spacing: 1px; color: var(--copper); margin-top: 8px; }
+
+  .hero { display: grid; gap: 28px; align-items: center; padding: 30px 0 46px; }
+  .polaroid { background: #fff; padding: 10px 10px 40px; box-shadow: 0 10px 24px rgba(59,42,31,.18); transform: rotate(-2.2deg); position: relative; max-width: 420px; justify-self: center; width: 100%; }
+  .polaroid::before { content: ""; position: absolute; top: -12px; left: 38%; width: 90px; height: 26px; background: rgba(214,196,160,.75); transform: rotate(3deg); }
+  .polaroid .ph { aspect-ratio: 4/5; background: #cdb89a url("img/hero.jpg") center/cover no-repeat; }
+  .polaroid figcaption { position: absolute; bottom: 8px; left: 0; right: 0; text-align: center; font: 700 22px "Caveat", cursive; color: var(--ink); }
+  @keyframes settle { from { opacity: 0; transform: rotate(-9deg) translateY(40px); } to { opacity: 1; transform: rotate(-2.2deg); } }
+  .polaroid { animation: settle 1.2s .35s cubic-bezier(.2,.7,.2,1) both; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+  .polaroid:hover { transform: rotate(0deg) scale(1.02); }
+  @keyframes steam { 0% { opacity: 0; transform: translateY(6px); } 40% { opacity: .9; } 100% { opacity: 0; transform: translateY(-14px); } }
+  .orn { animation: steam 3.2s ease-in-out infinite; }
+  .it { transition: color .25s ease; } .it:hover { color: var(--copper); }
+  .sticky { transition: transform .35s ease; } .sticky:hover { transform: rotate(-1deg) scale(1.04); }
+  .welcome p { margin: 0 0 14px; font-size: 17px; }
+  .hand { font: 700 26px/1.2 "Caveat", cursive; color: var(--copper); }
+  .btns a { display: inline-block; margin: 6px 10px 0 0; padding: 10px 18px; text-decoration: none; font-weight: 600; border: 1.5px solid var(--ink); color: var(--ink); }
+  .btns a.solid { background: var(--leaf); border-color: var(--leaf); color: #f3ead9; }
+
+  .card { background: #fffaf0; border: 1px solid var(--rule); padding: 34px 24px; position: relative; margin-bottom: 40px; }
+  .card::before { content: ""; position: absolute; inset: 7px; border: 1px solid var(--rule); pointer-events: none; }
+  .card h2 { font-family: "Cormorant Garamond", serif; text-align: center; font-size: 44px; margin: 0; font-weight: 700; }
+  .orn { text-align: center; color: var(--copper); letter-spacing: 10px; margin: 2px 0 18px; }
+  .cols { display: grid; gap: 0 46px; }
+  h3 { font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 500; font-size: 26px; color: var(--copper); margin: 18px 0 6px; }
+  .it { display: flex; align-items: baseline; gap: 8px; margin: 8px 0; }
+  .it .n { font-weight: 600; }
+  .it .d { display: block; font-size: 14px; color: var(--muted); font-style: italic; font-weight: 400; }
+  .it .dots { flex: 1; border-bottom: 1px dotted var(--muted); transform: translateY(-5px); min-width: 16px; }
+  .it .p { font-variant-numeric: tabular-nums; }
+  .sticky { background: #fff3a8; padding: 14px 16px 12px; transform: rotate(1.5deg); box-shadow: 0 6px 14px rgba(0,0,0,.12); margin: 26px auto 0; max-width: 320px; font: 700 23px/1.2 "Caveat", cursive; text-align: center; }
+  .small { font-size: 14px; color: var(--muted); text-align: center; margin-top: 18px; }
+
+  .visit { display: grid; gap: 24px; padding-bottom: 30px; }
+  .visit h4 { font-family: "Cormorant Garamond", serif; font-size: 28px; margin: 0 0 6px; }
+  .visit p { margin: 2px 0; }
+  .visit .ph2 { min-height: 220px; background: #cdb89a url("img/cake.jpg") center/cover no-repeat; border: 8px solid #fff; box-shadow: 0 8px 18px rgba(59,42,31,.15); transform: rotate(1.4deg); }
   a { color: var(--copper); }
-  footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 36px; }
+  footer { text-align: center; font-size: 13px; color: var(--muted); padding: 20px 0 40px; border-top: 1px solid var(--rule); }
+  @media (min-width: 760px) {
+    .hero { grid-template-columns: 1fr 1fr; }
+    .cols { grid-template-columns: 1fr 1fr; }
+    .visit { grid-template-columns: 1fr 1fr 1.2fr; align-items: center; }
+  }
+
+  /* Motion: entrance, scroll reveal, hover. Disabled for reduced-motion users. */
+  @keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+  @keyframes kenburns { from { background-size: 112%; } to { background-size: 100%; } }
+  @keyframes drift { from { transform: scale(1.12); } to { transform: scale(1); } }
+  .js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
+  .js .reveal.in { opacity: 1; transform: none; }
+  .hero-anim > :not(.hero-bg) { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
+  .hero-anim > *:nth-child(2) { animation-delay: .12s; } .hero-anim > *:nth-child(3) { animation-delay: .24s; }
+  .hero-anim > *:nth-child(4) { animation-delay: .36s; } .hero-anim > *:nth-child(5) { animation-delay: .48s; }
+  .zoom { overflow: hidden; }
+  .zoom-in { transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+  .zoom:hover .zoom-in, .zoom-in:hover { transform: scale(1.04); }
+  .lift { transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease; }
+  .lift:hover { transform: translateY(-2px); }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .js .reveal { opacity: 1; transform: none; }
+  }
 </style>
 </head>
 <body>
-<div class="demo-banner">Demo page by Eva Cheeks. The Copper Kettle is a fictional business, not a real client. <a href="../../">Get a page like this</a></div>
-<header>
-  <p class="est">Café &amp; brunch · Northern Quarter</p>
-  <h1>The Copper Kettle</h1>
-  <p class="tag">All-day brunch, proper tea and homemade cakes, served in the heart of Manchester.</p>
-  <div class="divider">✦</div>
-  <div style="margin-top:18px;">
-    <a class="btn fill" href="#menu">Our menu</a>
-    <a class="btn" href="#find">Book a table</a>
-  </div>
-</header>
-
+<div class="note">Demo design by Eva Cheeks · The Copper Kettle is a fictional café · <a href="../../">Get a page like this</a></div>
 <div class="wrap">
-  <div class="board" id="menu">
-    <h2>Menu</h2>
-    <div class="divider">✦</div>
+  <header class="top hero-anim">
+    <div class="mark">Tea Room &amp; Kitchen</div>
+    <h1>The Copper Kettle<small>Northern Quarter, Manchester</small></h1>
+  </header>
 
-    <h3>Brunch</h3>
-    <p class="item"><b>Full English</b><span class="p">£12.50</span><small>Bacon, sausage, egg, beans, mushrooms, toast</small></p>
-    <p class="item"><b>Veggie Full English</b><span class="p">£11.50</span></p>
-    <p class="item"><b>Eggs Benedict</b><span class="p">£9.75</span><small>Add smoked salmon +£2</small></p>
-    <p class="item"><b>Shakshuka</b><span class="p">£10.25</span><small>With warm flatbread</small></p>
-    <p class="item"><b>Buttermilk pancakes</b><span class="p">£8.95</span><small>Maple syrup and berries</small></p>
+  <section class="hero">
+    <figure class="polaroid" style="margin:0;"><div class="ph" role="img" aria-label="Pot of tea and a slice of cake"></div><figcaption>Sunday afternoons</figcaption></figure>
+    <div class="welcome hero-anim">
+      <p class="hand">Come in, sit down, the kettle's on.</p>
+      <p>Proper loose-leaf tea, an all-day brunch, and cakes baked in the back every morning. Dogs welcome by the window.</p>
+      <div class="btns"><a class="solid lift" href="#menu">See the menu</a><a class="lift" href="#visit">Book a table</a></div>
+    </div>
+  </section>
 
-    <h3>Sandwiches</h3>
-    <p class="item"><b>Fish finger butty</b><span class="p">£8.50</span></p>
-    <p class="item"><b>Grilled halloumi wrap</b><span class="p">£8.25</span></p>
-    <p class="item"><b>Cheese &amp; pickle toastie</b><span class="p">£6.75</span></p>
+  <section class="card reveal" id="menu">
+    <h2>The Menu</h2>
+    <div class="orn">· · ✦ · ·</div>
+    <div class="cols" data-stagger=".it, h3, .sticky">
+      <div>
+        <h3>All-day brunch</h3>
+        <div class="it"><span class="n">The Full English<span class="d">Bacon, sausage, egg, beans, mushrooms, toast</span></span><span class="dots"></span><span class="p">£12.50</span></div>
+        <div class="it"><span class="n">The Veggie Full</span><span class="dots"></span><span class="p">£11.50</span></div>
+        <div class="it"><span class="n">Eggs Benedict<span class="d">Smoked salmon instead, +£2</span></span><span class="dots"></span><span class="p">£9.75</span></div>
+        <div class="it"><span class="n">Shakshuka<span class="d">With warm flatbread</span></span><span class="dots"></span><span class="p">£10.25</span></div>
+        <div class="it"><span class="n">Buttermilk pancakes<span class="d">Maple and berries</span></span><span class="dots"></span><span class="p">£8.95</span></div>
+        <h3>Sandwiches</h3>
+        <div class="it"><span class="n">Fish finger butty</span><span class="dots"></span><span class="p">£8.50</span></div>
+        <div class="it"><span class="n">Halloumi wrap</span><span class="dots"></span><span class="p">£8.25</span></div>
+        <div class="it"><span class="n">Cheese &amp; pickle toastie</span><span class="dots"></span><span class="p">£6.75</span></div>
+      </div>
+      <div>
+        <h3>From the pot</h3>
+        <div class="it"><span class="n">English breakfast tea</span><span class="dots"></span><span class="p">£3.20</span></div>
+        <div class="it"><span class="n">Earl grey</span><span class="dots"></span><span class="p">£3.20</span></div>
+        <div class="it"><span class="n">Flat white</span><span class="dots"></span><span class="p">£3.40</span></div>
+        <div class="it"><span class="n">Hot chocolate</span><span class="dots"></span><span class="p">£3.80</span></div>
+        <div class="it"><span class="n">Fresh orange juice</span><span class="dots"></span><span class="p">£3.50</span></div>
+        <h3>The cake stand</h3>
+        <div class="it"><span class="n">Victoria sponge</span><span class="dots"></span><span class="p">£4.25</span></div>
+        <div class="it"><span class="n">Lemon drizzle</span><span class="dots"></span><span class="p">£3.95</span></div>
+        <div class="sticky">Sunday roast is back! Booking advised.</div>
+      </div>
+    </div>
+    <p class="small">Allergen info on request · Vegan options on the board</p>
+  </section>
 
-    <h3>Tea, coffee &amp; more</h3>
-    <p class="item"><b>Pot of tea</b><span class="p">£3.20</span></p>
-    <p class="item"><b>Flat white</b><span class="p">£3.40</span></p>
-    <p class="item"><b>Hot chocolate</b><span class="p">£3.80</span></p>
-    <p class="item"><b>Fresh orange juice</b><span class="p">£3.50</span></p>
+  <section class="visit" id="visit">
+    <div class="reveal">
+      <h4>Opening times</h4>
+      <p>Tuesday – Friday, 8:30 – 5</p>
+      <p>Saturday &amp; Sunday, 9 – 4</p>
+      <p><em>Closed Mondays</em></p>
+    </div>
+    <div class="reveal" style="--d:.12s">
+      <h4>Find us</h4>
+      <p>Northern Quarter, Manchester</p>
+      <p style="font-size:14px;color:var(--muted);">(fictional address)</p>
+      <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Northern+Quarter+Manchester">Directions</a></p>
+      <p style="font-size:14px;color:var(--muted);">On a real page, "Book a table" goes to the café's own booking link or phone.</p>
+    </div>
+    <div class="ph2 reveal" style="--d:.24s" role="img" aria-label="Victoria sponge"></div>
+  </section>
 
-    <h3>From the cake stand</h3>
-    <p class="item"><b>Victoria sponge</b><span class="p">£4.25</span></p>
-    <p class="item"><b>Lemon drizzle</b><span class="p">£3.95</span></p>
-
-    <p class="note">Allergen information available on request.</p>
-  </div>
-
-  <div class="board hours" id="find">
-    <h2>Find us</h2>
-    <div class="divider">✦</div>
-    <p style="margin-top:16px;"><b>Tuesday – Friday</b> · 8:30 am – 5:00 pm</p>
-    <p><b>Saturday – Sunday</b> · 9:00 am – 4:00 pm</p>
-    <p class="closed">Closed Mondays</p>
-    <p style="margin-top:18px;">Northern Quarter, Manchester<br><small class="closed">(fictional address)</small></p>
-    <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Northern+Quarter+Manchester">Open in Google Maps</a></p>
-    <p class="note">On a real client page, "Book a table" links to the café's own booking page or phone.</p>
-  </div>
-
-  <footer>Demo built by <a href="../../">Eva Cheeks</a> · one-page websites for new restaurants and cafés</footer>
+  <footer>The Copper Kettle is a fictional business. Design by <a href="../../">Eva Cheeks</a>.</footer>
 </div>
+<script>
+  document.documentElement.classList.add('js');
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function (e) { io.observe(e); });
+    // Stagger rows inside each revealed group.
+    document.querySelectorAll('[data-stagger]').forEach(function (g) {
+      Array.prototype.forEach.call(g.querySelectorAll(g.getAttribute('data-stagger')), function (row, i) {
+        row.classList.add('reveal'); row.style.setProperty('--d', (i * 0.045) + 's'); io.observe(row);
+      });
+    });
+  })();
+</script>
 </body>
 </html>
