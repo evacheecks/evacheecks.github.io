@@ -3,99 +3,192 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Harbor Street Coffee (demo) - Eva Cheeks</title>
+<title>Harbor Street Coffee · Red Hook, Brooklyn (demo design)</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root { --ink: #111; --muted: #6d6d6d; --line: #e6e6e6; --bg: #fff; --blue: #2f5bff; }
+  :root { --ink: #1b1a17; --paper: #f4f1ea; --muted: #6f6a60; --rule: #cfc8ba; --sea: #24414f; }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Space Grotesk", system-ui, sans-serif; }
-  .demo-banner { background: #111; color: #fff; font: 13px/1.4 system-ui, sans-serif; text-align: center; padding: 8px 14px; }
-  .demo-banner a { color: #ffd27a; font-weight: 700; }
-  .wrap { max-width: 640px; margin: 0 auto; padding: 0 22px; }
-  header { padding: 48px 0 28px; border-bottom: 1px solid var(--line); }
-  .logo { display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border: 2px solid var(--ink); border-radius: 50%; font-weight: 700; font-size: 18px; letter-spacing: -0.5px; margin-bottom: 26px; }
-  h1 { font-size: clamp(40px, 12vw, 64px); line-height: 0.95; letter-spacing: -2px; margin: 0 0 14px; font-weight: 700; }
-  .sub { color: var(--muted); font-size: 17px; margin: 0 0 24px; max-width: 30ch; }
-  .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; letter-spacing: 0.3px; }
-  .status { display: inline-flex; align-items: center; gap: 8px; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: #16a34a; }
-  .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
-  .btn { font: 500 15px "Space Grotesk", sans-serif; padding: 12px 18px; border-radius: 6px; text-decoration: none; border: 1.5px solid var(--ink); color: var(--ink); }
-  .btn.primary { background: var(--ink); color: #fff; }
-  section { padding: 34px 0; border-bottom: 1px solid var(--line); }
-  h2 { font-size: 13px; font-family: "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); font-weight: 500; margin: 0 0 20px; }
-  h3 { font-size: 22px; margin: 26px 0 10px; letter-spacing: -0.5px; }
-  h3:first-of-type { margin-top: 0; }
-  .item { display: flex; align-items: baseline; gap: 8px; padding: 9px 0; }
-  .item .name { font-size: 17px; }
-  .item .desc { display: block; color: var(--muted); font-size: 14px; }
-  .item .lead { flex: 1; border-bottom: 1px dotted #bbb; transform: translateY(-4px); min-width: 20px; }
-  .item .price { font-family: "IBM Plex Mono", monospace; font-size: 15px; }
-  .note { color: var(--muted); font-size: 14px; margin-top: 18px; }
-  .grid2 { display: grid; grid-template-columns: 1fr; gap: 22px; }
-  dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 8px 18px; }
-  dt { color: var(--muted); }
-  dd { margin: 0; text-align: right; font-family: "IBM Plex Mono", monospace; font-size: 14px; }
-  a { color: var(--blue); }
-  footer { padding: 28px 0 40px; color: var(--muted); font-size: 13px; }
-  @media (min-width: 600px) { .grid2 { grid-template-columns: 1fr 1fr; } }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.6 "Public Sans", system-ui, sans-serif; }
+  .note { font-size: 12px; text-align: center; padding: 6px 12px; color: var(--muted); border-bottom: 1px solid var(--rule); }
+  .note a { color: var(--ink); }
+
+  .hero { position: relative; min-height: 78vh; display: flex; align-items: flex-end; color: #fff;
+    background: var(--sea); overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: url("img/hero.jpg") center/cover no-repeat; animation: drift 2.8s cubic-bezier(.2,.7,.2,1) both; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,14,16,.72), rgba(10,14,16,.05) 60%); }
+  .hero-text { position: relative; z-index: 1; padding: 28px 22px 34px; max-width: 980px; width: 100%; margin: 0 auto; }
+  .est { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin: 0 0 10px; opacity: .85; }
+  h1 { font-family: "Fraunces", Georgia, serif; font-weight: 400; font-size: clamp(46px, 13vw, 104px); line-height: .92; letter-spacing: -1.5px; margin: 0; }
+  h1 em { font-style: italic; }
+  .hero p.line { margin: 14px 0 0; max-width: 34ch; font-size: 17px; opacity: .92; }
+
+  nav { position: sticky; top: 0; z-index: 3; background: var(--paper); border-bottom: 1px solid var(--rule); }
+  nav .in { max-width: 980px; margin: 0 auto; display: flex; gap: 22px; padding: 12px 22px; font-size: 14px; overflow-x: auto; white-space: nowrap; }
+  nav a { color: var(--ink); text-decoration: none; }
+  nav a.order { margin-left: auto; font-weight: 600; border-bottom: 1.5px solid var(--ink); }
+
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 22px; }
+  .intro { padding: 54px 0 40px; font-family: "Fraunces", serif; font-size: clamp(22px, 5vw, 30px); line-height: 1.35; max-width: 28em; }
+  .intro span { color: var(--muted); }
+
+  .strip { display: grid; grid-template-columns: 1.4fr 1fr; gap: 8px; }
+  .ph { background: #d8d0c2 center/cover no-repeat; min-height: 220px; }
+  .ph.a { background-image: url("img/bake.jpg"); min-height: 300px; }
+  .ph.b { background-image: url("img/counter.jpg"); }
+  .cap { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
+
+  #menu { padding: 56px 0 10px; }
+  .menu-head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid var(--ink); padding-bottom: 10px; }
+  h2 { font-family: "Fraunces", serif; font-weight: 400; font-size: 40px; margin: 0; }
+  .menu-head span { font-size: 13px; color: var(--muted); }
+  .group { display: grid; grid-template-columns: 1fr; gap: 6px 40px; padding: 22px 0; border-bottom: 1px solid var(--rule); }
+  .group h3 { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin: 4px 0 6px; font-weight: 600; }
+  .row { display: flex; justify-content: space-between; gap: 16px; padding: 5px 0; }
+  .row i { display: block; font-style: normal; color: var(--muted); font-size: 14px; }
+  .row b { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .today { margin: 28px 0 0; padding: 18px 20px; background: #fff; border-left: 3px solid var(--sea); }
+  .today strong { font-family: "Fraunces", serif; font-weight: 600; font-size: 19px; }
+
+  #visit { padding: 60px 0 40px; display: grid; gap: 30px; }
+  .row { transition: padding-left .25s ease, color .25s ease; }
+  .row:hover { padding-left: 6px; color: var(--sea); }
+  nav a { transition: opacity .2s; } nav a:hover { opacity: .6; }
+  #visit h4 { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin: 0 0 10px; }
+  #visit p { margin: 0 0 4px; }
+  .muted { color: var(--muted); font-size: 14px; }
+  a { color: var(--sea); }
+  footer { border-top: 1px solid var(--rule); padding: 22px 0 40px; font-size: 13px; color: var(--muted); }
+  @media (min-width: 760px) {
+    .group { grid-template-columns: 180px 1fr 1fr; }
+    #visit { grid-template-columns: 1fr 1fr 1fr; }
+    .ph.a { min-height: 420px; }
+  }
+
+  /* Motion: entrance, scroll reveal, hover. Disabled for reduced-motion users. */
+  @keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+  @keyframes kenburns { from { background-size: 112%; } to { background-size: 100%; } }
+  @keyframes drift { from { transform: scale(1.12); } to { transform: scale(1); } }
+  .js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
+  .js .reveal.in { opacity: 1; transform: none; }
+  .hero-anim > :not(.hero-bg) { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
+  .hero-anim > *:nth-child(2) { animation-delay: .12s; } .hero-anim > *:nth-child(3) { animation-delay: .24s; }
+  .hero-anim > *:nth-child(4) { animation-delay: .36s; } .hero-anim > *:nth-child(5) { animation-delay: .48s; }
+  .zoom { overflow: hidden; }
+  .zoom-in { transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+  .zoom:hover .zoom-in, .zoom-in:hover { transform: scale(1.04); }
+  .lift { transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease; }
+  .lift:hover { transform: translateY(-2px); }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .js .reveal { opacity: 1; transform: none; }
+  }
 </style>
 </head>
 <body>
-<div class="demo-banner">Demo page by Eva Cheeks. Harbor Street Coffee is a fictional business, not a real client. <a href="../../">Get a page like this</a></div>
-<div class="wrap">
-  <header>
-    <div class="logo">HS</div>
-    <h1>Harbor Street Coffee</h1>
-    <p class="sub">Small-batch coffee, fresh pastries and simple breakfasts in Brooklyn.</p>
-    <div class="mono status"><span class="dot"></span>Open today · 7:00 am – 4:00 pm</div>
-    <div class="row">
-      <a class="btn primary" href="#menu">Menu</a>
-      <a class="btn" href="#visit">Order ahead</a>
-    </div>
-  </header>
+<div class="note">Demo design by Eva Cheeks · Harbor Street Coffee is a fictional cafe · <a href="../../">Get a page like this</a></div>
+
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-text hero-anim">
+    <p class="est">Red Hook, Brooklyn · Since 2026</p>
+    <h1>Harbor Street <em>Coffee</em></h1>
+    <p class="line">A small corner cafe two blocks from the water. Coffee, a short bake list, and a window seat if you're early.</p>
+  </div>
+</header>
+
+<nav><div class="in">
+  <a href="#menu">Menu</a><a href="#visit">Hours</a><a href="#visit">Find us</a><a class="order lift" href="#visit">Order ahead</a>
+</div></nav>
+
+<main class="wrap">
+  <p class="intro reveal">We pour one house espresso and one rotating filter, and bake in small batches from 6 am. <span>When the almond croissants are gone, they're gone.</span></p>
+
+  <div class="strip">
+    <div class="reveal"><div class="zoom"><div class="ph a zoom-in" role="img" aria-label="Croissants on a tray"></div></div><p class="cap">This morning's bake.</p></div>
+    <div class="reveal" style="--d:.12s"><div class="zoom"><div class="ph b zoom-in" role="img" aria-label="The coffee counter"></div></div><p class="cap">The counter, 7 am.</p></div>
+  </div>
 
   <section id="menu">
-    <h2>Menu / 12 items</h2>
-    <h3>Coffee</h3>
-    <div class="item"><span class="name">Drip coffee</span><span class="lead"></span><span class="price">3.25</span></div>
-    <div class="item"><span class="name">Espresso</span><span class="lead"></span><span class="price">3.50</span></div>
-    <div class="item"><span class="name">Cappuccino</span><span class="lead"></span><span class="price">4.75</span></div>
-    <div class="item"><span class="name">Oat milk latte<span class="desc">Oat milk at no extra charge</span></span><span class="lead"></span><span class="price">5.50</span></div>
-    <div class="item"><span class="name">Cold brew<span class="desc">Steeped for 18 hours</span></span><span class="lead"></span><span class="price">5.00</span></div>
-    <h3>Bakery</h3>
-    <div class="item"><span class="name">Butter croissant</span><span class="lead"></span><span class="price">4.25</span></div>
-    <div class="item"><span class="name">Almond croissant</span><span class="lead"></span><span class="price">5.25</span></div>
-    <div class="item"><span class="name">Blueberry muffin</span><span class="lead"></span><span class="price">4.00</span></div>
-    <div class="item"><span class="name">Cinnamon bun<span class="desc">Baked every morning</span></span><span class="lead"></span><span class="price">4.75</span></div>
-    <h3>Breakfast</h3>
-    <div class="item"><span class="name">Avocado toast<span class="desc">Sourdough, chili flakes, lemon</span></span><span class="lead"></span><span class="price">11.00</span></div>
-    <div class="item"><span class="name">Egg &amp; cheese bagel<span class="desc">Add bacon +2</span></span><span class="lead"></span><span class="price">8.50</span></div>
-    <div class="item"><span class="name">Granola bowl<span class="desc">Yogurt, honey, seasonal fruit</span></span><span class="lead"></span><span class="price">9.50</span></div>
-    <p class="note">Prices in US dollars, tax included. Card and Apple Pay accepted.</p>
+    <div class="menu-head reveal"><h2>Menu</h2><span>Prices in USD, tax included</span></div>
+    <div class="group" data-stagger=".row, h3">
+      <h3>Coffee</h3>
+      <div>
+        <div class="row"><span>Drip coffee</span><b>3.25</b></div>
+        <div class="row"><span>Espresso</span><b>3.50</b></div>
+        <div class="row"><span>Cappuccino</span><b>4.75</b></div>
+      </div>
+      <div>
+        <div class="row"><span>Oat latte<i>No charge for oat</i></span><b>5.50</b></div>
+        <div class="row"><span>Cold brew<i>Steeped 18 hours</i></span><b>5.00</b></div>
+      </div>
+    </div>
+    <div class="group" data-stagger=".row, h3">
+      <h3>From the oven</h3>
+      <div>
+        <div class="row"><span>Butter croissant</span><b>4.25</b></div>
+        <div class="row"><span>Almond croissant</span><b>5.25</b></div>
+      </div>
+      <div>
+        <div class="row"><span>Blueberry muffin</span><b>4.00</b></div>
+        <div class="row"><span>Cardamom bun</span><b>4.75</b></div>
+      </div>
+    </div>
+    <div class="group" data-stagger=".row, h3">
+      <h3>Breakfast</h3>
+      <div>
+        <div class="row"><span>Avocado toast<i>Sourdough, chili, lemon</i></span><b>11.00</b></div>
+        <div class="row"><span>Egg &amp; cheese bagel<i>Add bacon 2.00</i></span><b>8.50</b></div>
+      </div>
+      <div>
+        <div class="row"><span>Granola bowl<i>Yogurt, honey, fruit</i></span><b>9.50</b></div>
+      </div>
+    </div>
+    <div class="today reveal"><strong>On the board today:</strong> pear &amp; brown butter tart, 5.75. Usually sold out by noon.</div>
   </section>
 
-  <section id="visit" class="grid2">
-    <div>
-      <h2>Hours</h2>
-      <dl>
-        <dt>Mon – Fri</dt><dd>7:00 – 16:00</dd>
-        <dt>Saturday</dt><dd>8:00 – 17:00</dd>
-        <dt>Sunday</dt><dd>8:00 – 15:00</dd>
-      </dl>
+  <section id="visit">
+    <div class="reveal">
+      <h4>Hours</h4>
+      <p>Mon–Fri &nbsp;7 am – 4 pm</p>
+      <p>Sat &nbsp;8 am – 5 pm</p>
+      <p>Sun &nbsp;8 am – 3 pm</p>
     </div>
-    <div>
-      <h2>Visit</h2>
-      <p style="margin:0 0 10px;">Harbor Street, Brooklyn, NY<br><span style="color:var(--muted);font-size:14px;">(fictional address)</span></p>
-      <a href="https://www.google.com/maps/search/?api=1&amp;query=Brooklyn+NY">Open in Google Maps →</a>
-      <p class="note">On a real client page, "Order ahead" links to the cafe's own ordering app or phone.</p>
+    <div class="reveal" style="--d:.1s">
+      <h4>Find us</h4>
+      <p>Harbor Street &amp; Van Dyke</p>
+      <p>Red Hook, Brooklyn</p>
+      <p class="muted">(fictional address)</p>
+      <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Red+Hook+Brooklyn">Directions</a></p>
+    </div>
+    <div class="reveal" style="--d:.2s">
+      <h4>Order ahead</h4>
+      <p>Pick up at the side window, no queue.</p>
+      <p class="muted">On a real page, this links to the cafe's own ordering app or phone number.</p>
     </div>
   </section>
 
-  <footer class="mono">Demo built by <a href="../../">Eva Cheeks</a> · one-page websites for new restaurants and cafes</footer>
-</div>
+  <footer>Harbor Street Coffee is a fictional business. Design by <a href="../../">Eva Cheeks</a>, one-page websites for new restaurants and cafes.</footer>
+</main>
+<script>
+  document.documentElement.classList.add('js');
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function (e) { io.observe(e); });
+    // Stagger rows inside each revealed group.
+    document.querySelectorAll('[data-stagger]').forEach(function (g) {
+      Array.prototype.forEach.call(g.querySelectorAll(g.getAttribute('data-stagger')), function (row, i) {
+        row.classList.add('reveal'); row.style.setProperty('--d', (i * 0.045) + 's'); io.observe(row);
+      });
+    });
+  })();
+</script>
 </body>
 </html>
