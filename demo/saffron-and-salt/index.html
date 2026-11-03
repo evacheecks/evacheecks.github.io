@@ -5,88 +5,127 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Saffron &amp; Salt (demo) - Eva Cheeks</title>
 <meta name="robots" content="noindex">
-<link rel="stylesheet" href="../demo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #15120f; --card: #211c17; --ink: #f6eee3; --muted: #b5a894; --saffron: #f4a020; --ember: #e2552b; --line: #352c24; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Poppins", system-ui, sans-serif; padding-bottom: 84px; }
+  .demo-banner { background: #000; color: #fff; font: 13px/1.4 system-ui, sans-serif; text-align: center; padding: 8px 14px; }
+  .demo-banner a { color: #ffd27a; font-weight: 700; }
+  header { position: relative; padding: 54px 22px 40px; text-align: left; overflow: hidden;
+    background: radial-gradient(circle at 85% 20%, rgba(244,160,32,.35), transparent 45%), radial-gradient(circle at 10% 90%, rgba(226,85,43,.35), transparent 50%), var(--bg); }
+  .inner { max-width: 760px; margin: 0 auto; }
+  .eyebrow { color: var(--saffron); font-weight: 600; letter-spacing: 3px; font-size: 12px; text-transform: uppercase; margin: 0 0 8px; }
+  h1 { font-family: "Bebas Neue", Impact, sans-serif; font-weight: 400; font-size: clamp(64px, 20vw, 120px); line-height: 0.85; margin: 0; letter-spacing: 1px; }
+  h1 span { color: var(--saffron); }
+  .lead { color: var(--muted); max-width: 34ch; margin: 16px 0 0; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+  .chip { border: 1px solid var(--line); background: rgba(255,255,255,.04); padding: 6px 12px; border-radius: 999px; font-size: 13px; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+  .tabs { position: sticky; top: 0; z-index: 2; background: var(--bg); display: flex; gap: 6px; overflow-x: auto; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .tabs a { flex: none; color: var(--ink); text-decoration: none; font-size: 14px; padding: 7px 14px; border-radius: 999px; background: var(--card); }
+  h2 { font-family: "Bebas Neue", sans-serif; font-weight: 400; font-size: 40px; letter-spacing: 1px; margin: 34px 0 12px; color: var(--saffron); }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .dish { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+  .dish b { font-weight: 500; }
+  .dish small { display: block; color: var(--muted); font-size: 13px; }
+  .dish .p { color: var(--saffron); font-weight: 600; white-space: nowrap; }
+  .star { display: inline-block; background: var(--ember); color: #fff; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; margin-left: 6px; vertical-align: 2px; }
+  .info { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
+  .box { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+  .box p { margin: 4px 0; }
+  .muted { color: var(--muted); font-size: 14px; }
+  a { color: var(--saffron); }
+  footer { text-align: center; color: var(--muted); font-size: 13px; margin: 36px 0 20px; }
+  .bar { position: fixed; left: 0; right: 0; bottom: 0; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: rgba(21,18,15,.94); border-top: 1px solid var(--line); display: flex; gap: 10px; justify-content: center; }
+  .bar a { flex: 1; max-width: 360px; text-align: center; text-decoration: none; font-weight: 600; padding: 13px; border-radius: 12px; }
+  .wa { flex: 2; background: #25d366; color: #0b2a17; }
+  .call { background: var(--card); color: var(--ink); border: 1px solid var(--line); }
+  @media (min-width: 640px) { .grid, .info { grid-template-columns: 1fr 1fr; } }
+</style>
 </head>
-<body class="theme-saffron">
+<body>
 <div class="demo-banner">Demo page by Eva Cheeks. Saffron &amp; Salt is a fictional business, not a real client. <a href="../../">Get a page like this</a></div>
-<header class="hero">
-  <div class="hero-inner">
-    <p class="kicker">Grill &amp; kitchen · Dubai</p>
-    <h1>Saffron &amp; Salt</h1>
-    <p>Charcoal grills, fresh bread from the oven and family-style platters in Al Barsha.</p>
-    <div class="actions">
-      <a class="btn" href="#menu">See the menu</a>
-      <a class="btn btn-ghost" href="#contact">Order on WhatsApp</a>
+<header>
+  <div class="inner">
+    <p class="eyebrow">Charcoal grill · Al Barsha, Dubai</p>
+    <h1>Saffron <span>&amp;</span> Salt</h1>
+    <p class="lead">Charcoal grills, bread fresh from the tandoor and family-style platters, open late every night.</p>
+    <div class="chips">
+      <span class="chip">🔥 Open today 12 pm – 12 am</span>
+      <span class="chip">🛵 Delivery in Al Barsha</span>
+      <span class="chip">20 dishes</span>
     </div>
   </div>
 </header>
-<main class="wrap">
-  <div class="quick">
-    <div><strong>Hours</strong>Open today 12:00 pm – 12:00 am</div>
-    <div><strong>Where</strong>Al Barsha, Dubai (fictional address)</div>
-    <div><strong>Menu</strong>20 items, prices below</div>
+
+<div class="wrap">
+  <nav class="tabs">
+    <a href="#starters">Starters</a><a href="#grill">Grill</a><a href="#sides">Rice &amp; bread</a><a href="#drinks">Drinks</a><a href="#desserts">Desserts</a><a href="#visit">Visit</a>
+  </nav>
+
+  <h2 id="starters">Starters</h2>
+  <div class="grid">
+    <div class="dish"><b>Hummus</b><span class="p">AED 28</span></div>
+    <div class="dish"><b>Moutabal</b><span class="p">AED 30</span></div>
+    <div class="dish"><b>Fattoush</b><span class="p">AED 32</span></div>
+    <div class="dish"><span><b>Cheese sambousek</b><small>4 pieces</small></span><span class="p">AED 26</span></div>
+    <div class="dish"><b>Lentil soup</b><span class="p">AED 22</span></div>
   </div>
 
-  <section id="menu">
-    <h2>Menu</h2>
-      <h3>Starters</h3>
-      <ul class="menu">
-        <li><span class="item-name">Hummus</span><span class="price">AED 28</span></li>
-        <li><span class="item-name">Moutabal</span><span class="price">AED 30</span></li>
-        <li><span class="item-name">Fattoush</span><span class="price">AED 32</span></li>
-        <li><span class="item-name">Cheese sambousek<span class="item-desc">4 pieces</span></span><span class="price">AED 26</span></li>
-        <li><span class="item-name">Lentil soup</span><span class="price">AED 22</span></li>
-      </ul>
-      <h3>From the grill</h3>
-      <ul class="menu">
-        <li><span class="item-name">Chicken tikka</span><span class="price">AED 48</span></li>
-        <li><span class="item-name">Lamb kofta</span><span class="price">AED 55</span></li>
-        <li><span class="item-name">Shish tawook</span><span class="price">AED 46</span></li>
-        <li><span class="item-name">Mixed grill<span class="item-desc">For one</span></span><span class="price">AED 78</span></li>
-        <li><span class="item-name">Mixed grill platter<span class="item-desc">Serves 3 to 4</span></span><span class="price">AED 210</span></li>
-        <li><span class="item-name">Grilled hammour<span class="item-desc">Catch of the day</span></span><span class="price">AED 85</span></li>
-      </ul>
-      <h3>Rice &amp; bread</h3>
-      <ul class="menu">
-        <li><span class="item-name">Saffron rice</span><span class="price">AED 18</span></li>
-        <li><span class="item-name">Tandoor bread</span><span class="price">AED 6</span></li>
-        <li><span class="item-name">Garlic naan</span><span class="price">AED 9</span></li>
-      </ul>
-      <h3>Drinks</h3>
-      <ul class="menu">
-        <li><span class="item-name">Fresh lemon mint</span><span class="price">AED 18</span></li>
-        <li><span class="item-name">Mango lassi</span><span class="price">AED 20</span></li>
-        <li><span class="item-name">Karak chai</span><span class="price">AED 8</span></li>
-        <li><span class="item-name">Soft drinks</span><span class="price">AED 9</span></li>
-      </ul>
-      <h3>Desserts</h3>
-      <ul class="menu">
-        <li><span class="item-name">Kunafa</span><span class="price">AED 32</span></li>
-        <li><span class="item-name">Umm Ali</span><span class="price">AED 28</span></li>
-      </ul>
-    <p class="small">Prices include VAT. Delivery available in Al Barsha and nearby areas.</p>
-  </section>
+  <h2 id="grill">From the grill</h2>
+  <div class="grid">
+    <div class="dish"><b>Chicken tikka</b><span class="p">AED 48</span></div>
+    <div class="dish"><b>Lamb kofta</b><span class="p">AED 55</span></div>
+    <div class="dish"><b>Shish tawook</b><span class="p">AED 46</span></div>
+    <div class="dish"><span><b>Mixed grill</b><small>For one</small></span><span class="p">AED 78</span></div>
+    <div class="dish"><span><b>Mixed grill platter<span class="star">Popular</span></b><small>Serves 3 to 4</small></span><span class="p">AED 210</span></div>
+    <div class="dish"><span><b>Grilled hammour</b><small>Catch of the day</small></span><span class="p">AED 85</span></div>
+  </div>
 
-  <section id="hours">
-    <h2>Opening hours</h2>
-    <table class="hours">
-        <tr><td>Sunday – Thursday</td><td>12:00 pm – 12:00 am</td></tr>
-        <tr><td>Friday – Saturday</td><td>12:00 pm – 1:00 am</td></tr>
-    </table>
-  </section>
+  <h2 id="sides">Rice &amp; bread</h2>
+  <div class="grid">
+    <div class="dish"><b>Saffron rice</b><span class="p">AED 18</span></div>
+    <div class="dish"><b>Tandoor bread</b><span class="p">AED 6</span></div>
+    <div class="dish"><b>Garlic naan</b><span class="p">AED 9</span></div>
+  </div>
 
-  <section id="contact">
-    <h2>Find us</h2>
-    <div class="card">
-      <p>Al Barsha, Dubai (fictional address)</p>
-      <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Al+Barsha+Dubai">Open in Google Maps</a></p>
-      <p class="small">On a real client page, this button links to the restaurant's own ordering, booking, WhatsApp or phone, whichever they already use.</p>
+  <h2 id="drinks">Drinks</h2>
+  <div class="grid">
+    <div class="dish"><b>Fresh lemon mint</b><span class="p">AED 18</span></div>
+    <div class="dish"><b>Mango lassi</b><span class="p">AED 20</span></div>
+    <div class="dish"><b>Karak chai</b><span class="p">AED 8</span></div>
+    <div class="dish"><b>Soft drinks</b><span class="p">AED 9</span></div>
+  </div>
+
+  <h2 id="desserts">Desserts</h2>
+  <div class="grid">
+    <div class="dish"><b>Kunafa</b><span class="p">AED 32</span></div>
+    <div class="dish"><b>Umm Ali</b><span class="p">AED 28</span></div>
+  </div>
+  <p class="muted">Prices include VAT.</p>
+
+  <h2 id="visit">Visit</h2>
+  <div class="info">
+    <div class="box">
+      <p><b>Sunday – Thursday</b></p><p class="muted">12:00 pm – 12:00 am</p>
+      <p style="margin-top:10px;"><b>Friday – Saturday</b></p><p class="muted">12:00 pm – 1:00 am</p>
     </div>
-  </section>
+    <div class="box">
+      <p><b>Al Barsha, Dubai</b></p><p class="muted">(fictional address)</p>
+      <p style="margin-top:10px;"><a href="https://www.google.com/maps/search/?api=1&amp;query=Al+Barsha+Dubai">Open in Google Maps →</a></p>
+    </div>
+  </div>
+  <p class="muted">On a real client page, the buttons below link to the restaurant's own WhatsApp and phone number.</p>
 
-  <footer>
-    <p class="small">Demo built by <a href="../../">Eva Cheeks</a>. One-page websites for new restaurants and cafes.</p>
-  </footer>
-</main>
+  <footer>Demo built by <a href="../../">Eva Cheeks</a> · one-page websites for new restaurants and cafes</footer>
+</div>
+
+<div class="bar">
+  <a class="wa" href="#visit">Order on WhatsApp</a>
+  <a class="call" href="#visit">Call</a>
+</div>
 </body>
 </html>
