@@ -9,83 +9,142 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Archivo+Narrow:wght@500;700&display=swap" rel="stylesheet">
 <style>
-  :root { --ink: #141414; --char: #1d1f21; --bone: #efe9df; --brass: #c79a4b; --muted: #8b877f; --line: #34373a; }
+  :root { --ink: #121212; --char: #1b1d1f; --card: #232629; --bone: #efe9df; --brass: #c79a4b; --brass2: #e0b764; --muted: #8b877f; --line: #33363a; --ok: #6fbf73; }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--char); color: var(--bone); font: 16px/1.55 "Archivo", system-ui, sans-serif; padding-bottom: 72px; }
+  body { margin: 0; background: var(--char); color: var(--bone); font: 16px/1.55 "Archivo", system-ui, sans-serif; padding-bottom: 64px; }
   a { color: var(--brass); }
+  button { font: inherit; color: inherit; }
   .note { font-size: 12px; text-align: center; padding: 6px 12px; color: var(--muted); border-bottom: 1px solid var(--line); }
   .note a { color: var(--bone); }
+  .narrow { font-family: "Archivo Narrow", sans-serif; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
 
-  /* Hero: typographic, with an animated barber-stripe band */
-  .hero { position: relative; padding: 56px 22px 0; overflow: hidden; }
-  .hero .in { max-width: 1000px; margin: 0 auto; }
-  .tag { font: 700 13px/1 "Archivo Narrow", sans-serif; letter-spacing: 4px; text-transform: uppercase; color: var(--brass); margin: 0 0 18px; }
-  h1 { font: 800 clamp(46px, 13vw, 150px)/.86 "Archivo", sans-serif; letter-spacing: -3px; margin: 0; text-transform: uppercase; }
+  /* Hero: photo if present, typographic either way */
+  .hero { position: relative; overflow: hidden; background: #151617; }
+  .hero-bg { position: absolute; inset: 0; background: url("img/hero.jpg") center/cover no-repeat; opacity: .55; animation: drift 3s cubic-bezier(.2,.7,.2,1) both; }
+  .hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(18,18,18,.2) 0%, rgba(18,18,18,.85) 75%, var(--char) 100%); }
+  .hero .in { position: relative; z-index: 2; max-width: 1040px; margin: 0 auto; padding: 64px 22px 0; }
+  .status { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; padding: 7px 12px; border: 1px solid var(--line); background: rgba(18,18,18,.6); border-radius: 99px; margin-bottom: 22px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+  .dot.open { background: var(--ok); box-shadow: 0 0 0 0 rgba(111,191,115,.6); animation: pulse 2s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 9px rgba(111,191,115,0); } 100% { box-shadow: 0 0 0 0 rgba(111,191,115,0); } }
+  .tag { font-size: 13px; color: var(--brass); margin: 0 0 14px; letter-spacing: 4px; }
+  h1 { font: 800 clamp(46px, 13vw, 140px)/.86 "Archivo", sans-serif; letter-spacing: -3px; margin: 0; text-transform: uppercase; }
   h1 span { display: block; color: transparent; -webkit-text-stroke: 1.5px var(--bone); }
-  .sub { max-width: 32ch; font-size: 18px; color: #cfc9be; margin: 22px 0 30px; }
-  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 44px; }
-  .btn { display: inline-block; padding: 14px 22px; font: 700 15px/1 "Archivo Narrow", sans-serif; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; border: 1.5px solid var(--bone); color: var(--bone); transition: background .2s, color .2s, transform .2s; }
+  .sub { max-width: 34ch; font-size: 18px; color: #d6d0c5; margin: 22px 0 28px; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
+  .btn { display: inline-block; padding: 15px 22px; font-size: 14px; text-decoration: none; border: 1.5px solid var(--bone); color: var(--bone); background: none; cursor: pointer; transition: background .2s, color .2s, transform .2s; }
   .btn.solid { background: var(--brass); border-color: var(--brass); color: var(--ink); }
   .btn:hover { transform: translateY(-2px); }
-  .stripe { height: 34px; background: repeating-linear-gradient(-45deg, #b8322f 0 18px, var(--bone) 18px 36px, #2a4f8a 36px 54px, var(--bone) 54px 72px); background-size: 204px 34px; animation: pole 6s linear infinite; }
-  @keyframes pole { to { background-position: 204px 0; } }
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); margin: 0 -22px; }
+  .facts div { padding: 16px 22px; border-right: 1px solid var(--line); }
+  .facts div:last-child { border-right: 0; }
+  .facts b { display: block; font: 800 24px/1 "Archivo", sans-serif; }
+  .facts span { font-size: 12px; color: var(--muted); }
+  .stripe { position: relative; z-index: 2; height: 30px; background: repeating-linear-gradient(-45deg, #b8322f 0 16px, var(--bone) 16px 32px, #2a4f8a 32px 48px, var(--bone) 48px 64px); background-size: 181px 30px; animation: pole 6s linear infinite; }
+  @keyframes pole { to { background-position: 181px 0; } }
 
-  nav { position: sticky; top: 0; z-index: 3; background: var(--char); border-bottom: 1px solid var(--line); }
-  nav .in { max-width: 1000px; margin: 0 auto; display: flex; gap: 24px; padding: 13px 22px; font: 700 13px/1 "Archivo Narrow", sans-serif; letter-spacing: 2px; text-transform: uppercase; overflow-x: auto; white-space: nowrap; }
+  nav { position: sticky; top: 0; z-index: 4; background: rgba(27,29,31,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  nav .in { max-width: 1040px; margin: 0 auto; display: flex; gap: 24px; padding: 14px 22px; font-size: 13px; overflow-x: auto; white-space: nowrap; }
   nav a { color: var(--bone); text-decoration: none; }
   nav a:hover { color: var(--brass); }
 
-  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 22px; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+  section { scroll-margin-top: 60px; }
   h2 { font: 800 clamp(36px, 8vw, 64px)/1 "Archivo", sans-serif; letter-spacing: -1.5px; text-transform: uppercase; margin: 0 0 8px; }
   .kicker { color: var(--muted); margin: 0 0 26px; }
 
+  /* Gallery (only shown when photos load) */
+  .gallery { display: none; grid-template-columns: 1.3fr 1fr; gap: 8px; padding-top: 56px; }
+  .gallery.has { display: grid; }
+  .gallery figure { margin: 0; overflow: hidden; background: var(--card); }
+  .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 200px; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+  .gallery figure:hover img { transform: scale(1.05); }
+  .gallery .tall { grid-row: span 2; }
+
   /* Price list */
-  #prices { padding: 70px 0 30px; }
+  #prices { padding: 64px 0 20px; }
   .cat { border-top: 2px solid var(--bone); padding: 18px 0 8px; }
-  .cat h3 { font: 700 13px/1 "Archivo Narrow", sans-serif; letter-spacing: 4px; text-transform: uppercase; color: var(--brass); margin: 0 0 12px; }
-  .svc { display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; padding: 12px 0; border-bottom: 1px solid var(--line); transition: padding-left .25s; }
-  .svc:hover { padding-left: 6px; }
+  .cat h3 { font-size: 13px; color: var(--brass); margin: 0 0 8px; letter-spacing: 4px; }
+  .svc { width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; padding: 14px 4px; cursor: pointer; transition: padding-left .25s, background .25s; }
+  .svc:hover { padding-left: 10px; background: rgba(255,255,255,.03); }
   .svc b { font-weight: 600; font-size: 17px; }
   .svc .p { font: 700 19px/1.2 "Archivo Narrow", sans-serif; font-variant-numeric: tabular-nums; }
-  .svc i { grid-column: 1 / -1; font-style: normal; font-size: 14px; color: var(--muted); }
-  .svc .t { color: var(--brass); }
+  .svc i { font-style: normal; font-size: 14px; color: var(--muted); }
+  .svc .go { font-size: 12px; color: var(--brass); opacity: 0; transition: opacity .2s; text-align: right; }
+  .svc:hover .go, .svc:focus-visible .go { opacity: 1; }
+  .popular { display: inline-block; margin-left: 8px; font: 700 10px/1 "Archivo Narrow", sans-serif; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink); background: var(--brass); padding: 4px 6px; vertical-align: 2px; }
+
+  /* Booking picker */
+  #book { padding: 64px 0 20px; }
+  .booker { background: var(--card); border: 1px solid var(--line); padding: 22px; display: grid; gap: 26px; }
+  .step h4 { margin: 0 0 12px; font-size: 12px; color: var(--muted); letter-spacing: 3px; }
+  .step h4 em { font-style: normal; color: var(--brass); margin-right: 6px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { border: 1px solid var(--line); background: #1b1d1f; padding: 10px 14px; cursor: pointer; font-size: 14px; transition: border-color .2s, background .2s, color .2s, transform .15s; }
+  .chip:hover { border-color: var(--brass); }
+  .chip:active { transform: scale(.97); }
+  .chip.on { background: var(--brass); border-color: var(--brass); color: var(--ink); font-weight: 600; }
+  .chip:disabled { opacity: .3; text-decoration: line-through; cursor: not-allowed; }
+  .chip small { display: block; font-size: 11px; opacity: .75; }
+  .days { display: grid; grid-template-columns: repeat(6, minmax(52px, 1fr)); gap: 6px; }
+  .days .chip { text-align: center; padding: 10px 4px; }
+  .times { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 6px; }
+  .times .chip { text-align: center; padding: 10px 4px; }
+  .summary { border-top: 1px dashed var(--line); padding-top: 20px; display: grid; gap: 14px; }
+  .summary .line { font-size: 15px; color: #d6d0c5; min-height: 24px; }
+  .summary .total { font: 800 30px/1 "Archivo", sans-serif; }
+  .summary .total small { font: 400 14px "Archivo", sans-serif; color: var(--muted); margin-left: 6px; }
+  .confirm { display: none; background: #1b1d1f; border-left: 3px solid var(--ok); padding: 14px 16px; font-size: 15px; }
+  .confirm.show { display: block; animation: rise .5s cubic-bezier(.2,.7,.2,1) both; }
 
   /* Barbers */
-  #team { padding: 60px 0 20px; }
+  #team { padding: 64px 0 20px; }
   .team { display: grid; gap: 12px; }
-  .barber { background: #24272a; padding: 22px; border-left: 3px solid var(--brass); }
+  .barber { background: var(--card); padding: 22px; border-left: 3px solid var(--brass); }
   .mono { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; background: var(--bone); color: var(--ink); font: 800 20px/1 "Archivo", sans-serif; margin-bottom: 14px; }
   .barber h4 { margin: 0 0 4px; font-size: 19px; }
-  .barber p { margin: 0; color: #bdb7ac; font-size: 15px; }
+  .barber p { margin: 0 0 14px; color: #bdb7ac; font-size: 15px; }
+  .barber button { background: none; border: 0; padding: 0; color: var(--brass); cursor: pointer; font-size: 12px; letter-spacing: 2px; }
 
   /* Visit */
-  #visit { padding: 60px 0 40px; display: grid; gap: 30px; }
-  #visit h4 { font: 700 13px/1 "Archivo Narrow", sans-serif; letter-spacing: 4px; text-transform: uppercase; color: var(--brass); margin: 0 0 12px; }
+  #visit { padding: 64px 0 40px; display: grid; gap: 30px; }
+  #visit h4 { font-size: 13px; color: var(--brass); margin: 0 0 12px; letter-spacing: 4px; }
   #visit p { margin: 0 0 4px; }
-  .hours div { display: flex; justify-content: space-between; max-width: 260px; padding: 3px 0; border-bottom: 1px dotted var(--line); }
+  .hours div { display: flex; justify-content: space-between; max-width: 260px; padding: 4px 0; border-bottom: 1px dotted var(--line); }
+  .hours div.today { color: var(--brass); font-weight: 600; }
   .muted { color: var(--muted); font-size: 14px; }
-  .walkin { margin-top: 10px; display: inline-block; background: var(--bone); color: var(--ink); padding: 6px 10px; font: 700 12px/1 "Archivo Narrow", sans-serif; letter-spacing: 2px; text-transform: uppercase; }
-
+  .walkin { margin-top: 12px; display: inline-block; background: var(--bone); color: var(--ink); padding: 6px 10px; font-size: 12px; }
   footer { border-top: 1px solid var(--line); padding: 22px 0 40px; font-size: 13px; color: var(--muted); }
 
-  /* Sticky booking bar for phones */
-  .bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; display: grid; grid-template-columns: 1fr 1fr; background: var(--ink); border-top: 1px solid var(--line); }
-  .bar a { text-align: center; padding: 18px 10px; font: 700 14px/1 "Archivo Narrow", sans-serif; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; color: var(--bone); }
+  /* Sticky bar */
+  .bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; display: grid; grid-template-columns: 1fr 1.4fr; background: var(--ink); border-top: 1px solid var(--line); transform: translateY(100%); transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+  .bar.show { transform: none; }
+  .bar a { text-align: center; padding: 18px 10px; font-size: 14px; text-decoration: none; color: var(--bone); }
   .bar a.book { background: var(--brass); color: var(--ink); }
 
-  @media (min-width: 760px) {
+  @media (min-width: 820px) {
     .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
     .team { grid-template-columns: repeat(3, 1fr); }
     #visit { grid-template-columns: 1fr 1fr 1fr; }
+    .booker { grid-template-columns: 1fr 1fr; padding: 32px; }
+    .booker .full { grid-column: 1 / -1; }
+    .summary { grid-template-columns: 1fr auto; align-items: center; }
+    .bar { display: none; }
+    body { padding-bottom: 0; }
+    .gallery .tall img { min-height: 420px; }
   }
 
   /* Motion */
   @keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+  @keyframes drift { from { transform: scale(1.12); } to { transform: scale(1); } }
   .hero-anim > * { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
-  .hero-anim > *:nth-child(2) { animation-delay: .1s; } .hero-anim > *:nth-child(3) { animation-delay: .22s; } .hero-anim > *:nth-child(4) { animation-delay: .34s; }
+  .hero-anim > *:nth-child(2) { animation-delay: .08s; } .hero-anim > *:nth-child(3) { animation-delay: .16s; }
+  .hero-anim > *:nth-child(4) { animation-delay: .26s; } .hero-anim > *:nth-child(5) { animation-delay: .36s; } .hero-anim > *:nth-child(6) { animation-delay: .46s; }
   .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
   .js .reveal.in { opacity: 1; transform: none; }
+  .flash { animation: flash .9s ease; }
+  @keyframes flash { 0% { box-shadow: 0 0 0 0 rgba(199,154,75,.7); } 100% { box-shadow: 0 0 0 14px rgba(199,154,75,0); } }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
     .js .reveal { opacity: 1; transform: none; }
@@ -96,39 +155,64 @@
 <div class="note">Demo design by Eva Cheeks · Northgate Barber Room is a fictional barbershop · <a href="../../">Get a page like this</a></div>
 
 <header class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
   <div class="in hero-anim">
-    <p class="tag">Leeds · Opened 2026</p>
+    <div class="status"><span class="dot" id="dot"></span><span id="status">Open today 9–6</span></div>
+    <p class="tag narrow">Leeds · Opened 2026</p>
     <h1>Northgate <span>Barber Room</span></h1>
     <p class="sub">Skin fades, beard work and hot towel shaves. Book a chair in thirty seconds, or walk in before 11.</p>
-    <div class="cta-row"><a class="btn solid" href="#book">Book a chair</a><a class="btn" href="#prices">See prices</a></div>
+    <div class="cta-row"><a class="btn solid narrow" href="#book">Book a chair</a><a class="btn narrow" href="#prices">See prices</a></div>
+    <div class="facts"><div><b>3</b><span>barbers</span></div><div><b>£12</b><span>cuts from</span></div><div><b>11am</b><span>walk-ins until</span></div></div>
   </div>
   <div class="stripe" aria-hidden="true"></div>
 </header>
 
-<nav><div class="in">
-  <a href="#prices">Prices</a><a href="#team">Barbers</a><a href="#visit">Hours</a><a href="#visit">Find us</a><a href="#book">Book</a>
+<nav><div class="in narrow">
+  <a href="#prices">Prices</a><a href="#book">Book</a><a href="#team">Barbers</a><a href="#visit">Hours</a><a href="#visit">Find us</a>
 </div></nav>
 
 <main class="wrap">
+  <div class="gallery" id="gallery">
+    <figure class="tall reveal"><img src="img/chair.jpg" alt="Barber chair by the mirror" loading="lazy"></figure>
+    <figure class="reveal" style="--d:.1s"><img src="img/tools.jpg" alt="Clippers and combs on the counter" loading="lazy"></figure>
+    <figure class="reveal" style="--d:.2s"><img src="img/shop.jpg" alt="Inside the shop" loading="lazy"></figure>
+  </div>
+
   <section id="prices">
     <h2 class="reveal">Price list</h2>
-    <p class="kicker reveal">Prices in GBP. Times are how long we book your chair for.</p>
+    <p class="kicker reveal">Prices in GBP. Tap any service to book it.</p>
     <div class="cols">
       <div class="cat reveal" data-stagger=".svc">
-        <h3>Hair</h3>
-        <div class="svc"><b>Skin fade</b><span class="p">£22</span><i>Clipper fade to the skin, scissor work on top <span class="t">· 40 min</span></i></div>
-        <div class="svc"><b>Classic cut</b><span class="p">£18</span><i>Clipper or scissor, neck tidy <span class="t">· 30 min</span></i></div>
-        <div class="svc"><b>Scissor cut</b><span class="p">£24</span><i>All scissor, for longer styles <span class="t">· 45 min</span></i></div>
-        <div class="svc"><b>Kids' cut (under 12)</b><span class="p">£14</span><i><span class="t">25 min</span></i></div>
-        <div class="svc"><b>Buzz cut</b><span class="p">£12</span><i>One grade all over <span class="t">· 15 min</span></i></div>
+        <h3 class="narrow">Hair</h3>
+        <button class="svc" data-svc="fade"><b>Skin fade <span class="popular">Popular</span></b><span class="p">£22</span><i>Clipper fade to the skin, scissor work on top · 40 min</i><span class="go narrow">Book →</span></button>
+        <button class="svc" data-svc="classic"><b>Classic cut</b><span class="p">£18</span><i>Clipper or scissor, neck tidy · 30 min</i><span class="go narrow">Book →</span></button>
+        <button class="svc" data-svc="scissor"><b>Scissor cut</b><span class="p">£24</span><i>All scissor, for longer styles · 45 min</i><span class="go narrow">Book →</span></button>
+        <button class="svc" data-svc="kids"><b>Kids' cut (under 12)</b><span class="p">£14</span><i>25 min</i><span class="go narrow">Book →</span></button>
+        <button class="svc" data-svc="buzz"><b>Buzz cut</b><span class="p">£12</span><i>One grade all over · 15 min</i><span class="go narrow">Book →</span></button>
       </div>
       <div class="cat reveal" style="--d:.1s" data-stagger=".svc">
-        <h3>Beard &amp; shave</h3>
-        <div class="svc"><b>Beard trim &amp; shape</b><span class="p">£12</span><i>Line-up, oil <span class="t">· 20 min</span></i></div>
-        <div class="svc"><b>Hot towel shave</b><span class="p">£20</span><i>Straight razor, two hot towels <span class="t">· 35 min</span></i></div>
-        <div class="svc"><b>Fade + beard</b><span class="p">£30</span><i>The most-booked combo <span class="t">· 55 min</span></i></div>
-        <div class="svc"><b>Senior cut (65+)</b><span class="p">£14</span><i>Mon to Wed only <span class="t">· 30 min</span></i></div>
+        <h3 class="narrow">Beard &amp; shave</h3>
+        <button class="svc" data-svc="beard"><b>Beard trim &amp; shape</b><span class="p">£12</span><i>Line-up, hot towel, oil · 20 min</i><span class="go narrow">Book →</span></button>
+        <button class="svc" data-svc="shave"><b>Hot towel shave</b><span class="p">£20</span><i>Straight razor, two hot towels · 35 min</i><span class="go narrow">Book →</span></button>
+        <button class="svc" data-svc="combo"><b>Fade + beard <span class="popular">Best value</span></b><span class="p">£30</span><i>Save £4 on booking them apart · 55 min</i><span class="go narrow">Book →</span></button>
+        <button class="svc" data-svc="senior"><b>Senior cut (65+)</b><span class="p">£14</span><i>Mon to Wed only · 30 min</i><span class="go narrow">Book →</span></button>
       </div>
+    </div>
+  </section>
+
+  <section id="book">
+    <h2 class="reveal">Book a chair</h2>
+    <p class="kicker reveal">Pick a service, a barber and a time. Takes about thirty seconds.</p>
+    <div class="booker reveal">
+      <div class="step full"><h4 class="narrow"><em>01</em>Service</h4><div class="chips" id="svcChips"></div></div>
+      <div class="step"><h4 class="narrow"><em>02</em>Barber</h4><div class="chips" id="barberChips"></div></div>
+      <div class="step"><h4 class="narrow"><em>03</em>Day</h4><div class="days" id="dayChips"></div></div>
+      <div class="step full"><h4 class="narrow"><em>04</em>Time</h4><div class="times" id="timeChips"></div></div>
+      <div class="summary full">
+        <div><div class="line" id="sumLine">Choose a service to start.</div><div class="total" id="sumTotal">£0<small></small></div></div>
+        <button class="btn solid narrow" id="confirmBtn" disabled style="opacity:.5">Request booking</button>
+      </div>
+      <div class="confirm full" id="confirmMsg"></div>
     </div>
   </section>
 
@@ -136,59 +220,159 @@
     <h2 class="reveal">The barbers</h2>
     <p class="kicker reveal">Book with someone specific, or take the first free chair.</p>
     <div class="team">
-      <div class="barber reveal"><div class="mono">DK</div><h4>Danny</h4><p>Owner. Skin fades and tapers. Twelve years behind the chair.</p></div>
-      <div class="barber reveal" style="--d:.1s"><div class="mono">AM</div><h4>Amir</h4><p>Beard sculpting and hot towel shaves. Thursday late nights.</p></div>
-      <div class="barber reveal" style="--d:.2s"><div class="mono">JO</div><h4>Jess</h4><p>Scissor work and longer styles. Great with nervous kids.</p></div>
+      <div class="barber reveal"><div class="mono">D</div><h4>Danny</h4><p>Owner. Skin fades and tapers. Twelve years behind the chair.</p><button class="narrow" data-barber="Danny">Book with Danny →</button></div>
+      <div class="barber reveal" style="--d:.1s"><div class="mono">A</div><h4>Amir</h4><p>Beard sculpting and hot towel shaves. Late nights on Thursday.</p><button class="narrow" data-barber="Amir">Book with Amir →</button></div>
+      <div class="barber reveal" style="--d:.2s"><div class="mono">J</div><h4>Jess</h4><p>Scissor work and longer styles. Great with nervous kids.</p><button class="narrow" data-barber="Jess">Book with Jess →</button></div>
     </div>
   </section>
 
   <section id="visit">
     <div class="reveal">
-      <h4>Hours</h4>
-      <div class="hours">
-        <div><span>Mon–Wed</span><span>9–6</span></div>
-        <div><span>Thu–Fri</span><span>9–8</span></div>
-        <div><span>Sat</span><span>8–5</span></div>
-        <div><span>Sun</span><span>Closed</span></div>
+      <h4 class="narrow">Hours</h4>
+      <div class="hours" id="hours">
+        <div data-d="1,2,3"><span>Mon–Wed</span><span>9–6</span></div>
+        <div data-d="4,5"><span>Thu–Fri</span><span>9–8</span></div>
+        <div data-d="6"><span>Sat</span><span>8–5</span></div>
+        <div data-d="0"><span>Sun</span><span>Closed</span></div>
       </div>
-      <span class="walkin">Walk-ins until 11 am</span>
+      <span class="walkin narrow">Walk-ins until 11 am</span>
     </div>
     <div class="reveal" style="--d:.1s">
-      <h4>Find us</h4>
+      <h4 class="narrow">Find us</h4>
       <p>Northgate Arcade, Unit 4</p>
       <p>Leeds city centre</p>
       <p class="muted">(fictional address)</p>
       <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Leeds+city+centre">Directions</a></p>
     </div>
-    <div class="reveal" id="book" style="--d:.2s">
-      <h4>Book</h4>
-      <p>Tap Book below to pick a barber and a time, or message us on WhatsApp.</p>
-      <p class="muted">On a real page, these buttons go to the shop's own booking link (Fresha, Booksy, Square) and WhatsApp number.</p>
+    <div class="reveal" style="--d:.2s">
+      <h4 class="narrow">Questions</h4>
+      <p>Message us on WhatsApp. We usually reply within the hour.</p>
+      <p class="muted">On a real page, the booking and WhatsApp buttons connect to the shop's own booking system (Fresha, Booksy or Square) and phone number.</p>
     </div>
   </section>
 
   <footer>Northgate Barber Room is a fictional business. Design by <a href="../../">Eva Cheeks</a>, one-page websites for new local businesses.</footer>
 </main>
 
-<div class="bar">
-  <a href="#book">WhatsApp</a>
+<div class="bar narrow" id="bar">
+  <a href="#visit">WhatsApp</a>
   <a class="book" href="#book">Book a chair</a>
 </div>
 
 <script>
   document.documentElement.classList.add('js');
   (function () {
+    // Scroll reveal
     var els = document.querySelectorAll('.reveal');
-    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
-    var io = new IntersectionObserver(function (entries) {
+    var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    els.forEach(function (e) { io.observe(e); });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }) : null;
+    function watch(e) { if (io) io.observe(e); else e.classList.add('in'); }
+    els.forEach(watch);
     document.querySelectorAll('[data-stagger]').forEach(function (g) {
-      Array.prototype.forEach.call(g.querySelectorAll(g.getAttribute('data-stagger')), function (row, i) {
-        row.classList.add('reveal'); row.style.setProperty('--d', (i * 0.05) + 's'); io.observe(row);
+      g.querySelectorAll(g.getAttribute('data-stagger')).forEach(function (row, i) {
+        row.classList.add('reveal'); row.style.setProperty('--d', (i * 0.05) + 's'); watch(row);
       });
     });
+
+    // Gallery shows only if its photos load
+    var gal = document.getElementById('gallery'), imgs = gal.querySelectorAll('img'), ok = 0;
+    imgs.forEach(function (im) {
+      im.addEventListener('load', function () { if (++ok === imgs.length) gal.classList.add('has'); });
+      if (im.complete && im.naturalWidth) im.dispatchEvent(new Event('load'));
+    });
+
+    // Open / closed status (shop time, demo uses visitor's clock)
+    var HOURS = { 0: null, 1: [9, 18], 2: [9, 18], 3: [9, 18], 4: [9, 20], 5: [9, 20], 6: [8, 17] };
+    var DAYN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    function fmt(h) { return (h > 12 ? h - 12 : h) + (h >= 12 ? 'pm' : 'am'); }
+    var now = new Date(), d = now.getDay(), h = now.getHours() + now.getMinutes() / 60, st = document.getElementById('status');
+    var t = HOURS[d];
+    if (t && h >= t[0] && h < t[1]) { document.getElementById('dot').classList.add('open'); st.textContent = 'Open now · closes ' + fmt(t[1]); }
+    else {
+      var n = d, k = 0; do { n = (n + 1) % 7; k++; } while (!HOURS[n]);
+      if (t && h < t[0]) st.textContent = 'Closed · opens today ' + fmt(t[0]);
+      else st.textContent = 'Closed · opens ' + (k === 1 ? 'tomorrow' : DAYN[n]) + ' ' + fmt(HOURS[n][0]);
+    }
+    document.querySelectorAll('#hours div').forEach(function (r) { if (r.dataset.d.split(',').indexOf(String(d)) > -1) r.classList.add('today'); });
+
+    // Booking picker
+    var SVC = {
+      fade: ['Skin fade', 22, 40], classic: ['Classic cut', 18, 30], scissor: ['Scissor cut', 24, 45], kids: ["Kids' cut", 14, 25], buzz: ['Buzz cut', 12, 15],
+      beard: ['Beard trim', 12, 20], shave: ['Hot towel shave', 20, 35], combo: ['Fade + beard', 30, 55], senior: ['Senior cut', 14, 30]
+    };
+    var BARBERS = ['Any', 'Danny', 'Amir', 'Jess'];
+    var sel = { svc: null, barber: 'Any', day: null, time: null };
+    var $ = function (id) { return document.getElementById(id); };
+
+    function chip(label, sub, on, click, disabled) {
+      var b = document.createElement('button'); b.className = 'chip' + (on ? ' on' : ''); b.type = 'button';
+      b.innerHTML = label + (sub ? '<small>' + sub + '</small>' : ''); if (disabled) b.disabled = true;
+      b.addEventListener('click', click); return b;
+    }
+    // Deterministic "taken" slots so the demo looks lived-in
+    function taken(day, slot, barber) { var s = day.getDate() * 7 + slot * 13 + barber.length * 5; return s % 5 === 0 || s % 7 === 0; }
+
+    function days() {
+      var out = [], x = new Date(); x.setHours(0, 0, 0, 0);
+      while (out.length < 6) { if (HOURS[x.getDay()]) out.push(new Date(x)); x.setDate(x.getDate() + 1); }
+      return out;
+    }
+    var DAYS = days();
+    if (!sel.day) sel.day = DAYS[0];
+
+    function render() {
+      var sc = $('svcChips'); sc.innerHTML = '';
+      Object.keys(SVC).forEach(function (k) {
+        var isSenior = k === 'senior', dd = sel.day ? sel.day.getDay() : 1;
+        sc.appendChild(chip(SVC[k][0], '£' + SVC[k][1] + ' · ' + SVC[k][2] + ' min', sel.svc === k, function () { sel.svc = k; sel.time = null; render(); }, isSenior && dd > 3));
+      });
+      var bc = $('barberChips'); bc.innerHTML = '';
+      BARBERS.forEach(function (n) { bc.appendChild(chip(n === 'Any' ? 'First free' : n, '', sel.barber === n, function () { sel.barber = n; sel.time = null; render(); })); });
+      var dc = $('dayChips'); dc.innerHTML = '';
+      DAYS.forEach(function (x, i) {
+        dc.appendChild(chip(i === 0 && x.toDateString() === new Date().toDateString() ? 'Today' : DAYN[x.getDay()], x.getDate(), sel.day && x.getTime() === sel.day.getTime(), function () {
+          sel.day = x; sel.time = null; if (sel.svc === 'senior' && x.getDay() > 3) sel.svc = null; render();
+        }));
+      });
+      var tc = $('timeChips'); tc.innerHTML = '';
+      var hr = HOURS[sel.day.getDay()], isToday = sel.day.toDateString() === new Date().toDateString(), nowH = new Date().getHours() + new Date().getMinutes() / 60;
+      var dur = sel.svc ? SVC[sel.svc][2] : 30, slot = 0;
+      for (var m = hr[0] * 60; m + dur <= hr[1] * 60; m += 30, slot++) {
+        (function (m, slot) {
+          var label = Math.floor(m / 60) + ':' + (m % 60 ? '30' : '00');
+          var past = isToday && m / 60 <= nowH + 0.25;
+          var full = sel.barber === 'Any' ? (taken(sel.day, slot, 'Danny') && taken(sel.day, slot, 'Amir') && taken(sel.day, slot, 'Jess')) : taken(sel.day, slot, sel.barber);
+          tc.appendChild(chip(label, '', sel.time === label, function () { sel.time = label; render(); }, past || full));
+        })(m, slot);
+      }
+      if (!tc.children.length || Array.prototype.every.call(tc.children, function (c) { return c.disabled; })) {
+        tc.innerHTML = '<span class="muted">No free times left on this day. Try another day.</span>';
+      }
+      // Summary
+      var btn = $('confirmBtn'), ready = sel.svc && sel.time;
+      if (sel.svc) {
+        var s = SVC[sel.svc];
+        $('sumLine').textContent = s[0] + ' with ' + (sel.barber === 'Any' ? 'the first free barber' : sel.barber) + ', ' + DAYN[sel.day.getDay()] + ' ' + sel.day.getDate() + (sel.time ? ' at ' + sel.time : ' (pick a time)');
+        $('sumTotal').innerHTML = '£' + s[1] + '<small>' + s[2] + ' min · pay in the shop</small>';
+      } else { $('sumLine').textContent = 'Choose a service to start.'; $('sumTotal').innerHTML = '£0<small></small>'; }
+      btn.disabled = !ready; btn.style.opacity = ready ? 1 : .5;
+    }
+    render();
+
+    $('confirmBtn').addEventListener('click', function () {
+      var m = $('confirmMsg');
+      m.innerHTML = '<strong>Request sent.</strong> On a real page, this is where the shop\'s booking system confirms your slot and texts you a reminder. This is a demo, so nothing was booked.';
+      m.classList.remove('show'); void m.offsetWidth; m.classList.add('show');
+    });
+
+    function goBook() { var b = document.querySelector('.booker'); document.getElementById('book').scrollIntoView({ behavior: 'smooth' }); b.classList.remove('flash'); void b.offsetWidth; b.classList.add('flash'); }
+    document.querySelectorAll('.svc').forEach(function (b) { b.addEventListener('click', function () { sel.svc = b.dataset.svc; if (sel.svc === 'senior' && sel.day.getDay() > 3) sel.day = DAYS.filter(function (x) { return x.getDay() <= 3 && x.getDay() > 0; })[0] || sel.day; sel.time = null; render(); goBook(); }); });
+    document.querySelectorAll('[data-barber]').forEach(function (b) { b.addEventListener('click', function () { sel.barber = b.dataset.barber; sel.time = null; render(); goBook(); }); });
+
+    // Sticky bar appears after the hero
+    var bar = $('bar'), hero = document.querySelector('.hero');
+    if (io) new IntersectionObserver(function (e) { bar.classList.toggle('show', !e[0].isIntersecting); }).observe(hero); else bar.classList.add('show');
   })();
 </script>
 </body>
