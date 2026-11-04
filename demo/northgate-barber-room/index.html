@@ -95,13 +95,14 @@
   .summary .line { font-size: 15px; color: #d6d0c5; min-height: 24px; }
   .summary .total { font: 800 30px/1 "Archivo", sans-serif; }
   .summary .total small { font: 400 14px "Archivo", sans-serif; color: var(--muted); margin-left: 6px; }
-  .confirm { display: none; background: #1b1d1f; border-left: 3px solid var(--ok); padding: 14px 16px; font-size: 15px; }
+  .confirm { display: none; background: #1b1d1f; border: 1px solid var(--ok); border-radius: 6px; padding: 14px 16px; font-size: 15px; }
   .confirm.show { display: block; animation: rise .5s cubic-bezier(.2,.7,.2,1) both; }
 
   /* Barbers */
   #team { padding: 64px 0 20px; }
   .team { display: grid; gap: 12px; }
-  .barber { background: var(--card); padding: 22px; border-left: 3px solid var(--brass); }
+  .barber { background: var(--card); padding: 24px; border: 1px solid var(--line); border-radius: 6px; transition: border-color .25s, transform .25s; }
+  .barber:hover { border-color: var(--brass); transform: translateY(-3px); }
   .mono { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; background: var(--bone); color: var(--ink); font: 800 20px/1 "Archivo", sans-serif; margin-bottom: 14px; }
   .barber h4 { margin: 0 0 4px; font-size: 19px; }
   .barber p { margin: 0 0 14px; color: #bdb7ac; font-size: 15px; }
