@@ -77,20 +77,23 @@
 
   /* Booking picker */
   #book { padding: 64px 0 20px; }
-  .booker { background: var(--card); border: 1px solid var(--line); padding: 22px; display: grid; gap: 26px; }
+  .booker { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 18px 14px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .step { min-width: 0; }
   .step h4 { margin: 0 0 12px; font-size: 12px; color: var(--muted); letter-spacing: 3px; }
   .step h4 em { font-style: normal; color: var(--brass); margin-right: 6px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip { border: 1px solid var(--line); background: #1b1d1f; padding: 10px 14px; cursor: pointer; font-size: 14px; transition: border-color .2s, background .2s, color .2s, transform .15s; }
+  .chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+  #barberChips { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .chip { min-width: 0; border: 1px solid var(--line); border-radius: 6px; background: #1b1d1f; padding: 10px 8px; cursor: pointer; font-size: 14px; line-height: 1.3; text-align: center; transition: border-color .2s, background .2s, color .2s, transform .15s; }
   .chip:hover { border-color: var(--brass); }
   .chip:active { transform: scale(.97); }
   .chip.on { background: var(--brass); border-color: var(--brass); color: var(--ink); font-weight: 600; }
   .chip:disabled { opacity: .3; text-decoration: line-through; cursor: not-allowed; }
   .chip small { display: block; font-size: 11px; opacity: .75; }
-  .days { display: grid; grid-template-columns: repeat(6, minmax(52px, 1fr)); gap: 6px; }
-  .days .chip { text-align: center; padding: 10px 4px; }
-  .times { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 6px; }
-  .times .chip { text-align: center; padding: 10px 4px; }
+  .days { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .days .chip { padding: 8px 4px; }
+  .times { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  .times .chip { padding: 10px 2px; }
+  .times .muted { grid-column: 1 / -1; }
   .summary { border-top: 1px dashed var(--line); padding-top: 20px; display: grid; gap: 14px; }
   .summary .line { font-size: 15px; color: #d6d0c5; min-height: 24px; }
   .summary .total { font: 800 30px/1 "Archivo", sans-serif; }
@@ -128,7 +131,9 @@
     .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
     .team { grid-template-columns: repeat(3, 1fr); }
     #visit { grid-template-columns: 1fr 1fr 1fr; }
-    .booker { grid-template-columns: 1fr 1fr; padding: 32px; }
+    .booker { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding: 32px; }
+    #svcChips { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .times { grid-template-columns: repeat(8, minmax(0, 1fr)); }
     .booker .full { grid-column: 1 / -1; }
     .summary { grid-template-columns: 1fr auto; align-items: center; }
     .bar { display: none; }
@@ -320,7 +325,11 @@
       return out;
     }
     var DAYS = days();
-    if (!sel.day) sel.day = DAYS[0];
+    // Start on today only if there's still time left to book; otherwise the next open day
+    (function () {
+      var n = new Date(), td = HOURS[n.getDay()], late = !td || n.getHours() + n.getMinutes() / 60 > td[1] - 1.5;
+      sel.day = (DAYS[0].toDateString() === n.toDateString() && late) ? DAYS[1] : DAYS[0];
+    })();
 
     function render() {
       var sc = $('svcChips'); sc.innerHTML = '';
