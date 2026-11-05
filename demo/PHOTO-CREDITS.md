@@ -14,3 +14,7 @@ Notes:
 - The Copper Kettle hero photo is portrait 3:4 on Pexels and was cropped to 4:5 for this demo.
 - The Copper Kettle cake photo is a sponge cake with cream and berries on a white stand, not a Victoria sponge in the strict sense.
 - All files were resized to 1600 pixels wide and compressed to under 300,000 bytes as JPG.
+demo/northgate-barber-room/img/hero.jpg: Pavel Danilyuk, https://www.pexels.com/photo/the-interior-of-a-barber-shop-7518728/ (cropped to landscape; the crop removes a window sign visible in the original)
+demo/northgate-barber-room/img/chair.jpg: cottonbro studio, https://www.pexels.com/photo/black-leather-barber-chair-in-front-of-mirror-3993293/
+demo/northgate-barber-room/img/tools.jpg: Ej Agumbay, https://www.pexels.com/photo/close-up-shot-of-barbershop-tools-8552626/ (cropped at the right edge to remove a branded pomade tin; the clipper carries a small maker label)
+demo/northgate-barber-room/img/shop.jpg: Juan García, https://www.pexels.com/photo/barber-shop-in-madrid-with-iconic-pole-30875630/
