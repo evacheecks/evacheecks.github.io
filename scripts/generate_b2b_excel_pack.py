@@ -528,23 +528,149 @@ def build_b2b_3_smb_historical_ledger():
 def render_fiverr_gallery_images():
     gallery_dir = TMP_DIR / "fiverr-gallery"
     gallery_dir.mkdir(parents=True, exist_ok=True)
+    for old_png in gallery_dir.glob("*.png"):
+        old_png.unlink(missing_ok=True)
 
     slides = [
+        # GIG 1: Custom Excel / Google Sheets Expense, COGS, or Commission Tracker ($35 / $65 / $115)
         (
             "Gig1-1-Cover.png",
-            "GIG 1 · CUSTOM MOBILE-FIRST BUSINESS WEBSITES",
-            "Fast, Mobile-First HTML/CSS Websites for Local Businesses",
-            "Built for Restaurants, Cafes, Salons & Barbershops · No Monthly Platform Lock-In",
+            "GIG 1 · CUSTOM EXCEL & GOOGLE SHEETS TRACKERS",
+            "Custom Expense, COGS, or Commission Trackers in Excel & Sheets",
+            "Clean Formulas, Dropdown Categorization & Automated Monthly Summary Dashboards",
+            "#1E293B", "#FBBF24",
+            [
+                ("100% Historical Bookkeeping", "Structured past-period cash inflow/outflow tracking and monthly P&L summaries"),
+                ("Tax-Ready Categorization", "Mapped directly to standard Schedule C expense lines for clean CPA handoff"),
+                ("Multi-Account Reconciliation", "Track Operating Checking, Business Credit Cards & POS payouts in one log"),
+            ],
+            "Packages: $35 Basic (1 Tab) · $65 Standard (3 Tabs) · $115 Full B2B Pack"
+        ),
+        (
+            "Gig1-2-Sheet-Preview.png",
+            "INSIDE GIG 1 · HISTORICAL CASH & EXPENSE LOG",
+            "Every Transaction Logged, Verified & Auto-Summarized",
+            "3 Linked Tabs: 1_Categories_and_Accounts -> 2_Monthly_Income_Expense_Log -> 3_Historical_P_and_L_Summary",
+            "#0F172A", "#2DD4BF",
+            [
+                ("Automated Month-by-Month Rollup", "SUMIFS formulas aggregate every logged receipt into monthly & YTD columns automatically"),
+                ("Gross Profit & Operating Net", "Separates Cost of Goods Sold (COGS) from fixed overhead to show true net margin"),
+                ("Receipt Audit Column", "Filter unverified transactions in seconds before handing books to your accountant"),
+            ],
+            "Clean Formatting · Frozen Headers · Ready for Immediate Data Entry"
+        ),
+        (
+            "Gig1-3-Dashboard-Instructions.png",
+            "WHAT YOU RECEIVE WITH EVERY EXCEL ORDER",
+            "Turnkey Delivery + Fast Customization Support",
+            "Built in Microsoft Excel (.xlsx) & Google Sheets With Zero Locked Cells or Macros",
+            "#111827", "#60A5FA",
+            [
+                ("Unlocked .XLSX + Google Sheet", "No password-locked cells — you own 100% of the workbook and formulas forever"),
+                ("Tailored to Your Categories", "We pre-load your actual expense categories, menu items, or staff tiers on request"),
+                ("Fast Turnaround & Clear Walkthrough", "Includes a quick-start guide so you or your manager can use it on Day 1"),
+            ],
+            "Compatible With Excel 2019+, Excel 365 & Google Sheets"
+        ),
+
+        # GIG 2: Restaurant & Cafe Recipe Costing + Menu Engineering Workbook ($35 / $65 / $110)
+        (
+            "Gig2-1-Cover.png",
+            "GIG 2 · RESTAURANT & CAFE RECIPE COGS WORKBOOK",
+            "Restaurant & Cafe Recipe Costing + Menu Engineering Sheet",
+            "Ready-to-Use Excel (.xlsx) & Google Sheets Workbook With Live Margin Formulas",
+            "#0F291E", "#34D399",
+            [
+                ("Ingredient Pack-to-Yield Math", "Converts wholesale cases, 5lb bags & gallons into exact per-oz recipe costs"),
+                ("Plate COGS % & Target Pricing", "Shows exact food cost %, contribution margin & target menu price per dish"),
+                ("Menu Engineering Matrix", "Auto-classifies every item as STAR, PLOWHORSE, PUZZLE, or DOG"),
+            ],
+            "Packages: $35 Basic (15 Recipes) · $65 Standard (40 Recipes) · $110 Full Matrix (80 Recipes)"
+        ),
+        (
+            "Gig2-2-Sheet-Preview.png",
+            "INSIDE GIG 2 · RECIPE COGS & MENU MATRIX",
+            "Know Your Exact Plate Cost & Margin on Every Item",
+            "3 Linked Tabs: 1_Ingredient_Master -> 2_Recipe_COGS_Calculator -> 3_Menu_Engineering_Matrix",
+            "#1E293B", "#38BDF8",
+            [
+                ("Trim & Yield Adjusted", "Accounts for prep trim and waste so your theoretical food cost matches reality"),
+                ("Target Food Cost % Alerts", "Compare actual plate COGS % against your 22%–30% target threshold instantly"),
+                ("Monthly Profit Rollup", "Multiply unit contribution margin by monthly volume to spot your top profit drivers"),
+            ],
+            "Compatible With Microsoft Excel 2019+/365 & Google Sheets"
+        ),
+        (
+            "Gig2-3-Dashboard-Instructions.png",
+            "BUILT FOR RESTAURANTS, CAFES, BAKERIES & FOOD TRUCKS",
+            "Easy to Update Whenever Supplier Prices Change",
+            "Update One Ingredient Price in Tab 1 — Every Recipe & Menu Margin Updates Instantly",
+            "#111827", "#34D399",
+            [
+                ("1_Ingredient_Master Tab", "Enter supplier pack cost, units per pack, and yield % once per ingredient"),
+                ("2_Recipe_COGS_Calculator Tab", "Build recipes line-by-line with automatic unit cost lookup"),
+                ("3_Menu_Engineering_Matrix Tab", "Review dish profitability, target menu prices, and quadrant rankings"),
+            ],
+            "Unlocked Formulas · Custom Pre-Loading of Your Menu Available"
+        ),
+
+        # GIG 3: Salon & Barbershop Commission, Tip & Booth Rent Tracker ($35 / $65 / $110)
+        (
+            "Gig3-1-Cover.png",
+            "GIG 3 · SALON & BARBERSHOP COMMISSION TRACKER",
+            "Salon & Barbershop Commission, Tip & Booth Rent Excel Sheet",
+            "Close Weekly Stylist & Barber Payroll in 5 Minutes With Live Excel / Sheets Formulas",
+            "#27173A", "#C084FC",
+            [
+                ("Hybrid Shop Ready", "Supports both % Commission Stylists and Fixed Weekly Booth Renters in one workbook"),
+                ("Backbar & Chemical Deductions", "Automatically deducts per-service color or chemical bowl fees before payout"),
+                ("Retail Bonus & Card Tips", "Separates service commission, retail product tiers, and pass-through card tips"),
+            ],
+            "Packages: $35 Basic (4 Staff) · $65 Standard (10 Staff) · $110 Full Shop Pack (20 Staff)"
+        ),
+        (
+            "Gig3-2-Sheet-Preview.png",
+            "INSIDE GIG 3 · STAFF SETUP, DAILY LOG & PAYOUT SUMMARY",
+            "Automated Weekly Payouts & House Net Retained",
+            "3 Linked Tabs: 1_Staff_and_Booth_Setup -> 2_Daily_Service_and_Tip_Log -> 3_Commission_Payout_Summary",
+            "#1E1B2E", "#F472B6",
+            [
+                ("Per-Stylist Commission Rates", "Set custom service % and retail % for senior stylists, master barbers & juniors"),
+                ("Daily Ticket & Tip Log", "Log service revenue, chemical units, retail sales & card tips by ticket"),
+                ("Instant Payout Summary", "SUMIF formulas calculate net staff payout and house net retained automatically"),
+            ],
+            "Built for Hair Salons, Barbershops, Nail Studios & Med-Spas"
+        ),
+        (
+            "Gig3-3-Dashboard-Instructions.png",
+            "TRANSPARENT PAYROLL FOR OWNERS, STYLISTS & BARBERS",
+            "Zero Subscription Fees · Works in Excel & Google Sheets",
+            "Clear Breakdown of Gross Service Revenue, Deductions, Tips & Net Payout",
+            "#111827", "#C084FC",
+            [
+                ("1_Staff_and_Booth_Setup Tab", "Configure staff IDs, roles, commission %, weekly booth rent & backbar fees"),
+                ("2_Daily_Service_and_Tip_Log Tab", "Fast daily ticket entry with payment method and chemical unit tracking"),
+                ("3_Commission_Payout_Summary Tab", "Print-ready weekly payroll summary for every chair in your shop"),
+            ],
+            "Unlocked .XLSX + Google Sheets Compatible · Ready on Day 1"
+        ),
+
+        # GIG 4: Custom Mobile-First One-Page Business Websites ($50 / $75 / $105)
+        (
+            "Gig4-1-Cover.png",
+            "GIG 4 · CUSTOM MOBILE-FIRST BUSINESS WEBSITES",
+            "One-Page Websites for Restaurants, Cafes, Salons & Barbershops",
+            "Your Menu or Service List, Hours, Map & Booking/Order Link on One Fast Page",
             "#0F172A", "#F59E0B",
             [
                 ("100% Mobile-Ready", "Tested down to 320px viewports with tap-to-call, SMS text links & clean menus"),
                 ("Zero Bloated Builders", "Pure semantic HTML5 & CSS3 — loads sub-second on cellular connections"),
                 ("5 Live Industry Demos", "The Copper Kettle · Saffron & Salt · Harbor Street · Northgate · Linden & Stone"),
             ],
-            "Packages from $45 Basic · $75 Standard · $120 Multi-Section Complete"
+            "Packages: $50 Basic (15 Items) · $75 Standard (30 Items) · $105 Full Page (60 Items)"
         ),
         (
-            "Gig1-2-Restaurant-Cafe-Showcase.png",
+            "Gig4-2-Restaurant-Cafe-Showcase.png",
             "RESTAURANT, CAFE & BAKERY DEMO SHOWCASE",
             "Turn Instagram & Google Map Visitors Into Diners",
             "Clear Pricing, Dietary Tags, Tap-to-Call Reservations & Hours Above the Fold",
@@ -557,7 +683,7 @@ def render_fiverr_gallery_images():
             "Includes LocalBusiness JSON-LD Schema + OpenGraph Social Cards"
         ),
         (
-            "Gig1-3-Salon-Barber-Showcase.png",
+            "Gig4-3-Salon-Barber-Showcase.png",
             "SALON, SPA & BARBERSHOP DEMO SHOWCASE",
             "Transparent Service Menus & Direct Booking Links",
             "Eliminate 'DM for Price' Friction With Clean Service Tiers & Staff Cards",
@@ -568,84 +694,6 @@ def render_fiverr_gallery_images():
                 ("WCAG AA Contrast Verified", "Every heading, price badge, and CTA button audited for readability"),
             ],
             "Delivered With Clean Source Files or Hosted Live on GitHub Pages"
-        ),
-        (
-            "Gig2-1-Cover.png",
-            "GIG 2 · RESTAURANT & SALON EXCEL / SHEETS TRACKERS",
-            "Recipe COGS, Menu Engineering & Salon Commission Sheets",
-            "Ready-to-Use Excel (.xlsx) & Google Sheets Workbooks With Live Formulas",
-            "#0F291E", "#34D399",
-            [
-                ("Restaurant COGS & Menu Matrix", "Pack-to-portion yield math, plate COGS %, target pricing & Star/Plowhorse matrix"),
-                ("Salon & Barber Payout Tracker", "Commission splits, booth rent deductions, backbar fees & card tip reconciliation"),
-                ("Zero Broken Macros", "Pure, transparent Excel & Google Sheets formulas (SUMIFS, IF, INDEX) anyone can edit"),
-            ],
-            "Packages from $25 Starter · $50 Multi-Tab Workbook · $85 Custom Setup"
-        ),
-        (
-            "Gig2-2-COGS-Menu-Matrix.png",
-            "INSIDE WORKBOOK #1 · RESTAURANT & CAFE COGS",
-            "Know Your Exact Plate Cost & Margin on Every Item",
-            "3 Linked Tabs: 1_Ingredient_Master -> 2_Recipe_COGS_Calculator -> 3_Menu_Engineering_Matrix",
-            "#1E293B", "#38BDF8",
-            [
-                ("Trim & Yield Adjusted", "Automatically converts 5lb bags or 4-gallon cases into exact per-oz recipe costs"),
-                ("Target Food Cost % Alerts", "Compare actual plate COGS % against your 22%–30% target threshold instantly"),
-                ("Auto-Classified Quadrants", "Flags every menu item as STAR, PLOWHORSE, PUZZLE, or DOG based on margin & volume"),
-            ],
-            "Compatible With Microsoft Excel 2019+/365 & Google Sheets"
-        ),
-        (
-            "Gig2-3-Salon-Commission-Tracker.png",
-            "INSIDE WORKBOOK #2 · SALON & BARBER PAYOUTS",
-            "Close Weekly Payroll & Booth Rent in 5 Minutes",
-            "3 Linked Tabs: 1_Staff_and_Booth_Setup -> 2_Daily_Service_and_Tip_Log -> 3_Commission_Payout_Summary",
-            "#27173A", "#C084FC",
-            [
-                ("Hybrid Shop Ready", "Supports both % Commission Stylists and Fixed Weekly Booth Renters in one sheet"),
-                ("Backbar & Chemical Deductions", "Automatically deducts per-service color/chemical bowl fees before payout"),
-                ("Retail Bonus & Card Tips", "Separates service commission, retail product tiers, and pass-through card tips"),
-            ],
-            "Built for Salons, Barbershops, Nail Studios & Med-Spas"
-        ),
-        (
-            "Gig3-1-Cover.png",
-            "GIG 3 · HISTORICAL BOOKKEEPING & EXPENSE LEDGERS",
-            "Clean Monthly Income & Expense Ledgers in Excel & Sheets",
-            "Organize Past Receipts, POS Settlements & Schedule C Categories Without Messy Software",
-            "#1E293B", "#FBBF24",
-            [
-                ("100% Historical Bookkeeping", "Structured past-period cash inflow/outflow tracking and monthly P&L summaries"),
-                ("Tax-Ready Categorization", "Mapped directly to standard Schedule C expense lines for clean CPA handoff"),
-                ("Multi-Account Reconciliation", "Track Operating Checking, Business Credit Cards & POS payouts in one log"),
-            ],
-            "Packages from $20 Basic Ledger · $45 Historical P&L Pack · $75 Custom Cleanup"
-        ),
-        (
-            "Gig3-2-Expense-Categorization.png",
-            "INSIDE WORKBOOK #3 · HISTORICAL CASH & EXPENSE LOG",
-            "Every Transaction Logged, Verified & Auto-Summarized",
-            "3 Linked Tabs: 1_Categories_and_Accounts -> 2_Monthly_Income_Expense_Log -> 3_Historical_P_and_L_Summary",
-            "#0F172A", "#2DD4BF",
-            [
-                ("Automated Month-by-Month Rollup", "SUMIFS formulas aggregate every logged receipt into Oct/Nov/YTD columns automatically"),
-                ("Gross Profit & Operating Net", "Separates Cost of Goods Sold (COGS) from fixed overhead to show true net margin"),
-                ("Receipt Audit Column", "Filter unverified transactions in seconds before handing books to your accountant"),
-            ],
-            "Clean Formatting · Frozen Headers · Ready for Immediate Data Entry"
-        ),
-        (
-            "Gig3-3-Dashboard-Instructions.png",
-            "WHAT YOU RECEIVE WITH EVERY ORDER",
-            "Turnkey Delivery + Fast Customization Support",
-            "Designed & Verified by Eva Cheeks — Practical Digital Tools for Small Business Owners",
-            "#111827", "#60A5FA",
-            [
-                ("Unlocked .XLSX + Google Sheet", "No password-locked cells — you own 100% of the workbook and formulas forever"),
-                ("Tailored to Your Categories", "We pre-load your actual menu items, staff tiers, or expense categories on request"),
-                ("Fast Turnaround & Clear Walkthrough", "Includes a quick-start guide so you or your manager can use it on Day 1"),
-            ],
-            "Message Anytime With Your Current Menu, Price List, or CSV Export!"
         ),
     ]
 
