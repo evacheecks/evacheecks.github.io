@@ -1,0 +1,32 @@
+Prospect_ID,Business_Name,Vertical,City_Country,Channel,Email,IG_or_FB_Handle,First_Touch_Date,Follow_Up_Due_Date,Follow_Up_Sent_Date,Status,Demo_Sent,Notes
+CRM-001,Low and Slow,Restaurant / BBQ,US,Email,,lowandslow,2026-11-11,2026-11-15,,FOLLOW_UP_OVERDUE_RECOVER,saffron-and-salt,Delivered Nov 11 (Bridge L1307); silently dropped on Nov 15 when only Amore was drafted. Recover with Template B.
+CRM-002,Hi'amba,Restaurant,US,Email,,hiamba,2026-11-11,2026-11-15,,FOLLOW_UP_OVERDUE_RECOVER,saffron-and-salt,Delivered Nov 11 (Bridge L1307); silently dropped on Nov 15. Recover with Template B.
+CRM-003,Jamba Jollof,Restaurant,US,Email,,jambajollof,2026-11-11,2026-11-15,,FOLLOW_UP_OVERDUE_RECOVER,saffron-and-salt,Delivered Nov 11 (Bridge L1307); silently dropped on Nov 15. Recover with Template B.
+CRM-004,Just Jess,Cafe / Bakery,US,Email,,justjess,2026-11-11,2026-11-15,,FOLLOW_UP_OVERDUE_RECOVER,harbor-street-coffee,Delivered Nov 11 (Bridge L1307); silently dropped on Nov 15. Recover with Template B.
+CRM-005,Waltzing Matilda's,Cafe,AU/US,Email,,waltzingmatildas,2026-11-11,2026-11-15,,FOLLOW_UP_OVERDUE_RECOVER,the-copper-kettle,Delivered Nov 11 (Bridge L1307); silently dropped on Nov 15. Recover with Template B.
+CRM-006,MYM Modern Tea,Tea Room / Cafe,US,Email,,mymmoderntea,2026-11-13,2026-11-17,,FOLLOW_UP_OVERDUE_RECOVER,the-copper-kettle,Delivered Nov 13 (Bridge L1374); omitted from Nov 17 queue. Queue Template B.
+CRM-007,Pho Sure,Restaurant,US,Email,,phosure,2026-11-13,2026-11-17,,FOLLOW_UP_OVERDUE_RECOVER,saffron-and-salt,Delivered Nov 13 (Bridge L1374); omitted from Nov 17 queue. Queue Template B.
+CRM-008,Charm Café,Cafe,US,Email,,charmcafe,2026-11-13,2026-11-17,,FOLLOW_UP_OVERDUE_RECOVER,harbor-street-coffee,Delivered Nov 13 (Bridge L1374); omitted from Nov 17 queue. Queue Template B.
+CRM-009,Rollin Joe's,Cafe / Coffee,US,Email + IG DM,,rollinjoes,2026-11-13,2026-11-17,,FOLLOW_UP_OVERDUE_RECOVER,harbor-street-coffee,Delivered email Nov 13 (Bridge L1374); also IG DM'd Nov 8. Decide whether to send final email follow-up or close.
+CRM-010,Jaww Spot,Restaurant,US,Email,,jawwspot,2026-11-13,2026-11-17,,FOLLOW_UP_DUE_2026-11-17,saffron-and-salt,Delivered Nov 13 (Bridge L1374); queued for Nov 17 follow-up.
+CRM-011,Jones Crumpets,Cafe / Bakery,AU,Email,,jonescrumpets,2026-11-13,2026-11-17,,FOLLOW_UP_DUE_2026-11-17,harbor-street-coffee,Delivered Nov 13 (Bridge L1374); queued for Nov 17 follow-up.
+CRM-012,Amore,Restaurant,US,Email,,amore,2026-11-11,2026-11-15,2026-11-15,FOLLOW_UP_SENT,saffron-and-salt,Delivered Nov 11; 1st follow-up sent Nov 15 (max 1 follow-up reached).
+CRM-013,Bruno's Sydney,Cafe / Restaurant,Sydney AU,IG DM,,brunossydney,2026-10-26,,,OPT_OUT_DECLINED,harbor-street-coffee,Declined via IG DM Oct 26. Do not contact.
+CRM-014,The Boar,Restaurant / Pub,UK,Email,,theboar,2026-11-06,2026-11-10,2026-11-10,OPT_OUT_DECLINED,the-copper-kettle,Replied Nov 10 declining ("Sorted thanks"). Labeled EVA/Opt-out.
+CRM-015,Hound and Crumb,Cafe / Bakery,US,Email,,houndandcrumb,2026-11-11,2026-11-15,2026-11-15,OPT_OUT_DECLINED,harbor-street-coffee,Replied Nov 15 declining ("We are all set, thank you!"). Apply EVA/Courtesy label if sending courtesy reply.
+CRM-016,Sei Bella Salon,Salon,US,Email,seibellasalon@icloud.com,seibellasalon,2026-11-14,,,BOUNCED_DO_NOT_RETRY,linden-and-stone,Hard bounce (550 5.1.1 user unknown). Do not retry email.
+CRM-017,Stone's Throw,Restaurant,US,Email,stonesthrowkitchen@gmail.com,stonesthrow,2026-11-08,,,BOUNCED_DO_NOT_RETRY,saffron-and-salt,Hard bounce. Do not retry email.
+CRM-018,Risica,Bakery / Cafe,US,Email,risicabakery@gmail.com,risica,2026-11-09,,,BOUNCED_DO_NOT_RETRY,harbor-street-coffee,Hard bounce. Do not retry email.
+CRM-019,Bar Cala Cala,Restaurant / Bar,ES/UK,Email,hola@barcalacala.com,barcalacala,2026-11-04,,,BOUNCED_DO_NOT_RETRY,saffron-and-salt,Hard bounce. Do not retry email.
+CRM-020,Shapno,Restaurant,UK,Email,info@shapno.co.uk,shapno,2026-11-02,,,BOUNCED_DO_NOT_RETRY,saffron-and-salt,Hard bounce. Do not retry email.
+CRM-021,Black Bamboo,Restaurant,US,IG DM,,blackbamboo,2026-11-07,,,DO_NOT_CONTACT_DUPLICATE,saffron-and-salt,Contacted twice on IG DM (Nov 7 and Nov 9). Do not contact again.
+CRM-022,GIUK,Restaurant,UK,Email + IG DM,,giuk,2026-11-05,,,DO_NOT_CONTACT_DUPLICATE,saffron-and-salt,IG DM'd Nov 5 and emailed Nov 7 (cross-channel duplicate).
+CRM-023,Farinata,Restaurant / Bakery,US,Email + IG DM,,farinata,2026-10-26,,,DO_NOT_CONTACT_DUPLICATE,harbor-street-coffee,IG DM'd Oct 26 and emailed Nov 15 (cross-channel duplicate).
+CRM-024,First Crush,Wine Bar,US,IG DM,,firstcrush,2026-10-24,,,DO_NOT_CONTACT_OUT_OF_SCOPE,saffron-and-salt,Wine bar contacted in error Oct 24.
+CRM-025,LuxLevel Barbers,Barbershop,US,IG DM,,luxlevelbarbers,2026-11-15,,,DO_NOT_CONTACT_HAS_BOOKSY,northgate-barber-room,IG DM sent Nov 15 despite active Booksy storefront ($15-$125 services). Do not follow up.
+CRM-026,RoadRunner Cuts,Barbershop,US,Email + IG DM,,roadrunnercuts,2026-11-14,2026-11-18,,DO_NOT_CONTACT_DUPLICATE,northgate-barber-room,Emailed Nov 14 and IG DM'd Nov 16 (cross-channel duplicate).
+CRM-027,Midi,Bakery / Cafe,US,IG DM,,midibakery,2026-11-16,,,COLD_DM_SENT,harbor-street-coffee,IG DM sent Nov 16; skipped on Nov 17 list.
+CRM-028,Level 10 Salon,Salon,Moses Lake WA US,IG DM,,level10salon_,2026-11-16,,,COLD_DM_SENT,linden-and-stone,IG DM sent Nov 16 (pitched with Northgate Barber demo before Linden & Stone approval).
+CRM-029,Lioness Nail Salon,Nail Salon,US,IG DM,,lionessnailsalon,2026-11-15,,,COLD_DM_SENT,linden-and-stone,IG DM sent Nov 15.
+CRM-030,Hair 300,Salon,US,IG DM,,hair300salon,2026-11-15,,,COLD_DM_SENT,linden-and-stone,IG DM sent Nov 15.
+CRM-031,ThaBruthaz Barbershop,Barbershop,US,IG DM,,thabruthazbarbershop,2026-11-15,,,COLD_DM_SENT,northgate-barber-room,IG DM sent Nov 15.

@@ -4,7 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Linden &amp; Stone Salon · Pearl District, Portland (demo design)</title>
+<meta name="description" content="Demo one-page website for Linden &amp; Stone Salon, a fictional hair, colour, and nail studio in Portland's Pearl District. Design by Eva Cheeks.">
 <meta name="robots" content="noindex">
+<link rel="canonical" href="https://evacheecks.github.io/demo/linden-and-stone/">
+<meta property="og:title" content="Linden &amp; Stone Salon · Pearl District, Portland (demo design)">
+<meta property="og:description" content="Haircuts, dimensional colour, and natural nail care. Sample one-page salon website by Eva Cheeks.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://evacheecks.github.io/demo/linden-and-stone/">
+<meta property="og:image" content="https://evacheecks.github.io/demo/linden-and-stone/img/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&display=swap" rel="stylesheet">
@@ -14,7 +22,7 @@
     --card: #fcfaf6;
     --sage: #24362e;
     --sage-soft: #e6ece7;
-    --clay: #b36246;
+    --clay: #944a32;
     --ink: #1f2421;
     --muted: #646a64;
     --line: #ddd5c8;
@@ -29,6 +37,7 @@
     font: 16px/1.6 "DM Sans", system-ui, sans-serif;
     padding-bottom: 72px;
   }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
   a { color: var(--sage); }
   button { font: inherit; color: inherit; }
 
@@ -283,14 +292,14 @@
     gap: 24px;
   }
   .step { min-width: 0; }
-  .step h4 {
+  .step h3 {
     margin: 0 0 10px;
     font-size: 12px;
     letter-spacing: 2.5px;
     text-transform: uppercase;
     color: var(--muted);
   }
-  .step h4 em { font-style: normal; color: var(--clay); margin-right: 6px; }
+  .step h3 em { font-style: normal; color: var(--clay); margin-right: 6px; }
   .chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
   #techChips { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .days { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
@@ -369,14 +378,14 @@
     font-size: 20px;
     margin-bottom: 12px;
   }
-  .member h4 { margin: 0 0 4px; font-size: 18px; }
+  .member h3 { margin: 0 0 4px; font-size: 18px; }
   .member .role { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--clay); margin-bottom: 8px; display: block; }
   .member p { margin: 0 0 14px; font-size: 14px; color: var(--muted); }
   .member button { background: none; border: 0; padding: 0; color: var(--sage); font-weight: 700; font-size: 13px; cursor: pointer; }
 
   /* Visit */
   #visit { padding: 56px 0 38px; display: grid; gap: 28px; grid-template-columns: 1fr; }
-  #visit h4 { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--clay); margin: 0 0 10px; }
+  #visit h3 { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--clay); margin: 0 0 10px; }
   #visit p { margin: 0 0 5px; font-size: 15px; }
   .hours div { display: flex; justify-content: space-between; max-width: 260px; padding: 5px 0; border-bottom: 1px dotted var(--line); font-size: 15px; }
   .hours div.today { color: var(--sage); font-weight: 700; }
@@ -447,7 +456,7 @@
 <header class="hero">
   <div class="hero-bg"></div>
   <div class="hero-in hero-anim">
-    <div class="status"><span class="dot" id="dot"></span><span id="status">Tue–Sun · 9 am – 7 pm</span></div>
+    <div class="status"><span class="dot" id="dot"></span><span id="status" aria-live="polite">Tue–Sun · 9 am – 7 pm</span></div>
     <p class="kicker-top">Pearl District · Portland, OR</p>
     <h1>Linden &amp; Stone <em>Salon</em></h1>
     <p class="hero-sub">Thoughtful haircuts, dimensional colour, and calm, natural nail care in a sunlit studio on NW Glisan.</p>
@@ -472,11 +481,11 @@
 
   <div class="gallery" id="gallery">
     <figure class="reveal">
-      <div class="frame"><img src="img/manicure.jpg" alt="Manicure stations in a calm salon room"></div>
+      <div class="frame"><img src="img/manicure.jpg" alt="Manicure stations in a calm salon room" width="1600" height="1191" decoding="async"></div>
       <figcaption>Clean, sunlit manicure stations and private pedicure lounge.</figcaption>
     </figure>
     <figure class="reveal" style="--d:.1s">
-      <div class="frame"><img src="img/soak.jpg" alt="Warm hand soak during a spa manicure"></div>
+      <div class="frame"><img src="img/soak.jpg" alt="Warm hand soak during a spa manicure" width="1600" height="1067" decoding="async"></div>
       <figcaption>Warm botanical soak included with every signature manicure.</figcaption>
     </figure>
   </div>
@@ -490,30 +499,30 @@
     <div class="cat">
       <h3>Haircut &amp; Styling</h3>
       <div class="svc-list" data-stagger=".svc">
-        <button class="svc" data-svc="cut"><span><b>Signature Haircut &amp; Blowout</b> <span class="badge">Popular</span><i>Consultation, wash, cut &amp; style · 60 min</i></span><span class="p">$75<span class="go"><br>Select →</span></span></button>
-        <button class="svc" data-svc="short"><span><b>Clipper or Short Pixie Cut</b><i>Clean detail work &amp; hot towel · 45 min</i></span><span class="p">$55<span class="go"><br>Select →</span></span></button>
-        <button class="svc" data-svc="blowout"><span><b>Wash &amp; Blowout</b><i>Smoothing or bouncy finish · 45 min</i></span><span class="p">$55<span class="go"><br>Select →</span></span></button>
-        <button class="svc" data-svc="bangs"><span><b>Fringe Trim / Neck Clean-Up</b><i>Between-cut tidy · 15 min</i></span><span class="p">$20<span class="go"><br>Select →</span></span></button>
+        <button type="button" class="svc" data-svc="cut"><span><b>Signature Haircut &amp; Blowout</b> <span class="badge">Popular</span><i>Consultation, wash, cut &amp; style · 60 min</i></span><span class="p">$75<span class="go"><br>Select →</span></span></button>
+        <button type="button" class="svc" data-svc="short"><span><b>Clipper or Short Pixie Cut</b><i>Clean detail work &amp; hot towel · 45 min</i></span><span class="p">$55<span class="go"><br>Select →</span></span></button>
+        <button type="button" class="svc" data-svc="blowout"><span><b>Wash &amp; Blowout</b><i>Smoothing or bouncy finish · 45 min</i></span><span class="p">$55<span class="go"><br>Select →</span></span></button>
+        <button type="button" class="svc" data-svc="bangs"><span><b>Fringe Trim / Neck Clean-Up</b><i>Between-cut tidy · 15 min</i></span><span class="p">$20<span class="go"><br>Select →</span></span></button>
       </div>
     </div>
 
     <div class="cat">
       <h3>Colour &amp; Gloss</h3>
       <div class="svc-list" data-stagger=".svc">
-        <button class="svc" data-svc="gloss"><span><b>All-Over Gloss &amp; Tone</b><i>Shine refresh &amp; blowout · 75 min</i></span><span class="p">$95<span class="go"><br>Select →</span></span></button>
-        <button class="svc" data-svc="roots"><span><b>Root Touch-Up</b><i>Grey coverage or base blend · 90 min</i></span><span class="p">$110<span class="go"><br>Select →</span></span></button>
-        <button class="svc" data-svc="balayage"><span><b>Partial Balayage / Foil</b> <span class="badge">Popular</span><i>Custom placement + gloss · 150 min</i></span><span class="p">$185<span class="go"><br>Select →</span></span></button>
-        <button class="svc" data-svc="repair"><span><b>Botanical Scalp &amp; Bond Mask</b><i>Add-on or standalone treatment · 30 min</i></span><span class="p">$40<span class="go"><br>Select →</span></span></button>
+        <button type="button" class="svc" data-svc="gloss"><span><b>All-Over Gloss &amp; Tone</b><i>Shine refresh &amp; blowout · 75 min</i></span><span class="p">$95<span class="go"><br>Select →</span></span></button>
+        <button type="button" class="svc" data-svc="roots"><span><b>Root Touch-Up</b><i>Grey coverage or base blend · 90 min</i></span><span class="p">$110<span class="go"><br>Select →</span></span></button>
+        <button type="button" class="svc" data-svc="balayage"><span><b>Partial Balayage / Foil</b> <span class="badge">Popular</span><i>Custom placement + gloss · 150 min</i></span><span class="p">$185<span class="go"><br>Select →</span></span></button>
+        <button type="button" class="svc" data-svc="repair"><span><b>Botanical Scalp &amp; Bond Mask</b><i>Add-on or standalone treatment · 30 min</i></span><span class="p">$40<span class="go"><br>Select →</span></span></button>
       </div>
     </div>
 
     <div class="cat">
       <h3>Nails &amp; Pedicure</h3>
       <div class="svc-list" data-stagger=".svc">
-        <button class="svc" data-svc="gelmani"><span><b>Structured Builder Gel Manicure</b> <span class="badge">Popular</span><i>E-file cuticle care + gel polish · 60 min</i></span><span class="p">$60<span class="go"><br>Select →</span></span></button>
-        <button class="svc" data-svc="spapedi"><span><b>Linden Botanical Pedicure</b><i>Warm soak, scrub, callus care &amp; polish · 55 min</i></span><span class="p">$65<span class="go"><br>Select →</span></span></button>
-        <button class="svc" data-svc="classicmani"><span><b>Classic Manicure</b><i>Shape, cuticle care, soak &amp; polish · 40 min</i></span><span class="p">$38<span class="go"><br>Select →</span></span></button>
-        <button class="svc" data-svc="removal"><span><b>Gel Removal &amp; Nail Care</b><i>Gentle soak-off, buff &amp; oil · 30 min</i></span><span class="p">$25<span class="go"><br>Select →</span></span></button>
+        <button type="button" class="svc" data-svc="gelmani"><span><b>Structured Builder Gel Manicure</b> <span class="badge">Popular</span><i>E-file cuticle care + gel polish · 60 min</i></span><span class="p">$60<span class="go"><br>Select →</span></span></button>
+        <button type="button" class="svc" data-svc="spapedi"><span><b>Linden Botanical Pedicure</b><i>Warm soak, scrub, callus care &amp; polish · 55 min</i></span><span class="p">$65<span class="go"><br>Select →</span></span></button>
+        <button type="button" class="svc" data-svc="classicmani"><span><b>Classic Manicure</b><i>Shape, cuticle care, soak &amp; polish · 40 min</i></span><span class="p">$38<span class="go"><br>Select →</span></span></button>
+        <button type="button" class="svc" data-svc="removal"><span><b>Gel Removal &amp; Nail Care</b><i>Gentle soak-off, buff &amp; oil · 30 min</i></span><span class="p">$25<span class="go"><br>Select →</span></span></button>
       </div>
     </div>
   </section>
@@ -523,27 +532,27 @@
     <p class="lead reveal">Pick a service, stylist or nail tech, and time window.</p>
     <div class="booker reveal">
       <div class="step full">
-        <h4><em>01</em> Service</h4>
+        <h3><em>01</em> Service</h3>
         <div class="chips" id="svcChips"></div>
       </div>
       <div class="step full">
-        <h4><em>02</em> Stylist / Technician</h4>
+        <h3><em>02</em> Stylist / Technician</h3>
         <div class="chips" id="techChips"></div>
       </div>
       <div class="step">
-        <h4><em>03</em> Day</h4>
+        <h3><em>03</em> Day</h3>
         <div class="days" id="dayChips"></div>
       </div>
       <div class="step">
-        <h4><em>04</em> Time</h4>
+        <h3><em>04</em> Time</h3>
         <div class="times" id="timeChips"></div>
       </div>
       <div class="summary full">
-        <div class="line" id="sumLine">Choose a service above to start.</div>
+        <div class="line" id="sumLine" aria-live="polite">Choose a service above to start.</div>
         <div class="total" id="sumTotal">$0<small></small></div>
-        <button class="book-btn" id="confirmBtn" disabled>Request slot</button>
+        <button type="button" class="book-btn" id="confirmBtn" disabled>Request slot</button>
       </div>
-      <div class="confirm full" id="confirmMsg"></div>
+      <div class="confirm full" id="confirmMsg" aria-live="polite"></div>
     </div>
   </section>
 
@@ -553,31 +562,32 @@
     <div class="team">
       <div class="member reveal">
         <div class="avatar">M</div>
-        <h4>Maya Lin</h4>
+        <h3>Maya Lin</h3>
         <span class="role">Founder · Lead Stylist</span>
         <p>Lived-in cuts, soft layers, and natural-looking dimensional colour. Ten years behind the chair.</p>
-        <button data-tech="Maya">Book with Maya →</button>
+        <button type="button" data-tech="Maya">Book with Maya →</button>
       </div>
       <div class="member reveal" style="--d:.08s">
         <div class="avatar">S</div>
-        <h4>Sofia Ortiz</h4>
+        <h3>Sofia Ortiz</h3>
         <span class="role">Senior Nail Artist</span>
         <p>Structured builder gel, Russian-style cuticle care, and understated nail art that wears for weeks.</p>
-        <button data-tech="Sofia">Book with Sofia →</button>
+        <button type="button" data-tech="Sofia">Book with Sofia →</button>
       </div>
       <div class="member reveal" style="--d:.16s">
         <div class="avatar">H</div>
-        <h4>Hannah Cole</h4>
+        <h3>Hannah Cole</h3>
         <span class="role">Colour &amp; Scalp Specialist</span>
         <p>Gloss refreshes, curly cuts, and relaxing botanical scalp and bond-repair rituals.</p>
-        <button data-tech="Hannah">Book with Hannah →</button>
+        <button type="button" data-tech="Hannah">Book with Hannah →</button>
       </div>
     </div>
   </section>
 
   <section id="visit">
+    <h2 class="sr-only">Hours &amp; Location</h2>
     <div class="reveal">
-      <h4>Hours</h4>
+      <h3>Hours</h3>
       <div class="hours" id="hours">
         <div data-d="1"><span>Monday</span><span>Closed</span></div>
         <div data-d="2,3,4"><span>Tue – Thu</span><span>9 am – 7 pm</span></div>
@@ -586,14 +596,14 @@
       </div>
     </div>
     <div class="reveal" style="--d:.08s">
-      <h4>Find us</h4>
+      <h3>Find us</h3>
       <p>1142 NW Glisan St, Suite B</p>
       <p>Portland, OR 97209</p>
       <p class="muted">(fictional address)</p>
       <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Pearl+District+Portland+OR">Open in Google Maps</a></p>
     </div>
     <div class="reveal" style="--d:.16s">
-      <h4>Contact &amp; Booking</h4>
+      <h3>Contact &amp; Booking</h3>
       <p>Text or call <a href="tel:+15035550194">(503) 555-0194</a> or email <a href="mailto:hello@lindenandstone.example">hello@lindenandstone.example</a>.</p>
       <p class="muted">On a real salon page, the booking buttons connect directly to your own Vagaro, Fresha, GlossGenius, or Square booking link.</p>
     </div>
@@ -627,11 +637,17 @@
       });
     });
 
-    // Live open / closed badge
+    // Helper: studio wall-clock time in Portland (America/Los_Angeles)
+    function shopNow() {
+      try { return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })); }
+      catch (e) { return new Date(); }
+    }
+
+    // Live open / closed badge (Portland studio time)
     var HOURS = { 0: [10, 16], 1: null, 2: [9, 19], 3: [9, 19], 4: [9, 19], 5: [9, 18], 6: [9, 18] };
     var DAYN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     function fmtHour(h) { return (h > 12 ? h - 12 : h) + (h >= 12 ? ' pm' : ' am'); }
-    var now = new Date(), d = now.getDay(), h = now.getHours() + now.getMinutes() / 60;
+    var now = shopNow(), d = now.getDay(), h = now.getHours() + now.getMinutes() / 60;
     var t = HOURS[d], st = document.getElementById('status');
     if (t && h >= t[0] && h < t[1]) {
       document.getElementById('dot').classList.add('open');
@@ -681,7 +697,7 @@
     }
 
     function nextDays() {
-      var out = [], x = new Date(); x.setHours(0, 0, 0, 0);
+      var out = [], x = shopNow(); x.setHours(0, 0, 0, 0);
       while (out.length < 6) {
         if (HOURS[x.getDay()]) out.push(new Date(x));
         x.setDate(x.getDate() + 1);
@@ -690,9 +706,9 @@
     }
     var DAYS = nextDays();
     (function () {
-      var td = HOURS[now.getDay()];
-      var late = !td || (now.getHours() + now.getMinutes() / 60) > td[1] - 1.5;
-      sel.day = (DAYS[0].toDateString() === now.toDateString() && late) ? DAYS[1] : DAYS[0];
+      var n = shopNow(), td = HOURS[n.getDay()];
+      var late = !td || (n.getHours() + n.getMinutes() / 60) > td[1] - 1.5;
+      sel.day = (DAYS[0].toDateString() === n.toDateString() && late) ? DAYS[1] : DAYS[0];
     })();
 
     function fmtTime(mins) {
@@ -703,6 +719,7 @@
     }
 
     function render() {
+      var curNow = shopNow();
       var sc = $('svcChips'); sc.innerHTML = '';
       Object.keys(SVC).forEach(function (k) {
         sc.appendChild(chip(SVC[k][0], '$' + SVC[k][1] + ' · ' + SVC[k][2] + ' min', sel.svc === k, function () {
@@ -719,7 +736,7 @@
 
       var dc = $('dayChips'); dc.innerHTML = '';
       DAYS.forEach(function (x, i) {
-        var lbl = (i === 0 && x.toDateString() === new Date().toDateString()) ? 'Today' : DAYN[x.getDay()];
+        var lbl = (i === 0 && x.toDateString() === curNow.toDateString()) ? 'Today' : DAYN[x.getDay()];
         dc.appendChild(chip(lbl, (x.getMonth() + 1) + '/' + x.getDate(), sel.day && x.getTime() === sel.day.getTime(), function () {
           sel.day = x; sel.time = null; render();
         }));
@@ -727,8 +744,8 @@
 
       var tc = $('timeChips'); tc.innerHTML = '';
       var hr = HOURS[sel.day.getDay()];
-      var isToday = sel.day.toDateString() === new Date().toDateString();
-      var nowH = new Date().getHours() + new Date().getMinutes() / 60;
+      var isToday = sel.day.toDateString() === curNow.toDateString();
+      var nowH = curNow.getHours() + curNow.getMinutes() / 60;
       var dur = sel.svc ? SVC[sel.svc][2] : 45, slot = 0;
       for (var m = hr[0] * 60; m + dur <= hr[1] * 60; m += 45, slot++) {
         (function (m, slot) {
