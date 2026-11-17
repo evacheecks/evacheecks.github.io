@@ -1,0 +1,88 @@
+{
+  "version": "2026-11-17.v3",
+  "business": {
+    "name": "Eva Cheeks",
+    "email": "evacheecks@gmail.com",
+    "portfolio_url": "https://evacheecks.github.io/",
+    "fiverr_profile": "https://www.fiverr.com/eva_cheeks",
+    "fiverr_website_gig": "https://www.fiverr.com/eva_cheeks/design-a-one-page-website-for-your-restaurant-or-cafe",
+    "postal_footer": "Eva Cheeks | Gujranwala, Punjab, Pakistan\nTo opt out of future emails, reply \"no\" or \"unsubscribe\"."
+  },
+  "schedule": {
+    "email_send_runs_pkt": ["09:00", "13:00", "17:00", "21:00"],
+    "dm_send_runs_pkt": "hourly :17",
+    "followup_min_hours": 95.5,
+    "max_followups_per_prospect": 1
+  },
+  "vertical_demos": {
+    "restaurant": "https://evacheecks.github.io/demo/saffron-and-salt/",
+    "cafe": "https://evacheecks.github.io/demo/harbor-street-coffee/",
+    "bakery": "https://evacheecks.github.io/demo/harbor-street-coffee/",
+    "brunch": "https://evacheecks.github.io/demo/the-copper-kettle/",
+    "tea_room": "https://evacheecks.github.io/demo/the-copper-kettle/",
+    "barber": "https://evacheecks.github.io/demo/northgate-barber-room/",
+    "barbershop": "https://evacheecks.github.io/demo/northgate-barber-room/",
+    "salon": "https://evacheecks.github.io/demo/linden-and-stone/",
+    "hair_salon": "https://evacheecks.github.io/demo/linden-and-stone/",
+    "nail_salon": "https://evacheecks.github.io/demo/linden-and-stone/",
+    "spa": "https://evacheecks.github.io/demo/linden-and-stone/"
+  },
+  "qualification_gate": {
+    "disqualify_if_custom_domain_http_200": true,
+    "disqualify_if_priced_pos_or_booking_storefront": [
+      "toasttab.com",
+      "square.site",
+      "squareup.com",
+      "kwickmenu.com",
+      "hotplate.com",
+      "booksy.com",
+      "vagaro.com",
+      "glossgenius.com",
+      "fresha.com",
+      "clover.com",
+      "chownow.com",
+      "bentobox.com"
+    ],
+    "qualify_if_link_in_bio_without_full_menu": [
+      "linktr.ee",
+      "beacons.ai",
+      "bio.site",
+      "milkshake.app",
+      "carrd.co"
+    ]
+  },
+  "pricing": {
+    "standard": {
+      "starter_up_to_15_items_usd": 50,
+      "core_16_to_30_items_usd": 75,
+      "full_31_to_60_items_usd": "90-120"
+    },
+    "emerging_markets": {
+      "regions": ["South Asia", "Southeast Asia", "Africa", "Latin America"],
+      "core_up_to_30_items_usd": 50,
+      "full_31_to_60_items_usd": 65
+    }
+  },
+  "templates": {
+    "template_a_cold_email": {
+      "subject": "One-page website for {Business Name}?",
+      "body": "Hi {Name_or_Team},\n\nCongrats on opening {Business Name} in {City} — {Specific_Detail}.\n\nI build clean, mobile-first one-page websites for new {Vertical_Plural} so customers can check your {Menu_or_Service_List}, hours, address, and {Order_or_Booking_Action} on their phone without digging through social posts.\n\nHere is a sample page in a similar style:\n{Demo_URL}\n\nAnd my full portfolio & pricing:\nhttps://evacheecks.github.io/\n\nWould you like me to put together a free mock-up for {Business Name} using your current {Menu_or_Service_List} so you can see how it looks before deciding?\n\nBest,\nEva Cheeks\nevacheecks@gmail.com\nhttps://evacheecks.github.io/\n\n---\nEva Cheeks | Gujranwala, Punjab, Pakistan\nTo opt out of future emails, reply \"no\" or \"unsubscribe\"."
+    },
+    "template_b_followup_email": {
+      "subject": "Re: One-page website for {Business Name}?",
+      "body": "Hi {Name_or_Team},\n\nJust following up on my note from {Sent_Day} in case it got buried during service.\n\nIf you'd like to see a free one-page mock-up for {Business Name} (similar to {Demo_URL}), just reply \"yes\" or send over your {Menu_or_Service_List} and hours — no obligation at all.\n\nIf now isn't the right time, no worries and wishing you a great week ahead.\n\nBest,\nEva Cheeks\nevacheecks@gmail.com\nhttps://evacheecks.github.io/\n\n---\nEva Cheeks | Gujranwala, Punjab, Pakistan\nTo opt out of future emails, reply \"no\" or \"unsubscribe\"."
+    },
+    "template_c_courtesy_optout_reply": {
+      "label_required": "EVA/Courtesy",
+      "subject": "Re: One-page website for {Business Name}?",
+      "body": "Thanks for letting me know, {Name_or_Team} — I've removed {Business Name} from my list and won't follow up again. Wishing you all the best with the {Business_Type}!\n\nBest,\nEva Cheeks"
+    },
+    "template_d_positive_reply_mockup_offer": {
+      "subject": "Re: One-page website for {Business Name}?",
+      "body": "Hi {Name_or_Team},\n\nGreat to hear from you! Send over a photo, PDF, or link to your current {Menu_or_Service_List}, your opening hours, address, and the booking/order/WhatsApp link you want the main button to open.\n\nI'll put together a live preview link for {Business Name} so you can check it on your phone. If you want to go ahead after seeing the preview, pricing is fixed before work starts:\n- Starter (up to 15 items): $50\n- Core (16 to 30 items): $75\n- Full (31 to 60 items): $90 to $120\n(Includes 1 revision round and handover in 2 to 3 days.)\n\nBest,\nEva Cheeks\nevacheecks@gmail.com\nhttps://evacheecks.github.io/"
+    },
+    "dm_instagram_facebook": {
+      "body": "Hi {Business Name}! Congrats on the {City} opening — {Specific_Detail}. I build simple mobile-first one-page sites for new {Vertical_Plural} ({Menu_or_Service_List}, hours, map & {Order_or_Booking_Action} link on one fast page). Sample: {Demo_URL} — would you like a free mock-up for {Business Name}? (Eva Cheeks · Contact: evacheecks@gmail.com · Reply STOP to opt out)"
+    }
+  }
+}

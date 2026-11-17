@@ -86,9 +86,6 @@ li { margin: 6px 0; }
   border-radius: 999px;
   margin-bottom: 10px;
 }
-.menu { width: 100%; border-collapse: collapse; margin-top: 10px; }
-.menu td { padding: 6px 0; border-bottom: 1px solid var(--line); }
-.menu td:last-child { text-align: right; font-weight: 600; white-space: nowrap; }
 .price-box { background: var(--teal-light); border-radius: var(--radius); padding: 20px; }
 .price { font-size: 2rem; font-weight: 800; color: var(--teal-dark); margin: 4px 0; }
 .steps { counter-reset: step; list-style: none; padding: 0; margin: 14px 0 0; }
@@ -105,13 +102,32 @@ li { margin: 6px 0; }
   display: flex; align-items: center; justify-content: center;
   font-weight: 800;
 }
+.contact-form { display: grid; gap: 14px; }
+.form-grid { display: grid; gap: 12px; }
+.contact-form label { display: grid; gap: 4px; font-size: 0.92rem; font-weight: 600; color: var(--teal-dark); }
+.contact-form input, .contact-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--white);
+}
+.contact-form input:focus, .contact-form select:focus {
+  outline: 2px solid var(--teal);
+  border-color: var(--teal);
+}
+.form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .faq details { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 18px; margin-top: 10px; }
 .faq summary { font-weight: 700; color: var(--teal-dark); cursor: pointer; }
 .faq p { margin: 8px 0 0; color: var(--muted); }
 .small { font-size: 0.9rem; color: var(--muted); }
 footer { margin-top: 36px; border-top: 1px solid var(--line); padding-top: 18px; }
 @media (min-width: 720px) {
-  .sample-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .sample-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .form-grid { grid-template-columns: 1fr 1fr; }
   .hero { padding: 56px 20px 60px; }
 }
 .btn-small {
@@ -120,4 +136,6 @@ footer { margin-top: 36px; border-top: 1px solid var(--line); padding-top: 18px;
   padding: 8px 14px;
   font-size: 0.9rem;
   margin-top: 6px;
+  border: 0;
+  cursor: pointer;
 }

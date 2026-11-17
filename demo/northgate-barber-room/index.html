@@ -4,15 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Northgate Barber Room · Leeds (demo design)</title>
+<meta name="description" content="Demo one-page website for Northgate Barber Room, a fictional barbershop in Leeds. Service prices, barbers, and slot request picker by Eva Cheeks.">
 <meta name="robots" content="noindex">
+<link rel="canonical" href="https://evacheecks.github.io/demo/northgate-barber-room/">
+<meta property="og:title" content="Northgate Barber Room · Leeds (demo design)">
+<meta property="og:description" content="Skin fades, beard work, and hot towel shaves. Sample one-page barbershop website by Eva Cheeks.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://evacheecks.github.io/demo/northgate-barber-room/">
+<meta property="og:image" content="https://evacheecks.github.io/demo/northgate-barber-room/img/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Archivo+Narrow:wght@500;700&display=swap" rel="stylesheet">
 <style>
-  :root { --ink: #121212; --char: #1b1d1f; --card: #232629; --bone: #efe9df; --brass: #c79a4b; --brass2: #e0b764; --muted: #8b877f; --line: #33363a; --ok: #6fbf73; }
+  :root { --ink: #121212; --char: #1b1d1f; --card: #232629; --bone: #efe9df; --brass: #c79a4b; --brass2: #e0b764; --muted: #9c978e; --line: #33363a; --ok: #6fbf73; }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body { margin: 0; background: var(--char); color: var(--bone); font: 16px/1.55 "Archivo", system-ui, sans-serif; padding-bottom: 64px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
   a { color: var(--brass); }
   button { font: inherit; color: inherit; }
   .note { font-size: 12px; text-align: center; padding: 6px 12px; color: var(--muted); border-bottom: 1px solid var(--line); }
@@ -79,8 +88,8 @@
   #book { padding: 64px 0 20px; }
   .booker { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 18px 14px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 26px; }
   .step { min-width: 0; }
-  .step h4 { margin: 0 0 12px; font-size: 12px; color: var(--muted); letter-spacing: 3px; }
-  .step h4 em { font-style: normal; color: var(--brass); margin-right: 6px; }
+  .step h3 { margin: 0 0 12px; font-size: 12px; color: var(--muted); letter-spacing: 3px; }
+  .step h3 em { font-style: normal; color: var(--brass); margin-right: 6px; }
   .chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
   #barberChips { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .chip { min-width: 0; border: 1px solid var(--line); border-radius: 6px; background: #1b1d1f; padding: 10px 8px; cursor: pointer; font-size: 14px; line-height: 1.3; text-align: center; transition: border-color .2s, background .2s, color .2s, transform .15s; }
@@ -107,13 +116,13 @@
   .barber { background: var(--card); padding: 24px; border: 1px solid var(--line); border-radius: 6px; transition: border-color .25s, transform .25s; }
   .barber:hover { border-color: var(--brass); transform: translateY(-3px); }
   .mono { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; background: var(--bone); color: var(--ink); font: 800 20px/1 "Archivo", sans-serif; margin-bottom: 14px; }
-  .barber h4 { margin: 0 0 4px; font-size: 19px; }
+  .barber h3 { margin: 0 0 4px; font-size: 19px; }
   .barber p { margin: 0 0 14px; color: #bdb7ac; font-size: 15px; }
   .barber button { background: none; border: 0; padding: 0; color: var(--brass); cursor: pointer; font-size: 12px; letter-spacing: 2px; }
 
   /* Visit */
   #visit { padding: 64px 0 40px; display: grid; gap: 30px; }
-  #visit h4 { font-size: 13px; color: var(--brass); margin: 0 0 12px; letter-spacing: 4px; }
+  #visit h3 { font-size: 13px; color: var(--brass); margin: 0 0 12px; letter-spacing: 4px; }
   #visit p { margin: 0 0 4px; }
   .hours div { display: flex; justify-content: space-between; max-width: 260px; padding: 4px 0; border-bottom: 1px dotted var(--line); }
   .hours div.today { color: var(--brass); font-weight: 600; }
@@ -163,7 +172,7 @@
 <header class="hero">
   <div class="hero-bg" aria-hidden="true"></div>
   <div class="in hero-anim">
-    <div class="status"><span class="dot" id="dot"></span><span id="status">Open today 9–6</span></div>
+    <div class="status"><span class="dot" id="dot"></span><span id="status" aria-live="polite">Open today 9–6</span></div>
     <p class="tag narrow">Leeds · Opened 2026</p>
     <h1>Northgate <span>Barber Room</span></h1>
     <p class="sub">Skin fades, beard work and hot towel shaves. Book a chair in thirty seconds, or walk in before 11.</p>
@@ -179,9 +188,9 @@
 
 <main class="wrap">
   <div class="gallery" id="gallery">
-    <figure class="tall reveal"><img src="img/chair.jpg" alt="Barber chair by the mirror" decoding="async"></figure>
-    <figure class="reveal" style="--d:.1s"><img src="img/tools.jpg" alt="Clippers and combs on the counter" decoding="async"></figure>
-    <figure class="reveal" style="--d:.2s"><img src="img/shop.jpg" alt="Inside the shop" decoding="async"></figure>
+    <figure class="tall reveal"><img src="img/chair.jpg" alt="Barber chair by the mirror" width="1600" height="2400" decoding="async"></figure>
+    <figure class="reveal" style="--d:.1s"><img src="img/tools.jpg" alt="Clippers and combs on the counter" width="1600" height="1376" decoding="async"></figure>
+    <figure class="reveal" style="--d:.2s"><img src="img/shop.jpg" alt="Inside the shop" width="1600" height="2400" decoding="async"></figure>
   </div>
 
   <section id="prices">
@@ -190,18 +199,18 @@
     <div class="cols">
       <div class="cat reveal" data-stagger=".svc">
         <h3 class="narrow">Hair</h3>
-        <button class="svc" data-svc="fade"><b>Skin fade <span class="popular">Popular</span></b><span class="p">£22</span><i>Clipper fade to the skin, scissor work on top · 40 min</i><span class="go narrow">Book →</span></button>
-        <button class="svc" data-svc="classic"><b>Classic cut</b><span class="p">£18</span><i>Clipper or scissor, neck tidy · 30 min</i><span class="go narrow">Book →</span></button>
-        <button class="svc" data-svc="scissor"><b>Scissor cut</b><span class="p">£24</span><i>All scissor, for longer styles · 45 min</i><span class="go narrow">Book →</span></button>
-        <button class="svc" data-svc="kids"><b>Kids' cut (under 12)</b><span class="p">£14</span><i>25 min</i><span class="go narrow">Book →</span></button>
-        <button class="svc" data-svc="buzz"><b>Buzz cut</b><span class="p">£12</span><i>One grade all over · 15 min</i><span class="go narrow">Book →</span></button>
+        <button type="button" class="svc" data-svc="fade"><b>Skin fade <span class="popular">Popular</span></b><span class="p">£22</span><i>Clipper fade to the skin, scissor work on top · 40 min</i><span class="go narrow">Book →</span></button>
+        <button type="button" class="svc" data-svc="classic"><b>Classic cut</b><span class="p">£18</span><i>Clipper or scissor, neck tidy · 30 min</i><span class="go narrow">Book →</span></button>
+        <button type="button" class="svc" data-svc="scissor"><b>Scissor cut</b><span class="p">£24</span><i>All scissor, for longer styles · 45 min</i><span class="go narrow">Book →</span></button>
+        <button type="button" class="svc" data-svc="kids"><b>Kids' cut (under 12)</b><span class="p">£14</span><i>25 min</i><span class="go narrow">Book →</span></button>
+        <button type="button" class="svc" data-svc="buzz"><b>Buzz cut</b><span class="p">£12</span><i>One grade all over · 15 min</i><span class="go narrow">Book →</span></button>
       </div>
       <div class="cat reveal" style="--d:.1s" data-stagger=".svc">
         <h3 class="narrow">Beard &amp; shave</h3>
-        <button class="svc" data-svc="beard"><b>Beard trim &amp; shape</b><span class="p">£12</span><i>Line-up, hot towel, oil · 20 min</i><span class="go narrow">Book →</span></button>
-        <button class="svc" data-svc="shave"><b>Hot towel shave</b><span class="p">£20</span><i>Straight razor, two hot towels · 35 min</i><span class="go narrow">Book →</span></button>
-        <button class="svc" data-svc="combo"><b>Fade + beard <span class="popular">Best value</span></b><span class="p">£30</span><i>Save £4 on booking them apart · 55 min</i><span class="go narrow">Book →</span></button>
-        <button class="svc" data-svc="senior"><b>Senior cut (65+)</b><span class="p">£14</span><i>Mon to Wed only · 30 min</i><span class="go narrow">Book →</span></button>
+        <button type="button" class="svc" data-svc="beard"><b>Beard trim &amp; shape</b><span class="p">£12</span><i>Line-up, hot towel, oil · 20 min</i><span class="go narrow">Book →</span></button>
+        <button type="button" class="svc" data-svc="shave"><b>Hot towel shave</b><span class="p">£20</span><i>Straight razor, two hot towels · 35 min</i><span class="go narrow">Book →</span></button>
+        <button type="button" class="svc" data-svc="combo"><b>Fade + beard <span class="popular">Best value</span></b><span class="p">£30</span><i>Save £4 on booking them apart · 55 min</i><span class="go narrow">Book →</span></button>
+        <button type="button" class="svc" data-svc="senior"><b>Senior cut (65+)</b><span class="p">£14</span><i>Mon to Wed only · 30 min</i><span class="go narrow">Book →</span></button>
       </div>
     </div>
   </section>
@@ -210,15 +219,15 @@
     <h2 class="reveal">Book a chair</h2>
     <p class="kicker reveal">Pick a service, a barber and a time. Takes about thirty seconds.</p>
     <div class="booker reveal">
-      <div class="step full"><h4 class="narrow"><em>01</em>Service</h4><div class="chips" id="svcChips"></div></div>
-      <div class="step"><h4 class="narrow"><em>02</em>Barber</h4><div class="chips" id="barberChips"></div></div>
-      <div class="step"><h4 class="narrow"><em>03</em>Day</h4><div class="days" id="dayChips"></div></div>
-      <div class="step full"><h4 class="narrow"><em>04</em>Time</h4><div class="times" id="timeChips"></div></div>
+      <div class="step full"><h3 class="narrow"><em>01</em>Service</h3><div class="chips" id="svcChips"></div></div>
+      <div class="step"><h3 class="narrow"><em>02</em>Barber</h3><div class="chips" id="barberChips"></div></div>
+      <div class="step"><h3 class="narrow"><em>03</em>Day</h3><div class="days" id="dayChips"></div></div>
+      <div class="step full"><h3 class="narrow"><em>04</em>Time</h3><div class="times" id="timeChips"></div></div>
       <div class="summary full">
-        <div><div class="line" id="sumLine">Choose a service to start.</div><div class="total" id="sumTotal">£0<small></small></div></div>
-        <button class="btn solid narrow" id="confirmBtn" disabled style="opacity:.5">Request booking</button>
+        <div><div class="line" id="sumLine" aria-live="polite">Choose a service to start.</div><div class="total" id="sumTotal">£0<small></small></div></div>
+        <button type="button" class="btn solid narrow" id="confirmBtn" disabled style="opacity:.5">Request booking</button>
       </div>
-      <div class="confirm full" id="confirmMsg"></div>
+      <div class="confirm full" id="confirmMsg" aria-live="polite"></div>
     </div>
   </section>
 
@@ -226,15 +235,16 @@
     <h2 class="reveal">The barbers</h2>
     <p class="kicker reveal">Book with someone specific, or take the first free chair.</p>
     <div class="team">
-      <div class="barber reveal"><div class="mono">D</div><h4>Danny</h4><p>Owner. Skin fades and tapers. Twelve years behind the chair.</p><button class="narrow" data-barber="Danny">Book with Danny →</button></div>
-      <div class="barber reveal" style="--d:.1s"><div class="mono">A</div><h4>Amir</h4><p>Beard sculpting and hot towel shaves. Late nights on Thursday.</p><button class="narrow" data-barber="Amir">Book with Amir →</button></div>
-      <div class="barber reveal" style="--d:.2s"><div class="mono">J</div><h4>Jess</h4><p>Scissor work and longer styles. Great with nervous kids.</p><button class="narrow" data-barber="Jess">Book with Jess →</button></div>
+      <div class="barber reveal"><div class="mono">D</div><h3>Danny</h3><p>Owner. Skin fades and tapers. Twelve years behind the chair.</p><button type="button" class="narrow" data-barber="Danny">Book with Danny →</button></div>
+      <div class="barber reveal" style="--d:.1s"><div class="mono">A</div><h3>Amir</h3><p>Beard sculpting and hot towel shaves. Late nights on Thursday.</p><button type="button" class="narrow" data-barber="Amir">Book with Amir →</button></div>
+      <div class="barber reveal" style="--d:.2s"><div class="mono">J</div><h3>Jess</h3><p>Scissor work and longer styles. Great with nervous kids.</p><button type="button" class="narrow" data-barber="Jess">Book with Jess →</button></div>
     </div>
   </section>
 
   <section id="visit">
+    <h2 class="sr-only">Visit &amp; Hours</h2>
     <div class="reveal">
-      <h4 class="narrow">Hours</h4>
+      <h3 class="narrow">Hours</h3>
       <div class="hours" id="hours">
         <div data-d="1,2,3"><span>Mon–Wed</span><span>9–6</span></div>
         <div data-d="4,5"><span>Thu–Fri</span><span>9–8</span></div>
@@ -244,14 +254,14 @@
       <span class="walkin narrow">Walk-ins until 11 am</span>
     </div>
     <div class="reveal" style="--d:.1s">
-      <h4 class="narrow">Find us</h4>
+      <h3 class="narrow">Find us</h3>
       <p>Northgate Arcade, Unit 4</p>
       <p>Leeds city centre</p>
       <p class="muted">(fictional address)</p>
       <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Leeds+city+centre">Directions</a></p>
     </div>
     <div class="reveal" style="--d:.2s">
-      <h4 class="narrow">Questions</h4>
+      <h3 class="narrow">Questions</h3>
       <p>Message us on WhatsApp. We usually reply within the hour.</p>
       <p class="muted">On a real page, the booking and WhatsApp buttons connect to the shop's own booking system (Fresha, Booksy or Square) and phone number.</p>
     </div>
@@ -288,11 +298,17 @@
       if (im.complete && im.naturalWidth) im.dispatchEvent(new Event('load'));
     });
 
-    // Open / closed status (shop time, demo uses visitor's clock)
+    // Helper: shop wall-clock time in Leeds (Europe/London)
+    function shopNow() {
+      try { return new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/London' })); }
+      catch (e) { return new Date(); }
+    }
+
+    // Open / closed status (Leeds shop time)
     var HOURS = { 0: null, 1: [9, 18], 2: [9, 18], 3: [9, 18], 4: [9, 20], 5: [9, 20], 6: [8, 17] };
     var DAYN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     function fmt(h) { return (h > 12 ? h - 12 : h) + (h >= 12 ? 'pm' : 'am'); }
-    var now = new Date(), d = now.getDay(), h = now.getHours() + now.getMinutes() / 60, st = document.getElementById('status');
+    var now = shopNow(), d = now.getDay(), h = now.getHours() + now.getMinutes() / 60, st = document.getElementById('status');
     var t = HOURS[d];
     if (t && h >= t[0] && h < t[1]) { document.getElementById('dot').classList.add('open'); st.textContent = 'Open now · closes ' + fmt(t[1]); }
     else {
@@ -320,18 +336,19 @@
     function taken(day, slot, barber) { var s = day.getDate() * 7 + slot * 13 + barber.length * 5; return s % 5 === 0 || s % 7 === 0; }
 
     function days() {
-      var out = [], x = new Date(); x.setHours(0, 0, 0, 0);
+      var out = [], x = shopNow(); x.setHours(0, 0, 0, 0);
       while (out.length < 6) { if (HOURS[x.getDay()]) out.push(new Date(x)); x.setDate(x.getDate() + 1); }
       return out;
     }
     var DAYS = days();
     // Start on today only if there's still time left to book; otherwise the next open day
     (function () {
-      var n = new Date(), td = HOURS[n.getDay()], late = !td || n.getHours() + n.getMinutes() / 60 > td[1] - 1.5;
+      var n = shopNow(), td = HOURS[n.getDay()], late = !td || n.getHours() + n.getMinutes() / 60 > td[1] - 1.5;
       sel.day = (DAYS[0].toDateString() === n.toDateString() && late) ? DAYS[1] : DAYS[0];
     })();
 
     function render() {
+      var curNow = shopNow();
       var sc = $('svcChips'); sc.innerHTML = '';
       Object.keys(SVC).forEach(function (k) {
         var isSenior = k === 'senior', dd = sel.day ? sel.day.getDay() : 1;
@@ -341,12 +358,12 @@
       BARBERS.forEach(function (n) { bc.appendChild(chip(n === 'Any' ? 'First free' : n, '', sel.barber === n, function () { sel.barber = n; sel.time = null; render(); })); });
       var dc = $('dayChips'); dc.innerHTML = '';
       DAYS.forEach(function (x, i) {
-        dc.appendChild(chip(i === 0 && x.toDateString() === new Date().toDateString() ? 'Today' : DAYN[x.getDay()], x.getDate(), sel.day && x.getTime() === sel.day.getTime(), function () {
+        dc.appendChild(chip(i === 0 && x.toDateString() === curNow.toDateString() ? 'Today' : DAYN[x.getDay()], x.getDate(), sel.day && x.getTime() === sel.day.getTime(), function () {
           sel.day = x; sel.time = null; if (sel.svc === 'senior' && x.getDay() > 3) sel.svc = null; render();
         }));
       });
       var tc = $('timeChips'); tc.innerHTML = '';
-      var hr = HOURS[sel.day.getDay()], isToday = sel.day.toDateString() === new Date().toDateString(), nowH = new Date().getHours() + new Date().getMinutes() / 60;
+      var hr = HOURS[sel.day.getDay()], isToday = sel.day.toDateString() === curNow.toDateString(), nowH = curNow.getHours() + curNow.getMinutes() / 60;
       var dur = sel.svc ? SVC[sel.svc][2] : 30, slot = 0;
       for (var m = hr[0] * 60; m + dur <= hr[1] * 60; m += 30, slot++) {
         (function (m, slot) {

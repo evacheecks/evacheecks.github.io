@@ -4,14 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Saffron &amp; Salt · Al Barsha, Dubai (demo design)</title>
+<meta name="description" content="Demo one-page website for Saffron &amp; Salt, a fictional charcoal grill restaurant in Al Barsha, Dubai. Design by Eva Cheeks.">
 <meta name="robots" content="noindex">
+<link rel="canonical" href="https://evacheecks.github.io/demo/saffron-and-salt/">
+<meta property="og:title" content="Saffron &amp; Salt · Al Barsha, Dubai (demo design)">
+<meta property="og:description" content="Charcoal grill, mixed platters, and fresh tandoor bread. Sample one-page restaurant website by Eva Cheeks.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://evacheecks.github.io/demo/saffron-and-salt/">
+<meta property="og:image" content="https://evacheecks.github.io/demo/saffron-and-salt/img/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root { --night: #120f0c; --coal: #1c1712; --ink: #f3ebdf; --muted: #a99c89; --saffron: #f2a51a; --rule: #3a3026; }
   * { box-sizing: border-box; }
+  html, body { overflow-x: clip; }
   body { margin: 0; background: var(--night); color: var(--ink); font: 16px/1.6 "Manrope", system-ui, sans-serif; padding-bottom: 72px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
   .note { font-size: 12px; text-align: center; padding: 6px 12px; color: var(--muted); border-bottom: 1px solid var(--rule); }
   .note a { color: var(--ink); }
 
@@ -24,7 +34,7 @@
   .pattern { position: absolute; top: 0; left: 0; right: 0; height: 14px;
     background: repeating-linear-gradient(45deg, var(--saffron) 0 6px, transparent 6px 14px), repeating-linear-gradient(-45deg, var(--saffron) 0 6px, transparent 6px 14px); opacity: .9; }
   .kicker { font-weight: 700; font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--saffron); margin: 0; }
-  h1 { font-family: "Big Shoulders Display", Impact, sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(76px, 25vw, 168px); line-height: .82; margin: 10px 0 0; letter-spacing: -1px; }
+  h1 { font-family: "Big Shoulders Display", Impact, sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(52px, 15vw, 156px); line-height: .84; margin: 10px 0 0; letter-spacing: -1px; overflow-wrap: anywhere; }
   h1 .amp { color: var(--saffron); animation: ember 3.2s ease-in-out infinite; }
   @keyframes ember { 0%,100% { text-shadow: 0 0 14px rgba(242,165,26,.25); } 50% { text-shadow: 0 0 36px rgba(242,165,26,.75); } }
   @keyframes slideup { from { transform: translateY(100%); } to { transform: none; } }
@@ -55,7 +65,7 @@
   .d .pr { font-variant-numeric: tabular-nums; }
 
   .visit { display: grid; gap: 26px; padding: 40px 0; border-top: 1px solid var(--rule); }
-  .visit h4 { font-family: "Big Shoulders Display", sans-serif; text-transform: uppercase; font-size: 26px; margin: 0 0 8px; letter-spacing: 1px; }
+  .visit h3 { font-family: "Big Shoulders Display", sans-serif; text-transform: uppercase; font-size: 26px; margin: 0 0 8px; letter-spacing: 1px; }
   .visit p { margin: 2px 0; }
   .muted { color: var(--muted); font-size: 14px; }
   a { color: var(--saffron); }
@@ -76,7 +86,6 @@
 
   /* Motion: entrance, scroll reveal, hover. Disabled for reduced-motion users. */
   @keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
-  @keyframes kenburns { from { background-size: 112%; } to { background-size: 100%; } }
   @keyframes drift { from { transform: scale(1.12); } to { transform: scale(1); } }
   .js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
   .js .reveal.in { opacity: 1; transform: none; }
@@ -86,8 +95,6 @@
   .zoom { overflow: hidden; }
   .zoom-in { transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
   .zoom:hover .zoom-in, .zoom-in:hover { transform: scale(1.04); }
-  .lift { transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease; }
-  .lift:hover { transform: translateY(-2px); }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
     .js .reveal { opacity: 1; transform: none; }
@@ -171,9 +178,10 @@
   </section>
 
   <section class="visit" id="visit">
-    <div class="reveal"><h4>Hours</h4><p>Sun – Thu &nbsp;12 pm – 12 am</p><p>Fri – Sat &nbsp;12 pm – 1 am</p></div>
-    <div class="reveal" style="--d:.1s"><h4>Find us</h4><p>Al Barsha, Dubai</p><p class="muted">(fictional address)</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=Al+Barsha+Dubai">Directions</a></p></div>
-    <div class="reveal" style="--d:.2s"><h4>Order</h4><p>WhatsApp us your order, or call for collection.</p><p class="muted">On a real page, the buttons below open the restaurant's own WhatsApp and phone.</p></div>
+    <h2 class="sr-only">Visit &amp; Order</h2>
+    <div class="reveal"><h3>Hours</h3><p>Sun – Thu &nbsp;12 pm – 12 am</p><p>Fri – Sat &nbsp;12 pm – 1 am</p></div>
+    <div class="reveal" style="--d:.1s"><h3>Find us</h3><p>Al Barsha, Dubai</p><p class="muted">(fictional address)</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=Al+Barsha+Dubai">Directions</a></p></div>
+    <div class="reveal" style="--d:.2s"><h3>Order</h3><p>WhatsApp us your order, or call for collection.</p><p class="muted">On a real page, the buttons below open the restaurant's own WhatsApp and phone.</p></div>
   </section>
   <footer>Saffron &amp; Salt is a fictional business. Design by <a href="../../">Eva Cheeks</a>.</footer>
 </main>
