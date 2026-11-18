@@ -1,18 +1,34 @@
 {
-  "version": "2026-11-17.v3",
+  "version": "2026-11-18.v4",
   "business": {
     "name": "Eva Cheeks",
     "email": "evacheecks@gmail.com",
     "portfolio_url": "https://evacheecks.github.io/",
     "fiverr_profile": "https://www.fiverr.com/eva_cheeks",
     "fiverr_website_gig": "https://www.fiverr.com/eva_cheeks/design-a-one-page-website-for-your-restaurant-or-cafe",
-    "postal_footer": "Eva Cheeks | Gujranwala, Punjab, Pakistan\nTo opt out of future emails, reply \"no\" or \"unsubscribe\"."
+    "postal_footer": "To opt out or unsubscribe, reply with stop.\n(US commercial emails include sender postal address inserted dynamically at send time; never hardcode personal address in repo or Drive templates.)"
   },
   "schedule": {
     "email_send_runs_pkt": ["09:00", "13:00", "17:00", "21:00"],
     "dm_send_runs_pkt": "hourly :17",
     "followup_min_hours": 95.5,
     "max_followups_per_prospect": 1
+  },
+  "scope": {
+    "established_no_website_effective_date": "2026-11-19",
+    "review_date": "2026-12-02",
+    "in_scope_types": ["cafe", "bakery", "restaurant", "barbershop", "hair_salon", "nail_salon"],
+    "age_gate_for_no_website_cohort": "any_age",
+    "excluded": [
+      "us_food_trucks",
+      "mobile_coffee_carts",
+      "chains_and_franchises",
+      "second_locations",
+      "custom_websites",
+      "priced_pos_or_booking_storefronts"
+    ],
+    "route_priority": ["published_email", "facebook_page_dm", "instagram_dm"],
+    "philippines_b2b_email_law": "cleared_entry_86_ra_10173_npc_circular_2023_04"
   },
   "vertical_demos": {
     "restaurant": "https://evacheecks.github.io/demo/saffron-and-salt/",
@@ -31,8 +47,10 @@
     "disqualify_if_custom_domain_http_200": true,
     "disqualify_if_priced_pos_or_booking_storefront": [
       "toasttab.com",
+      "toast.app",
       "square.site",
       "squareup.com",
+      "squareup.site",
       "kwickmenu.com",
       "hotplate.com",
       "booksy.com",
@@ -41,7 +59,41 @@
       "fresha.com",
       "clover.com",
       "chownow.com",
-      "bentobox.com"
+      "bentobox.com",
+      "setmore.com",
+      "gettimely.com",
+      "timely.com",
+      "styleseat.com",
+      "schedulicity.com",
+      "acuityscheduling.com",
+      "simplybook.me",
+      "simplybook.net",
+      "phorest.com",
+      "boulevard.io",
+      "blvd.app",
+      "mangomint.com",
+      "zenoti.com",
+      "genbook.com",
+      "mysalononline.com",
+      "book.thecut.co",
+      "thecut.co",
+      "bakesy.shop",
+      "resy.com",
+      "opentable.com",
+      "opentable.ca",
+      "godaddysites.com",
+      "sites.google.com",
+      "wixsite.com",
+      "squarespace.com",
+      "shopify.com",
+      "cookie.menu",
+      "getsquire.com",
+      "squire.com",
+      "sumupbookings.com",
+      "kalendir.com",
+      "bookwhen.com",
+      "treatwell.co.uk",
+      "treatwell.gr"
     ],
     "qualify_if_link_in_bio_without_full_menu": [
       "linktr.ee",
@@ -64,25 +116,40 @@
     }
   },
   "templates": {
-    "template_a_cold_email": {
-      "subject": "One-page website for {Business Name}?",
-      "body": "Hi {Name_or_Team},\n\nCongrats on opening {Business Name} in {City} — {Specific_Detail}.\n\nI build clean, mobile-first one-page websites for new {Vertical_Plural} so customers can check your {Menu_or_Service_List}, hours, address, and {Order_or_Booking_Action} on their phone without digging through social posts.\n\nHere is a sample page in a similar style:\n{Demo_URL}\n\nAnd my full portfolio & pricing:\nhttps://evacheecks.github.io/\n\nWould you like me to put together a free mock-up for {Business Name} using your current {Menu_or_Service_List} so you can see how it looks before deciding?\n\nBest,\nEva Cheeks\nevacheecks@gmail.com\nhttps://evacheecks.github.io/\n\n---\nEva Cheeks | Gujranwala, Punjab, Pakistan\nTo opt out of future emails, reply \"no\" or \"unsubscribe\"."
+    "template_a_food_cold_email": {
+      "subject": "menu page for {Business_Lower}?",
+      "body": "Hi {Name_or_there},\n\nCongrats on opening {Business Name} in {Area}! {Specific_Detail}\n\nI noticed you don't have a menu page yet, so people searching for you can't see prices or hours on their phone. I build simple one-page sites for new {cafes / restaurants / bakeries}: menu, hours, map, and an order or WhatsApp button, ready in 3 days.\n\nHere's an example: {Demo_URL}\n\nWant me to mock one up for {Business Name}? No cost to see it.\n\nEva Cheeks\nPortfolio: https://evacheecks.github.io/\nFiverr: https://www.fiverr.com/eva_cheeks/design-a-one-page-website-for-your-restaurant-or-cafe\n\nTo opt out or unsubscribe, reply with stop."
     },
-    "template_b_followup_email": {
-      "subject": "Re: One-page website for {Business Name}?",
-      "body": "Hi {Name_or_Team},\n\nJust following up on my note from {Sent_Day} in case it got buried during service.\n\nIf you'd like to see a free one-page mock-up for {Business Name} (similar to {Demo_URL}), just reply \"yes\" or send over your {Menu_or_Service_List} and hours — no obligation at all.\n\nIf now isn't the right time, no worries and wishing you a great week ahead.\n\nBest,\nEva Cheeks\nevacheecks@gmail.com\nhttps://evacheecks.github.io/\n\n---\nEva Cheeks | Gujranwala, Punjab, Pakistan\nTo opt out of future emails, reply \"no\" or \"unsubscribe\"."
+    "template_a_established_food_cold_email": {
+      "subject": "menu page for {Business_Lower}?",
+      "body": "Hi {Name_or_there},\n\nI came across {Business Name} in {Area} — {Specific_Detail}\n\n{Accurate_Premise_Sentence_e_g_No_own_website_or_Replace_static_PDF_or_Google_Slides_with_one_mobile_menu_page} I build simple one-page sites for independent {cafes / restaurants / bakeries}: menu, hours, map, and an order or WhatsApp button, ready in 3 days.\n\nHere's an example: {Demo_URL}\n\nWant me to mock one up for {Business Name}? No cost to see it.\n\nEva Cheeks\nPortfolio: https://evacheecks.github.io/\nFiverr: https://www.fiverr.com/eva_cheeks/design-a-one-page-website-for-your-restaurant-or-cafe\n\nTo opt out or unsubscribe, reply with stop."
     },
-    "template_c_courtesy_optout_reply": {
+    "template_b_salon_barber_cold_email": {
+      "subject": "service & price page for {Business_Lower}?",
+      "body": "Hi {Name_or_there},\n\nCongrats on opening {Business Name} in {Area}! {Specific_Detail}\n\nRight now new clients have to DM or call you for service prices. I build simple one-page sites for new {salons / barbershops / nail studios}: service & price list, hours, map, and a Book or WhatsApp button, ready in 3 days.\n\nHere's an example: {Demo_URL}\n\nWant me to mock one up for {Business Name}? No cost to see it.\n\nEva Cheeks\nPortfolio: https://evacheecks.github.io/\nFiverr: https://www.fiverr.com/eva_cheeks/design-a-one-page-website-for-your-restaurant-or-cafe\n\nTo opt out or unsubscribe, reply with stop."
+    },
+    "template_b_established_salon_barber_cold_email": {
+      "subject": "service & price page for {Business_Lower}?",
+      "body": "Hi {Name_or_there},\n\nI came across {Business Name} in {Area} — {Specific_Detail}\n\nI noticed {Business Name} doesn't have its own website yet, so new clients searching on their phone have to call or message for service prices. I build simple one-page sites for independent {salons / barbershops / nail studios}: service & price list, hours, map, and a Book or WhatsApp button, ready in 3 days.\n\nHere's an example: {Demo_URL}\n\nWant me to mock one up for {Business Name}? No cost to see it.\n\nEva Cheeks\nPortfolio: https://evacheecks.github.io/\nFiverr: https://www.fiverr.com/eva_cheeks/design-a-one-page-website-for-your-restaurant-or-cafe\n\nTo opt out or unsubscribe, reply with stop."
+    },
+    "template_c_followup_email": {
+      "subject": "Re: {Original_Subject}",
+      "body": "Hi {Name_or_there}, just bumping this in case it got buried. Happy to send a free mock-up of a {menu / service & price} page for {Business Name} (like {Demo_URL}). Want one?\n\nEva Cheeks\nhttps://evacheecks.github.io/\n\nTo opt out or unsubscribe, reply with stop."
+    },
+    "template_d_positive_reply_intake": {
+      "subject": "Re: {Original_Subject}",
+      "body": "Hi {Name_or_there},\n\nGreat! Send me your menu or service price list (a photo or PDF is fine), your opening hours, address, and the booking/WhatsApp/order link you want on the main button, and I'll send a live mock-up preview within 48 hours.\n\nIf you like the preview and want to keep it, fixed pricing is:\n- Starter (up to 15 items): $50\n- Core (16 to 30 items): $75\n- Full (31 to 60 items): $90 to $120\n(Includes one round of changes and full handover.)\nEmerging markets (Region B): $50 up to 30 items, $65 for 31 to 60 items.\n\nEva Cheeks\nhttps://evacheecks.github.io/"
+    },
+    "template_e_courtesy_optout_reply": {
       "label_required": "EVA/Courtesy",
-      "subject": "Re: One-page website for {Business Name}?",
-      "body": "Thanks for letting me know, {Name_or_Team} — I've removed {Business Name} from my list and won't follow up again. Wishing you all the best with the {Business_Type}!\n\nBest,\nEva Cheeks"
+      "subject": "Re: {Original_Subject}",
+      "body": "Thanks for letting me know, {Name_or_Team} — I've taken {Business Name} off my list and won't follow up again. Wishing you all the best with the {Business_Type}!\n\nEva"
     },
-    "template_d_positive_reply_mockup_offer": {
-      "subject": "Re: One-page website for {Business Name}?",
-      "body": "Hi {Name_or_Team},\n\nGreat to hear from you! Send over a photo, PDF, or link to your current {Menu_or_Service_List}, your opening hours, address, and the booking/order/WhatsApp link you want the main button to open.\n\nI'll put together a live preview link for {Business Name} so you can check it on your phone. If you want to go ahead after seeing the preview, pricing is fixed before work starts:\n- Starter (up to 15 items): $50\n- Core (16 to 30 items): $75\n- Full (31 to 60 items): $90 to $120\n(Includes 1 revision round and handover in 2 to 3 days.)\n\nBest,\nEva Cheeks\nevacheecks@gmail.com\nhttps://evacheecks.github.io/"
+    "template_f_dm_new_opening": {
+      "body": "Hi {Business Name}! Congrats on the {Area} opening — {Specific_Detail}. I make simple mobile-first one-page sites for new {cafes / restaurants / salons / barbershops} (prices, hours, map & booking/order button on one fast page). Example: {Demo_URL} — want a free mock-up for {Business Name}? (Eva Cheeks · evacheecks@gmail.com · Reply STOP to opt out)"
     },
-    "dm_instagram_facebook": {
-      "body": "Hi {Business Name}! Congrats on the {City} opening — {Specific_Detail}. I build simple mobile-first one-page sites for new {Vertical_Plural} ({Menu_or_Service_List}, hours, map & {Order_or_Booking_Action} link on one fast page). Sample: {Demo_URL} — would you like a free mock-up for {Business Name}? (Eva Cheeks · Contact: evacheecks@gmail.com · Reply STOP to opt out)"
+    "template_f_dm_established": {
+      "body": "Hi {Business Name}! Came across your shop in {Area} — {Specific_Detail}. I build simple mobile-first one-page sites for independent {cafes / restaurants / salons / barbershops} so customers can check prices, hours, map & booking/order links on one fast page. Example: {Demo_URL} — want a free mock-up for {Business Name}? (Eva Cheeks · evacheecks@gmail.com · Reply STOP to opt out)"
     }
   }
 }

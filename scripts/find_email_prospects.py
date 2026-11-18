@@ -2,21 +2,20 @@
 """
 Email-ready prospect finder & formatter for Eva Cheeks outreach.
 
-Finds or validates newly opened local businesses (cafes, bakeries, restaurants,
-barbershops, hair/nail salons, spas) that publish an email address on their own
-public page/post and do NOT already have a custom priced website or priced POS /
-booking storefront.
+Finds or validates independent local businesses (cafes, bakeries, restaurants,
+barbershops, hair/nail salons) — both newly opened and established no-website shops —
+that publish an email address on their own public page/post and do NOT already have a
+custom priced website or priced POS / booking storefront.
 
-Outputs in Claude's exact plain-text format:
+Outputs in plain-text format:
   NAME | TOWN/COUNTRY | TYPE | ROUTE | SOURCE | DEMO | NOTE
 
 Modes:
   1. --from-json <path>  Validate, deduplicate, and format candidates collected
                          from search/browse tools into Antigravity-Prospects-*.txt.
-  2. --discover          Run live web queries (DuckDuckGo HTML) for newly opened
-                         businesses with "@gmail.com" / "email" in public posts,
-                         fetch candidate pages, extract verified emails, and
-                         apply all qualification gates.
+  2. --discover          Run live DuckDuckGo queries (--mode new|established|both),
+                         fetch candidate pages, decode CF-protected/escaped emails,
+                         extract outbound URLs, and apply all qualification gates.
 """
 import argparse
 import json
@@ -37,6 +36,7 @@ if str(Path(__file__).resolve().parent) not in sys.path:
 from verify_prospects import (  # noqa: E402
     CONFIG_PATH,
     check_domain_resolves,
+    domain_mentioned,
     load_crm_index,
     norm_handle,
     norm_name,
@@ -67,12 +67,36 @@ IGNORED_EMAIL_DOMAINS = {
     "yelp.com",
     "tripadvisor.com",
     "toasttab.com",
+    "toast.app",
     "squareup.com",
     "square.site",
+    "squareup.site",
     "booksy.com",
     "vagaro.com",
     "glossgenius.com",
     "fresha.com",
+    "setmore.com",
+    "gettimely.com",
+    "timely.com",
+    "styleseat.com",
+    "schedulicity.com",
+    "acuityscheduling.com",
+    "simplybook.me",
+    "simplybook.net",
+    "phorest.com",
+    "getsquire.com",
+    "squire.com",
+    "sumup.com",
+    "sumupbookings.com",
+    "bakesy.shop",
+    "mailchimp.com",
+    "constantcontact.com",
+    "cloudflare.com",
+    "linktree.com",
+    "linktr.ee",
+    "beacons.ai",
+    "carrd.co",
+    "bio.site",
 }
 
 IGNORED_EMAIL_LOCAL_PREFIXES = (
@@ -117,6 +141,30 @@ DEFAULT_QUERIES = [
     '"newly opened" ("salon" OR "cafe" OR "bakery") ("email" OR "@gmail.com") -site:yelp.com',
 ]
 
+ESTABLISHED_QUERIES = [
+    'site:linktr.ee ("barbershop" OR "hair salon" OR "nail salon") "@gmail.com"',
+    'site:linktr.ee ("cafe" OR "bakery" OR "restaurant") "@gmail.com" -site:linktree.com',
+    'site:carrd.co ("barber" OR "cafe" OR "restaurant" OR "bakery" OR "nails") "@gmail.com"',
+    'site:beacons.ai ("nails" OR "salon" OR "barbershop" OR "cafe") "@gmail.com"',
+    'site:bio.site ("cafe" OR "bakery" OR "restaurant" OR "salon") "@gmail.com"',
+]
+
+STATIC_ASSET_HOST_PARTS = (
+    "w3.org",
+    "schema.org",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "googletagmanager.com",
+    "google-analytics.com",
+    "onetrust.com",
+    "cookiebot.com",
+    "datagrail.io",
+    "unpkg.com",
+    "cloudflare.com",
+    "ugc.production.linktr.ee",
+    "assets.production.linktr.ee",
+)
+
 
 def short_demo_label(demo_url: str) -> str:
     for slug, label in DEMO_SHORT_LABELS.items():
@@ -142,6 +190,39 @@ def fetch_url(url: str, timeout: int = 12) -> str:
         return raw.decode("utf-8", errors="replace")
 
 
+def decode_cfemails(html: str) -> list[str]:
+    """Decode Cloudflare email protection hex strings (data-cfemail)."""
+    decoded = []
+    for hx in re.findall(r'data-cfemail="([0-9a-fA-F]+)"', html or ""):
+        try:
+            raw = bytes.fromhex(hx)
+            if len(raw) < 2:
+                continue
+            key = raw[0]
+            em = "".join(chr(b ^ key) for b in raw[1:]).strip().lower()
+            if "@" in em:
+                decoded.append(em)
+        except Exception:
+            continue
+    return decoded
+
+
+def normalize_embedded_escapes(text: str) -> str:
+    """Unescape JSON/JS string escapes before regex scanning (e.g. Linktree __NEXT_DATA__)."""
+    if not text:
+        return ""
+    s = (
+        text.replace("\\u002F", "/")
+        .replace("\\u002f", "/")
+        .replace("\\/", "/")
+        .replace("\\u0040", "@")
+        .replace("\\n", " ")
+        .replace("\\r", " ")
+        .replace("\\t", " ")
+    )
+    return unescape(s)
+
+
 def strip_html(html: str) -> str:
     text = re.sub(r"<script[^>]*>.*?</script>", " ", html, flags=re.S | re.I)
     text = re.sub(r"<style[^>]*>.*?</style>", " ", text, flags=re.S | re.I)
@@ -150,11 +231,42 @@ def strip_html(html: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
-def extract_valid_emails(text: str) -> list[str]:
+def extract_outbound_urls(html: str, source_url: str = "") -> list[str]:
+    """Extract outbound http(s) URLs from anchors and hydrated JSON payloads (ignoring static assets)."""
+    if not html:
+        return []
+    norm = normalize_embedded_escapes(html)
+    src_host = urllib.parse.urlparse(source_url).netloc.lower() if source_url else ""
+    raw_urls = []
+    raw_urls.extend(re.findall(r'href=["\'](https?://[^"\'\s<>]+)["\']', norm, flags=re.I))
+    raw_urls.extend(re.findall(r'"url"\s*:\s*"(https?://[^"\s<>]+)"', norm, flags=re.I))
+
+    seen = set()
+    outbound = []
+    for u in raw_urls:
+        u = u.rstrip(").,;")
+        parsed = urllib.parse.urlparse(u)
+        host = parsed.netloc.lower()
+        path_l = parsed.path.lower()
+        if not host or (src_host and host == src_host):
+            continue
+        if any(part in host for part in STATIC_ASSET_HOST_PARTS):
+            continue
+        if path_l.endswith((".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp", ".css", ".js", ".woff2", ".ico")):
+            continue
+        if u not in seen:
+            seen.add(u)
+            outbound.append(u)
+    return outbound
+
+
+def extract_valid_emails(text: str, extra_emails: list[str] | None = None) -> list[str]:
     found = []
     seen = set()
-    for m in EMAIL_RE.findall(text or ""):
-        em = m.lower().rstrip(".,;:)")
+    norm = normalize_embedded_escapes(text or "").replace("mailto:", " ")
+    candidates = list(EMAIL_RE.findall(norm)) + list(extra_emails or [])
+    for m in candidates:
+        em = m.strip().lower().rstrip(".,;:)")
         if em in seen:
             continue
         if any(em.startswith(p) for p in IGNORED_EMAIL_LOCAL_PREFIXES):
@@ -209,6 +321,7 @@ def evaluate_candidate(cand: dict, config: dict, crm_idx: tuple) -> dict:
     source_label = (cand.get("source_label") or "own page/post").strip()
     note = (cand.get("note") or "").strip()
     page_text = (cand.get("page_text") or "").lower()
+    outbound_urls = [str(u).strip().lower() for u in (cand.get("outbound_urls") or []) if u]
 
     reasons = []
     if not name:
@@ -238,9 +351,9 @@ def evaluate_candidate(cand: dict, config: dict, crm_idx: tuple) -> dict:
         elif not check_domain_resolves(dom):
             reasons.append(f"EMAIL_DOMAIN_DNS_FAIL ({dom})")
 
-    combined_text = f"{page_text} {source_url.lower()} {note.lower()}"
+    combined_text = f"{page_text} {source_url.lower()} {note.lower()} {' '.join(outbound_urls)}"
     for d in disq_domains:
-        if d in combined_text:
+        if domain_mentioned(d, combined_text):
             reasons.append(f"PRICED_POS_OR_BOOKING ({d})")
 
     demo_url = pick_demo_url(f"{name} {btype} {note}", config)
@@ -280,9 +393,11 @@ def discover_candidates(queries: list[str], max_per_query: int) -> list[dict]:
             except Exception:
                 continue
             text = strip_html(html)
-            emails = extract_valid_emails(text)
+            cf_emails = decode_cfemails(html)
+            emails = extract_valid_emails(f"{text}\n{normalize_embedded_escapes(html)}", extra_emails=cf_emails)
             if not emails:
                 continue
+            outbound_urls = extract_outbound_urls(html, source_url=url)
             title = re.split(r"\s+[|\-–—]\s+", hit["title"])[0].strip()
             candidates.append(
                 {
@@ -291,9 +406,10 @@ def discover_candidates(queries: list[str], max_per_query: int) -> list[dict]:
                     "type": "local business",
                     "email": emails[0],
                     "source_url": url,
-                    "source_label": "published on fetched page",
-                    "note": f"discovered via query; verify opening date & menu status",
+                    "source_label": "CF-decoded/published on fetched page" if cf_emails and emails[0] in cf_emails else "published on fetched page",
+                    "note": "discovered via query; verify brick-and-mortar shop, active operation & own-site/POS links",
                     "page_text": text[:4000],
+                    "outbound_urls": outbound_urls,
                 }
             )
             time.sleep(0.4)
@@ -337,7 +453,13 @@ def main():
     ap.add_argument(
         "--discover",
         action="store_true",
-        help="Run live DuckDuckGo discovery queries for newly opened businesses with published emails",
+        help="Run live DuckDuckGo discovery queries for businesses with published emails",
+    )
+    ap.add_argument(
+        "--mode",
+        choices=["new", "established", "both"],
+        default="both",
+        help="Discovery query mode: newly opened ('new'), established no-website link-in-bio ('established'), or 'both' (default)",
     )
     ap.add_argument(
         "--query",
@@ -370,7 +492,14 @@ def main():
         candidates.extend(raw)
 
     if args.discover:
-        queries = args.queries or DEFAULT_QUERIES
+        if args.queries:
+            queries = args.queries
+        elif args.mode == "new":
+            queries = DEFAULT_QUERIES
+        elif args.mode == "established":
+            queries = ESTABLISHED_QUERIES
+        else:
+            queries = ESTABLISHED_QUERIES + DEFAULT_QUERIES
         candidates.extend(discover_candidates(queries, args.max_per_query))
 
     evaluated = [evaluate_candidate(c, config, crm_idx) for c in candidates]

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
 Deterministic prospect verification & deduplication CLI for Eva Cheeks outreach.
-Reads a Claude-Prospects-YYYY-MM-DD-PLAIN.txt file (or JSON/CSV), cross-checks each
+Reads a Claude/Antigravity-Prospects-YYYY-MM-DD-PLAIN.txt file (or JSON/CSV), cross-checks each
 prospect against:
   1. Historical CRM records (normalized business name, email, IG handle, FB URL)
   2. Third-party priced POS / booking storefront gate (Toast, Square, KwickPOS/kwickmenu,
-     Hotplate, Booksy, Vagaro, GlossGenius, Fresha, Clover, ChowNow)
+     Hotplate, Booksy, Vagaro, GlossGenius, Fresha, Clover, ChowNow, Setmore, Timely,
+     StyleSeat, Schedulicity, Acuity, SimplyBook, Phorest, Squire, SumUp Bookings)
   3. Email syntax & domain DNS resolution
   4. Vertical-to-demo URL mapping from outreach-config.json
 Outputs a structured Markdown verification report (Antigravity-Checks-YYYY-MM-DD.md).
@@ -52,10 +53,10 @@ def pick_demo_url(vertical_text: str, config: dict) -> str:
         return demos.get("salon", "https://evacheecks.github.io/demo/linden-and-stone/")
     if any(k in vt for k in ("barber", "fade", "shave", "grooming")):
         return demos.get("barber", "https://evacheecks.github.io/demo/northgate-barber-room/")
+    if re.search(r"\b(tea|brunch|breakfast|kettle|pub)\b", vt):
+        return demos.get("brunch", "https://evacheecks.github.io/demo/the-copper-kettle/")
     if any(k in vt for k in ("grill", "bbq", "kebab", "steak", "dinner", "bistro", "kitchen", "restaurant")):
         return demos.get("restaurant", "https://evacheecks.github.io/demo/saffron-and-salt/")
-    if any(k in vt for k in ("tea", "brunch", "kettle", "pub")):
-        return demos.get("brunch", "https://evacheecks.github.io/demo/the-copper-kettle/")
     return demos.get("cafe", "https://evacheecks.github.io/demo/harbor-street-coffee/")
 
 
@@ -80,22 +81,51 @@ def load_crm_index(crm_csv_path: Path):
     return by_name, by_email, by_handle
 
 
+POS_OR_BOOKING_URL_RE = re.compile(
+    r"https?://[^\s)\]>\"']+|(?:[a-z0-9-]+\.)+(?:kwickmenu|toasttab|toast|square|squareup|booksy|vagaro|glossgenius|fresha|hotplate|setmore|gettimely|timely|styleseat|schedulicity|acuityscheduling|simplybook|phorest|mysalononline|thecut|bakesy|getsquire|squire|sumupbookings|kalendir|bookwhen|treatwell|cookie)\.[a-z]{2,}[^\s)\]>\"']*",
+    re.I,
+)
+
+POS_OR_BOOKING_TEXT_RE = re.compile(
+    r"booking link in bio|online booking|kwickpos|kwickmenu|toasttab|toast\.app|squareup|square\.site|hotplate|booksy|vagaro|glossgenius|fresha|setmore|timely|gettimely|styleseat|schedulicity|acuityscheduling|simplybook|phorest|mysalononline|thecut|bakesy|getsquire|squire|sumupbookings|kalendir|bookwhen|treatwell|cookie\.menu",
+    re.I,
+)
+
+
+def domain_mentioned(domain: str, haystack: str) -> bool:
+    pat = rf"(?<![a-z0-9-]){re.escape(domain.lower())}(?![a-z0-9])"
+    return bool(re.search(pat, haystack))
+
+
 def parse_plain_prospects(text: str):
-    """Parse numbered or pipe-delimited prospect rows from Claude-Prospects-YYYY-MM-DD-PLAIN.txt."""
+    """Parse numbered or pipe-delimited prospect rows from Claude/Antigravity PLAIN.txt files."""
     prospects = []
-    # Check for pipe-delimited lines first
+    # Check for pipe-delimited lines first, ignoring legend headers and non-active audit/held sections
     idx = 0
+    in_non_active_section = False
     for line in text.splitlines():
         line_s = line.strip()
-        if "|" in line_s and not line_s.startswith(("#", "|")):
+        if line_s.startswith("==") and line_s.endswith("=="):
+            upper = line_s.upper()
+            in_non_active_section = any(
+                k in upper for k in ("FILTERED OUT", "HELD", "STRUCK", "SKIPPED", "DO NOT SEND", "AUDIT")
+            )
+            continue
+        if in_non_active_section or line_s.startswith(("#", "|", "-", "*")):
+            continue
+        if "TOWN/COUNTRY" in line_s and "TYPE" in line_s:
+            continue
+        if "|" in line_s:
             parts = [p.strip() for p in line_s.split("|")]
             if len(parts) >= 3:
+                if parts[0].upper() == "NAME" or parts[1].upper() == "TOWN/COUNTRY":
+                    continue
                 idx += 1
                 name = parts[0]
                 subtitle = parts[1]
                 emails = re.findall(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", line_s)
                 igs = re.findall(r"@([A-Za-z0-9._]{3,30})", line_s)
-                urls = re.findall(r"https?://[^\s)\]>\"']+|(?:[a-z0-9-]+\.)+(?:kwickmenu|toasttab|square|booksy|vagaro|glossgenius|fresha|hotplate)\.[a-z]{2,}[^\s)\]>\"']*", line_s, re.I)
+                urls = POS_OR_BOOKING_URL_RE.findall(line_s)
                 prospects.append({
                     "index": idx,
                     "name": name,
@@ -119,7 +149,7 @@ def parse_plain_prospects(text: str):
             continue
         emails = re.findall(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", body)
         igs = re.findall(r"@([A-Za-z0-9._]{3,30})", body)
-        urls = re.findall(r"https?://[^\s)\]>\"']+|(?:[a-z0-9-]+\.)+(?:kwickmenu|toasttab|square|booksy|vagaro|glossgenius|fresha|hotplate)\.[a-z]{2,}[^\s)\]>\"']*", body, re.I)
+        urls = POS_OR_BOOKING_URL_RE.findall(body)
         prospects.append({
             "index": int(num),
             "name": name,
@@ -165,12 +195,12 @@ def evaluate_prospect(p: dict, config: dict, crm_idx: tuple) -> dict:
     # 2. POS / Booking storefront check
     raw_lower = p["raw"].lower()
     for d in disq_domains:
-        if d in raw_lower:
+        if domain_mentioned(d, raw_lower):
             flags.append(f"PRICED_POS_OR_BOOKING_STOREFRONT: mentions `{d}` (verify if full priced menu/services are already live)")
             if status == "QUALIFIED":
                 status = "REVIEW_POS_OR_BOOKING_LINK"
 
-    if re.search(r"booking link in bio|online booking|kwickpos|kwickmenu|booksy|vagaro|glossgenius|fresha", raw_lower):
+    if POS_OR_BOOKING_TEXT_RE.search(raw_lower):
         if status == "QUALIFIED":
             status = "REVIEW_POS_OR_BOOKING_LINK"
         flags.append("BIO_BOOKING_OR_POS_DETECTED: prospect already has an online booking or POS menu link")
