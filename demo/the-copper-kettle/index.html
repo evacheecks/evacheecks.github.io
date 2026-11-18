@@ -47,11 +47,10 @@
   .sticky { transition: transform .35s ease; } .sticky:hover { transform: rotate(-1deg) scale(1.04); }
   .welcome p { margin: 0 0 14px; font-size: 17px; }
   .hand { font: 700 26px/1.2 "Caveat", cursive; color: var(--copper); }
-  .btns a { display: inline-block; margin: 6px 10px 0 0; padding: 10px 18px; text-decoration: none; font-weight: 600; border: 1.5px solid var(--ink); color: var(--ink); }
-  .btns a.solid { background: var(--leaf); border-color: var(--leaf); color: #f3ead9; }
+  .btns a { display: inline-block; margin: 6px 10px 0 0; padding: 10px 18px; text-decoration: none; font-weight: 600; background: #e5d6be; border: 0; color: var(--ink); }
+  .btns a.solid { background: var(--leaf); color: #f3ead9; }
 
-  .card { background: #fffaf0; border: 1px solid var(--rule); padding: 34px 24px; position: relative; margin-bottom: 40px; }
-  .card::before { content: ""; position: absolute; inset: 7px; border: 1px solid var(--rule); pointer-events: none; }
+  .card { background: #fffaf0; border: 0; border-radius: 6px; box-shadow: 0 8px 28px rgba(59,42,31,.08); padding: 34px 24px; position: relative; margin-bottom: 40px; }
   .card h2 { font-family: "Cormorant Garamond", serif; text-align: center; font-size: 44px; margin: 0; font-weight: 700; }
   .orn { text-align: center; color: var(--copper); letter-spacing: 10px; margin: 2px 0 18px; }
   .cols { display: grid; gap: 0 46px; }
@@ -67,7 +66,7 @@
   .visit { display: grid; gap: 24px; padding-bottom: 30px; }
   .visit h3 { font-family: "Cormorant Garamond", serif; font-style: normal; font-weight: 700; color: var(--ink); font-size: 28px; margin: 0 0 6px; }
   .visit p { margin: 2px 0; }
-  .visit .ph2 { min-height: 220px; background: #cdb89a url("img/cake.jpg") center/cover no-repeat; border: 8px solid #fff; box-shadow: 0 8px 18px rgba(59,42,31,.15); transform: rotate(1.4deg); }
+  .visit .ph2 { min-height: 220px; margin: 8px; background: #cdb89a url("img/cake.jpg") center/cover no-repeat; box-shadow: 0 0 0 8px #fff, 0 10px 22px rgba(59,42,31,.15); transform: rotate(1.4deg); }
   a { color: var(--copper); }
   footer { text-align: center; font-size: 13px; color: var(--muted); padding: 20px 0 40px; border-top: 1px solid var(--rule); }
   @media (min-width: 760px) {
