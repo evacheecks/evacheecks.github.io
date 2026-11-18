@@ -8,6 +8,14 @@
     "fiverr_website_gig": "https://www.fiverr.com/eva_cheeks/design-a-one-page-website-for-your-restaurant-or-cafe",
     "postal_footer": "To opt out or unsubscribe, reply with stop.\n(US commercial emails include sender postal address inserted dynamically at send time; never hardcode personal address in repo or Drive templates.)"
   },
+  "design_rules": {
+    "updated": "2026-11-18",
+    "no_element_card_pill_chip_outlines": true,
+    "no_headline_biscuit_pills": true,
+    "surface_separation": "Use tonal fill contrast, generous padding, soft ambient shadows, or clean single horizontal section dividers — never perimeter borders around every card, pill, chip, or badge.",
+    "hardware_mockup": "generic_dark_graphite_android_punch_hole_only",
+    "reference_doc": "DESIGN-RULES.md"
+  },
   "schedule": {
     "email_send_runs_pkt": ["09:00", "13:00", "17:00", "21:00"],
     "dm_send_runs_pkt": "hourly :17",

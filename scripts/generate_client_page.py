@@ -95,7 +95,7 @@ def render_page(spec: dict) -> str:
   .row i {{ display: block; font-style: normal; font-size: 0.88rem; color: var(--muted); }}
   .pr {{ font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }}
   .visit {{ display: grid; gap: 20px; padding: 36px 0; }}
-  .card {{ background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }}
+  .card {{ background: var(--card); border: 0; border-radius: 12px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }}
   .card h3 {{ margin: 0 0 8px; color: var(--accent); font-size: 1rem; }}
   .card p {{ margin: 4px 0; }}
   footer {{ border-top: 1px solid var(--line); padding: 20px 0 40px; font-size: 0.85rem; color: var(--muted); }}

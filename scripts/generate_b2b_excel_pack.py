@@ -734,14 +734,10 @@ def render_fiverr_gallery_images():
   }}
   .badge {{
     display: inline-block;
-    background: rgba(255,255,255,0.08);
-    border: 1.5px solid {accent_hex};
     color: {accent_hex};
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 800;
-    letter-spacing: 1.5px;
-    padding: 8px 18px;
-    border-radius: 999px;
+    letter-spacing: 2px;
     text-transform: uppercase;
   }}
   .brand {{
@@ -774,12 +770,11 @@ def render_fiverr_gallery_images():
     margin: 24px 0;
   }}
   .card {{
-    background: rgba(15, 23, 42, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-top: 5px solid {accent_hex};
-    border-radius: 16px;
+    background: rgba(15, 23, 42, 0.84);
+    border: 0;
+    border-radius: 14px;
     padding: 28px 26px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
   }}
   .card-title {{
     font-size: 22px;
@@ -793,10 +788,9 @@ def render_fiverr_gallery_images():
     color: #E2E8F0;
   }}
   .footer {{
-    background: rgba(255, 255, 255, 0.07);
-    border-left: 6px solid {accent_hex};
+    background: rgba(255, 255, 255, 0.08);
     padding: 18px 26px;
-    border-radius: 10px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: space-between;
