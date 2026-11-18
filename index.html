@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 <header class="topbar">
   <div class="brand">Eva Cheeks</div>
   <a href="#contact">Contact</a>
@@ -32,7 +33,7 @@
   </section>
 
   <div class="wrap">
-    <section id="what-you-get">
+    <section id="what-you-get" class="reveal">
       <h2>What you get</h2>
       <p class="lead">One page, done properly, with nothing extra to manage.</p>
       <div class="card">
@@ -47,7 +48,7 @@
       </div>
     </section>
 
-    <section id="what-you-do-not-get">
+    <section id="what-you-do-not-get" class="reveal">
       <h2>What you do not get</h2>
       <p class="lead">This keeps the price fixed and the page simple.</p>
       <div class="card">
@@ -63,49 +64,49 @@
     </section>
 
     <section id="samples">
-      <h2>Sample pages</h2>
-      <p class="lead">Open a full demo page on your phone. These are fictional businesses, not real clients.</p>
-      <div class="sample-grid">
+      <h2 class="reveal">Sample pages</h2>
+      <p class="lead reveal">Open a full demo page on your phone. These are fictional businesses, not real clients.</p>
+      <div class="sample-grid" data-stagger=".sample">
         <article class="sample">
           <span class="sample-label">DEMO - NOT A REAL CLIENT</span>
           <h3>Harbor Street Coffee</h3>
           <p class="small">Coffee and bakery, Brooklyn. Short menu, 12 items.</p>
-          <a class="btn btn-small" href="demo/harbor-street-coffee/">Open demo</a>
+          <a class="btn btn-small" href="demo/harbor-street-coffee/">Open demo →</a>
         </article>
 
         <article class="sample">
           <span class="sample-label">DEMO - NOT A REAL CLIENT</span>
           <h3>The Copper Kettle</h3>
           <p class="small">Brunch cafe, Manchester. Menu in sections, 14 items.</p>
-          <a class="btn btn-small" href="demo/the-copper-kettle/">Open demo</a>
+          <a class="btn btn-small" href="demo/the-copper-kettle/">Open demo →</a>
         </article>
 
         <article class="sample">
           <span class="sample-label">DEMO - NOT A REAL CLIENT</span>
           <h3>Saffron &amp; Salt</h3>
           <p class="small">Grill restaurant, Dubai. Larger menu, 20 items.</p>
-          <a class="btn btn-small" href="demo/saffron-and-salt/">Open demo</a>
+          <a class="btn btn-small" href="demo/saffron-and-salt/">Open demo →</a>
         </article>
 
         <article class="sample">
           <span class="sample-label">DEMO - NOT A REAL CLIENT</span>
           <h3>Northgate Barber Room</h3>
           <p class="small">Barbershop, Leeds. Price list, barbers and a sticky booking button.</p>
-          <a class="btn btn-small" href="demo/northgate-barber-room/">Open demo</a>
+          <a class="btn btn-small" href="demo/northgate-barber-room/">Open demo →</a>
         </article>
 
         <article class="sample">
           <span class="sample-label">DEMO - NOT A REAL CLIENT</span>
           <h3>Linden &amp; Stone Salon</h3>
           <p class="small">Hair, colour &amp; nail studio, Portland. Service menu, stylists and booking picker.</p>
-          <a class="btn btn-small" href="demo/linden-and-stone/">Open demo</a>
+          <a class="btn btn-small" href="demo/linden-and-stone/">Open demo →</a>
         </article>
       </div>
     </section>
 
     <section id="process">
-      <h2>How it works</h2>
-      <ol class="steps">
+      <h2 class="reveal">How it works</h2>
+      <ol class="steps" data-stagger="li">
         <li><strong>You send your menu or service list and details.</strong> A photo, PDF, or paper list is fine.</li>
         <li><strong>Fixed price is agreed before work starts.</strong> No work starts until the price and scope are agreed in writing.</li>
         <li><strong>Draft page is shared for 1 revision round.</strong> You check the items, prices, hours, and location.</li>
@@ -113,7 +114,7 @@
       </ol>
     </section>
 
-    <section id="price">
+    <section id="price" class="reveal">
       <h2>Price</h2>
       <div class="price-box">
         <p class="small" style="margin:0;">Core offer</p>
@@ -129,7 +130,7 @@
       </div>
     </section>
 
-    <section id="proof">
+    <section id="proof" class="reveal">
       <h2>Quality &amp; Marketplace Links</h2>
       <p class="lead">Inspect the live demo pages above on your phone, or order through Fiverr if you prefer marketplace escrow.</p>
       <div class="card">
@@ -143,7 +144,7 @@
       </div>
     </section>
 
-    <section id="contact">
+    <section id="contact" class="reveal">
       <h2>Request a free mock-up or get in touch</h2>
       <p class="lead">Tell us your business name and city to see a free draft preview, or email directly.</p>
       <div class="card">
@@ -179,7 +180,7 @@
       </div>
     </section>
 
-    <section class="faq" id="faq">
+    <section class="faq reveal" id="faq">
       <h2>Questions</h2>
       <details>
         <summary>Do I need a domain?</summary>
@@ -206,7 +207,34 @@
   </div>
 </main>
 <script>
+  document.documentElement.classList.add('js');
   (function () {
+    var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }) : null;
+    function watch(el) { if (io) io.observe(el); else el.classList.add('in'); }
+    document.querySelectorAll('.reveal').forEach(watch);
+    document.querySelectorAll('[data-stagger]').forEach(function (g) {
+      Array.prototype.forEach.call(g.querySelectorAll(g.getAttribute('data-stagger')), function (el, i) {
+        el.classList.add('reveal'); el.style.setProperty('--d', (i * 0.065) + 's'); watch(el);
+      });
+    });
+
+    var prog = document.getElementById('scrollProgress');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prog && !reduce) {
+      var ticking = false;
+      function updateProg() {
+        ticking = false;
+        var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        prog.style.transform = 'scaleX(' + Math.min(1, Math.max(0, window.scrollY / max)) + ')';
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(updateProg); }
+      }, { passive: true });
+      updateProg();
+    }
+
     var form = document.getElementById('mockupForm');
     if (!form) return;
     form.addEventListener('submit', function (e) {

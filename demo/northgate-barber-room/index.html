@@ -17,10 +17,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Archivo+Narrow:wght@500;700&display=swap" rel="stylesheet">
 <style>
-  :root { --ink: #121212; --char: #1b1d1f; --card: #232629; --bone: #efe9df; --brass: #c79a4b; --brass2: #e0b764; --muted: #9c978e; --line: #33363a; --ok: #6fbf73; }
+  :root { --ink: #121212; --char: #1b1d1f; --card: #232629; --bone: #efe9df; --brass: #c79a4b; --brass2: #e0b764; --muted: #9c978e; --line: #33363a; --ok: #6fbf73; --ease-expo: cubic-bezier(.16, 1, .3, 1); --ease-spring: cubic-bezier(.22, 1.32, .36, 1); }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--char); color: var(--bone); font: 16px/1.55 "Archivo", system-ui, sans-serif; padding-bottom: 64px; }
+  body { margin: 0; background: var(--char); color: var(--bone); font: 16px/1.55 "Archivo", system-ui, sans-serif; padding-bottom: 64px; overflow-x: hidden; }
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
   a { color: var(--brass); }
   button { font: inherit; color: inherit; }
@@ -30,33 +30,47 @@
 
   /* Hero: photo if present, typographic either way */
   .hero { position: relative; overflow: hidden; background: #151617; }
-  .hero-bg { position: absolute; inset: 0; background: url("img/hero.jpg") center/cover no-repeat; opacity: .55; animation: drift 3s cubic-bezier(.2,.7,.2,1) both; }
-  .hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(18,18,18,.2) 0%, rgba(18,18,18,.85) 75%, var(--char) 100%); }
+  .hero-bg { position: absolute; inset: -8% 0; background: url("img/hero.jpg") center/cover no-repeat; opacity: .56; will-change: transform; animation: drift 3.4s var(--ease-expo) both; }
+  .hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(18,18,18,.22) 0%, rgba(18,18,18,.84) 76%, var(--char) 100%); }
+  .hero::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at 72% 28%, rgba(199,154,75,.16), transparent 62%); opacity: .85; animation: brassGlow 8s ease-in-out infinite alternate; }
+  @keyframes brassGlow { from { opacity: .55; transform: scale(1); } to { opacity: 1; transform: scale(1.06); } }
   .hero .in { position: relative; z-index: 2; max-width: 1040px; margin: 0 auto; padding: 64px 22px 0; }
-  .status { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; padding: 7px 12px; border: 0; background: rgba(35,38,41,.82); border-radius: 99px; margin-bottom: 22px; }
+  .status { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; padding: 7px 12px; border: 0; background: rgba(35,38,41,.84); backdrop-filter: blur(8px); border-radius: 99px; margin-bottom: 22px; }
   .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
   .dot.open { background: var(--ok); box-shadow: 0 0 0 0 rgba(111,191,115,.6); animation: pulse 2s infinite; }
   @keyframes pulse { 70% { box-shadow: 0 0 0 9px rgba(111,191,115,0); } 100% { box-shadow: 0 0 0 0 rgba(111,191,115,0); } }
   .tag { font-size: 13px; color: var(--brass); margin: 0 0 14px; letter-spacing: 4px; }
   h1 { font: 800 clamp(46px, 13vw, 140px)/.86 "Archivo", sans-serif; letter-spacing: -3px; margin: 0; text-transform: uppercase; }
-  h1 span { display: block; color: transparent; -webkit-text-stroke: 1.5px var(--bone); }
+  .mask-line { display: block; overflow: hidden; padding-bottom: .04em; }
+  .mask-line > span { display: block; animation: clipSlide .95s var(--ease-expo) both; animation-delay: var(--md, .12s); }
+  .mask-line.outline > span { color: transparent; -webkit-text-stroke: 1.5px var(--bone); }
+  @keyframes clipSlide { from { opacity: 0; transform: translateY(108%); } to { opacity: 1; transform: translateY(0); } }
   .sub { max-width: 34ch; font-size: 18px; color: #d6d0c5; margin: 22px 0 28px; }
   .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
-  .btn { display: inline-block; padding: 15px 22px; font-size: 14px; text-decoration: none; border: 0; color: var(--bone); background: rgba(239,233,223,.14); cursor: pointer; transition: background .2s, color .2s, transform .2s; }
-  .btn.solid { background: var(--brass); color: var(--ink); }
-  .btn:hover { transform: translateY(-2px); }
+  .btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 15px 22px; font-size: 14px; text-decoration: none; border: 0; color: var(--bone); background: rgba(239,233,223,.14); cursor: pointer; transition: background .25s var(--ease-expo), color .25s, transform .3s var(--ease-spring), box-shadow .3s var(--ease-expo); }
+  .btn.solid { background: var(--brass); color: var(--ink); box-shadow: 0 8px 24px rgba(199,154,75,.24); }
+  .btn.solid::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 22%, rgba(255,255,255,.42) 50%, transparent 78%); transform: translateX(-140%); transition: transform .75s var(--ease-expo); pointer-events: none; }
+  .btn.solid:hover:not(:disabled)::after { transform: translateX(140%); }
+  .btn:hover:not(:disabled) { transform: translateY(-2px); background: rgba(239,233,223,.22); }
+  .btn.solid:hover:not(:disabled) { background: var(--brass2); box-shadow: 0 12px 30px rgba(199,154,75,.34); }
+  .btn:active:not(:disabled) { transform: translateY(0) scale(.97); }
   .facts { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); margin: 0 -22px; }
-  .facts div { padding: 16px 22px; border-right: 1px solid var(--line); }
+  .facts div { padding: 16px 22px; border-right: 1px solid var(--line); transition: background .25s var(--ease-expo); }
+  .facts div:hover { background: rgba(239,233,223,.03); }
   .facts div:last-child { border-right: 0; }
-  .facts b { display: block; font: 800 24px/1 "Archivo", sans-serif; }
+  .facts b { display: block; font: 800 24px/1 "Archivo", sans-serif; font-variant-numeric: tabular-nums; }
   .facts span { font-size: 12px; color: var(--muted); }
   .stripe { position: relative; z-index: 2; height: 30px; background: repeating-linear-gradient(-45deg, #b8322f 0 16px, var(--bone) 16px 32px, #2a4f8a 32px 48px, var(--bone) 48px 64px); background-size: 181px 30px; animation: pole 6s linear infinite; }
   @keyframes pole { to { background-position: 181px 0; } }
 
-  nav { position: sticky; top: 0; z-index: 4; background: rgba(27,29,31,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-  nav .in { max-width: 1040px; margin: 0 auto; display: flex; gap: 24px; padding: 14px 22px; font-size: 13px; overflow-x: auto; white-space: nowrap; }
-  nav a { color: var(--bone); text-decoration: none; }
-  nav a:hover { color: var(--brass); }
+  nav { position: sticky; top: 0; z-index: 4; background: rgba(27,29,31,.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .nav-progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--brass); transform-origin: left center; transform: scaleX(0); pointer-events: none; will-change: transform; }
+  nav .in { max-width: 1040px; margin: 0 auto; display: flex; gap: 24px; padding: 14px 22px; font-size: 13px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+  nav .in::-webkit-scrollbar { display: none; }
+  nav a { position: relative; color: var(--bone); text-decoration: none; padding-bottom: 2px; transition: color .2s var(--ease-expo); }
+  nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--brass); transform: scaleX(0); transform-origin: left center; transition: transform .3s var(--ease-expo); }
+  nav a:hover, nav a.active { color: var(--brass); }
+  nav a.active::after { transform: scaleX(1); }
 
   .wrap { max-width: 1040px; margin: 0 auto; padding: 0 22px; }
   section { scroll-margin-top: 60px; }
@@ -67,35 +81,47 @@
   .gallery { display: none; grid-template-columns: 1.3fr 1fr; grid-auto-rows: 150px; gap: 8px; padding-top: 56px; }
   .gallery.has { display: grid; }
   .gallery figure { margin: 0; overflow: hidden; background: var(--card); }
-  .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+  .gallery figure.curtain { clip-path: inset(12% 0 0 0); opacity: 0; transform: translateY(18px); transition: clip-path 1s var(--ease-expo), opacity .8s var(--ease-expo), transform 1s var(--ease-expo); transition-delay: var(--d, 0s); }
+  .gallery figure.curtain.in { clip-path: inset(0 0 0 0); opacity: 1; transform: none; }
+  .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.06); transition: transform 1.2s var(--ease-expo); }
+  .gallery figure.curtain.in img { transform: scale(1); }
   .gallery figure:hover img { transform: scale(1.05); }
   .gallery .tall { grid-row: span 2; }
 
   /* Price list */
   #prices { padding: 64px 0 20px; }
-  .cat { border-top: 2px solid var(--bone); padding: 18px 0 8px; }
+  .cat { position: relative; border-top: 2px solid var(--bone); padding: 18px 0 8px; }
+  .cat::before { content: ""; position: absolute; left: 0; top: -2px; width: 72px; height: 2px; background: var(--brass); transform: scaleX(0); transform-origin: left center; transition: transform .8s var(--ease-expo) .15s; }
+  .cat.in::before { transform: scaleX(1); }
   .cat h3 { font-size: 13px; color: var(--brass); margin: 0 0 8px; letter-spacing: 4px; }
-  .svc { width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; padding: 14px 4px; cursor: pointer; transition: padding-left .25s, background .25s; }
-  .svc:hover { padding-left: 10px; background: rgba(255,255,255,.03); }
-  .svc b { font-weight: 600; font-size: 17px; }
-  .svc .p { font: 700 19px/1.2 "Archivo Narrow", sans-serif; font-variant-numeric: tabular-nums; }
+  .svc { position: relative; width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; padding: 14px 8px 14px 4px; cursor: pointer; transition: padding-left .3s var(--ease-expo), background .28s var(--ease-expo); }
+  .svc::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 3px; background: var(--brass); transform: scaleY(0); transform-origin: center; transition: transform .28s var(--ease-spring); }
+  .svc:hover, .svc:focus-visible { padding-left: 14px; background: rgba(239,233,223,.04); outline: none; }
+  .svc:hover::before, .svc:focus-visible::before { transform: scaleY(1); }
+  .svc b { font-weight: 600; font-size: 17px; transition: color .2s; }
+  .svc:hover b { color: #fff; }
+  .svc .p { font: 700 19px/1.2 "Archivo Narrow", sans-serif; font-variant-numeric: tabular-nums; transition: color .22s, transform .28s var(--ease-spring); }
+  .svc:hover .p { color: var(--brass2); transform: translateX(-2px); }
   .svc i { font-style: normal; font-size: 14px; color: var(--muted); }
-  .svc .go { font-size: 12px; color: var(--brass); opacity: 0; transition: opacity .2s; text-align: right; }
-  .svc:hover .go, .svc:focus-visible .go { opacity: 1; }
+  .svc .go { font-size: 12px; color: var(--brass); opacity: 0; transform: translateX(-8px); transition: opacity .24s var(--ease-expo), transform .28s var(--ease-expo); text-align: right; }
+  .svc:hover .go, .svc:focus-visible .go { opacity: 1; transform: translateX(0); }
   .popular { display: inline-block; margin-left: 8px; font: 700 10px/1 "Archivo Narrow", sans-serif; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink); background: var(--brass); padding: 4px 6px; vertical-align: 2px; }
 
   /* Booking picker */
   #book { padding: 64px 0 20px; }
-  .booker { background: var(--card); border: 0; border-radius: 8px; padding: 18px 14px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 26px; box-shadow: 0 6px 24px rgba(0,0,0,.28); }
+  .booker { background: var(--card); border: 0; border-radius: 8px; padding: 18px 14px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 26px; box-shadow: 0 12px 32px rgba(0,0,0,.32); }
   .step { min-width: 0; }
   .step h3 { margin: 0 0 12px; font-size: 12px; color: var(--muted); letter-spacing: 3px; }
   .step h3 em { font-style: normal; color: var(--brass); margin-right: 6px; }
   .chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
   #barberChips { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .chip { min-width: 0; border: 0; border-radius: 6px; background: #2d3136; padding: 10px 8px; cursor: pointer; font-size: 14px; line-height: 1.3; text-align: center; transition: background .2s, color .2s, transform .15s; }
-  .chip:hover { background: #363b42; }
-  .chip:active { transform: scale(.97); }
-  .chip.on { background: var(--brass); color: var(--ink); font-weight: 600; }
+  .chip { min-width: 0; border: 0; border-radius: 6px; background: #2d3136; padding: 10px 8px; cursor: pointer; font-size: 14px; line-height: 1.3; text-align: center; transition: background .22s var(--ease-expo), color .22s, transform .22s var(--ease-spring), box-shadow .22s; }
+  .chip:hover:not(:disabled) { background: #363b42; transform: translateY(-1px); }
+  .chip:active:not(:disabled) { transform: scale(.96); }
+  .chip.on { background: var(--brass); color: var(--ink); font-weight: 600; box-shadow: 0 6px 18px rgba(199,154,75,.28); animation: chipPop .32s var(--ease-spring); }
+  @keyframes chipPop { 0% { transform: scale(.94); } 65% { transform: scale(1.03); } 100% { transform: scale(1); } }
+  .chip.slot-in { animation: slotIn .38s var(--ease-expo) both; animation-delay: var(--sd, 0s); }
+  @keyframes slotIn { from { opacity: 0; transform: translateY(7px) scale(.96); } to { opacity: 1; transform: none; } }
   .chip:disabled { opacity: .3; text-decoration: line-through; cursor: not-allowed; }
   .chip small { display: block; font-size: 11px; opacity: .75; }
   .days { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
@@ -105,20 +131,24 @@
   .times .muted { grid-column: 1 / -1; }
   .summary { border-top: 1px dashed var(--line); padding-top: 20px; display: grid; gap: 14px; }
   .summary .line { font-size: 15px; color: #d6d0c5; min-height: 24px; }
-  .summary .total { font: 800 30px/1 "Archivo", sans-serif; }
+  .summary .total { font: 800 30px/1 "Archivo", sans-serif; font-variant-numeric: tabular-nums; }
+  .summary .total.pop { animation: totalPop .36s var(--ease-spring); }
+  @keyframes totalPop { 0% { transform: scale(.92); color: var(--brass2); } 55% { transform: scale(1.05); } 100% { transform: scale(1); } }
   .summary .total small { font: 400 14px "Archivo", sans-serif; color: var(--muted); margin-left: 6px; }
   .confirm { display: none; background: rgba(111,191,115,.16); border: 0; border-radius: 6px; padding: 14px 16px; font-size: 15px; }
-  .confirm.show { display: block; animation: rise .5s cubic-bezier(.2,.7,.2,1) both; }
+  .confirm.show { display: block; animation: rise .5s var(--ease-expo) both; }
 
   /* Barbers */
   #team { padding: 64px 0 20px; }
   .team { display: grid; gap: 12px; }
-  .barber { background: var(--card); padding: 24px; border: 0; border-radius: 6px; box-shadow: 0 4px 18px rgba(0,0,0,.22); transition: background .25s, transform .25s; }
-  .barber:hover { background: #282c30; transform: translateY(-3px); }
-  .mono { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; background: var(--bone); color: var(--ink); font: 800 20px/1 "Archivo", sans-serif; margin-bottom: 14px; }
+  .barber { background: var(--card); padding: 24px; border: 0; border-radius: 6px; box-shadow: 0 4px 18px rgba(0,0,0,.22); transition: background .28s var(--ease-expo), transform .36s var(--ease-spring), box-shadow .36s var(--ease-expo); }
+  .barber:hover { background: #292d31; transform: translateY(-5px); box-shadow: 0 14px 32px rgba(0,0,0,.36); }
+  .mono { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; background: var(--bone); color: var(--ink); font: 800 20px/1 "Archivo", sans-serif; margin-bottom: 14px; transition: background .28s var(--ease-expo), transform .38s var(--ease-spring); }
+  .barber:hover .mono { background: var(--brass); transform: scale(1.06) rotate(-4deg); }
   .barber h3 { margin: 0 0 4px; font-size: 19px; }
   .barber p { margin: 0 0 14px; color: #bdb7ac; font-size: 15px; }
-  .barber button { background: none; border: 0; padding: 0; color: var(--brass); cursor: pointer; font-size: 12px; letter-spacing: 2px; }
+  .barber button { background: none; border: 0; padding: 0; color: var(--brass); cursor: pointer; font-size: 12px; letter-spacing: 2px; transition: letter-spacing .25s var(--ease-expo), color .2s; }
+  .barber:hover button { letter-spacing: 2.6px; color: var(--brass2); }
 
   /* Visit */
   #visit { padding: 64px 0 40px; display: grid; gap: 30px; }
@@ -131,10 +161,12 @@
   footer { border-top: 1px solid var(--line); padding: 22px 0 40px; font-size: 13px; color: var(--muted); }
 
   /* Sticky bar */
-  .bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; display: grid; grid-template-columns: 1fr 1.4fr; background: var(--ink); border-top: 1px solid var(--line); transform: translateY(100%); transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+  .bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; display: grid; grid-template-columns: 1fr 1.4fr; background: var(--ink); border-top: 1px solid var(--line); transform: translateY(100%); transition: transform .4s var(--ease-expo); }
   .bar.show { transform: none; }
   .bar a { text-align: center; padding: 18px 10px; font-size: 14px; text-decoration: none; color: var(--bone); }
-  .bar a.book { background: var(--brass); color: var(--ink); }
+  .bar a.book { position: relative; overflow: hidden; background: var(--brass); color: var(--ink); }
+  .bar a.book::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 25%, rgba(255,255,255,.35) 50%, transparent 75%); transform: translateX(-140%); animation: barSheen 5s var(--ease-expo) 2s infinite; pointer-events: none; }
+  @keyframes barSheen { 0%, 72% { transform: translateX(-140%); } 100% { transform: translateX(140%); } }
 
   @media (min-width: 820px) {
     .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
@@ -151,18 +183,20 @@
   }
 
   /* Motion */
-  @keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
-  @keyframes drift { from { transform: scale(1.12); } to { transform: scale(1); } }
-  .hero-anim > * { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
-  .hero-anim > *:nth-child(2) { animation-delay: .08s; } .hero-anim > *:nth-child(3) { animation-delay: .16s; }
-  .hero-anim > *:nth-child(4) { animation-delay: .26s; } .hero-anim > *:nth-child(5) { animation-delay: .36s; } .hero-anim > *:nth-child(6) { animation-delay: .46s; }
-  .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
-  .js .reveal.in { opacity: 1; transform: none; }
-  .flash { animation: flash .9s ease; }
-  @keyframes flash { 0% { box-shadow: 0 0 0 0 rgba(199,154,75,.7); } 100% { box-shadow: 0 0 0 14px rgba(199,154,75,0); } }
+  @keyframes rise { from { opacity: 0; transform: translateY(26px); filter: blur(5px); } to { opacity: 1; transform: none; filter: blur(0); } }
+  @keyframes drift { from { transform: scale(1.13); } to { transform: scale(1.02); } }
+  .hero-anim > *:not(h1) { animation: rise .95s var(--ease-expo) both; }
+  .hero-anim > *:nth-child(2) { animation-delay: .06s; }
+  .hero-anim > *:nth-child(4) { animation-delay: .28s; }
+  .hero-anim > *:nth-child(5) { animation-delay: .36s; }
+  .hero-anim > *:nth-child(6) { animation-delay: .46s; }
+  .js .reveal { opacity: 0; transform: translateY(24px); filter: blur(4px); transition: opacity .82s var(--ease-expo), transform .82s var(--ease-expo), filter .7s var(--ease-expo); transition-delay: var(--d, 0s); }
+  .js .reveal.in { opacity: 1; transform: none; filter: blur(0); }
+  .flash { animation: flash .95s var(--ease-expo); }
+  @keyframes flash { 0% { box-shadow: 0 0 0 0 rgba(199,154,75,.75), 0 12px 32px rgba(0,0,0,.32); } 100% { box-shadow: 0 0 0 16px rgba(199,154,75,0), 0 12px 32px rgba(0,0,0,.32); } }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
-    .js .reveal { opacity: 1; transform: none; }
+    .js .reveal, .gallery figure.curtain { opacity: 1; transform: none; filter: none; clip-path: none; }
   }
 </style>
 </head>
@@ -170,27 +204,27 @@
 <div class="note">Demo design by Eva Cheeks · Northgate Barber Room is a fictional barbershop · <a href="../../">Get a page like this</a></div>
 
 <header class="hero">
-  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-bg" id="heroBg" aria-hidden="true"></div>
   <div class="in hero-anim">
     <div class="status"><span class="dot" id="dot"></span><span id="status" aria-live="polite">Open today 9–6</span></div>
     <p class="tag narrow">Leeds · Opened 2026</p>
-    <h1>Northgate <span>Barber Room</span></h1>
+    <h1><span class="mask-line"><span style="--md:.1s">Northgate</span></span><span class="mask-line outline"><span style="--md:.22s">Barber Room</span></span></h1>
     <p class="sub">Skin fades, beard work and hot towel shaves. Book a chair in thirty seconds, or walk in before 11.</p>
     <div class="cta-row"><a class="btn solid narrow" href="#book">Book a chair</a><a class="btn narrow" href="#prices">See prices</a></div>
-    <div class="facts"><div><b>3</b><span>barbers</span></div><div><b>£12</b><span>cuts from</span></div><div><b>11am</b><span>walk-ins until</span></div></div>
+    <div class="facts"><div><b data-count="3">3</b><span>barbers</span></div><div><b data-count="12" data-prefix="£">£12</b><span>cuts from</span></div><div><b data-count="11" data-suffix="am">11am</b><span>walk-ins until</span></div></div>
   </div>
   <div class="stripe" aria-hidden="true"></div>
 </header>
 
-<nav><div class="in narrow">
+<nav><div class="nav-progress" id="navProgress" aria-hidden="true"></div><div class="in narrow">
   <a href="#prices">Prices</a><a href="#book">Book</a><a href="#team">Barbers</a><a href="#visit">Hours</a><a href="#visit">Find us</a>
 </div></nav>
 
 <main class="wrap">
   <div class="gallery" id="gallery">
-    <figure class="tall reveal"><img src="img/chair.jpg" alt="Barber chair by the mirror" width="1600" height="2400" decoding="async"></figure>
-    <figure class="reveal" style="--d:.1s"><img src="img/tools.jpg" alt="Clippers and combs on the counter" width="1600" height="1376" decoding="async"></figure>
-    <figure class="reveal" style="--d:.2s"><img src="img/shop.jpg" alt="Inside the shop" width="1600" height="2400" decoding="async"></figure>
+    <figure class="tall curtain reveal"><img src="img/chair.jpg" alt="Barber chair by the mirror" width="1600" height="2400" decoding="async"></figure>
+    <figure class="curtain reveal" style="--d:.1s"><img src="img/tools.jpg" alt="Clippers and combs on the counter" width="1600" height="1376" decoding="async"></figure>
+    <figure class="curtain reveal" style="--d:.2s"><img src="img/shop.jpg" alt="Inside the shop" width="1600" height="2400" decoding="async"></figure>
   </div>
 
   <section id="prices">
@@ -278,18 +312,62 @@
 <script>
   document.documentElement.classList.add('js');
   (function () {
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // Scroll reveal
     var els = document.querySelectorAll('.reveal');
     var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }) : null;
+    }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' }) : null;
     function watch(e) { if (io) io.observe(e); else e.classList.add('in'); }
     els.forEach(watch);
     document.querySelectorAll('[data-stagger]').forEach(function (g) {
       g.querySelectorAll(g.getAttribute('data-stagger')).forEach(function (row, i) {
-        row.classList.add('reveal'); row.style.setProperty('--d', (i * 0.05) + 's'); watch(row);
+        row.classList.add('reveal'); row.style.setProperty('--d', (i * 0.045) + 's'); watch(row);
       });
     });
+
+    // Subtle hero stat count-up
+    if (!reduced) {
+      document.querySelectorAll('[data-count]').forEach(function (el) {
+        var target = parseInt(el.getAttribute('data-count'), 10);
+        var pre = el.getAttribute('data-prefix') || '';
+        var suf = el.getAttribute('data-suffix') || '';
+        if (!target) return;
+        var start = performance.now(), dur = 760;
+        function tick(nowTs) {
+          var p = Math.min(1, (nowTs - start) / dur);
+          var ease = 1 - Math.pow(1 - p, 3);
+          el.textContent = pre + Math.max(1, Math.round(target * ease)) + suf;
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        setTimeout(function () { requestAnimationFrame(tick); }, 420);
+      });
+    }
+
+    // Parallax hero + nav progress + scrollspy
+    var heroBg = document.getElementById('heroBg');
+    var navProg = document.getElementById('navProgress');
+    var navLinks = Array.prototype.slice.call(document.querySelectorAll('nav a[href^="#"]'));
+    var secIds = ['prices', 'book', 'team', 'visit'];
+    var secs = secIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+    var ticking = false;
+    function onScroll() {
+      ticking = false;
+      var y = window.scrollY || window.pageYOffset || 0;
+      var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      if (navProg) navProg.style.transform = 'scaleX(' + Math.min(1, Math.max(0, y / max)) + ')';
+      if (heroBg && !reduced && y < 900) heroBg.style.transform = 'translate3d(0,' + (y * 0.22).toFixed(1) + 'px,0) scale(1.02)';
+      var activeId = '';
+      for (var i = 0; i < secs.length; i++) {
+        if (secs[i].getBoundingClientRect().top <= 130) activeId = secs[i].id;
+      }
+      navLinks.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + activeId); });
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+    }, { passive: true });
+    onScroll();
 
     // Gallery shows only if its photos load
     var gal = document.getElementById('gallery'), imgs = gal.querySelectorAll('img'), ok = 0;
@@ -325,6 +403,7 @@
     };
     var BARBERS = ['Any', 'Danny', 'Amir', 'Jess'];
     var sel = { svc: null, barber: 'Any', day: null, time: null };
+    var lastPrice = -1;
     var $ = function (id) { return document.getElementById(id); };
 
     function chip(label, sub, on, click, disabled) {
@@ -347,30 +426,33 @@
       sel.day = (DAYS[0].toDateString() === n.toDateString() && late) ? DAYS[1] : DAYS[0];
     })();
 
-    function render() {
+    function render(waveTimes) {
       var curNow = shopNow();
       var sc = $('svcChips'); sc.innerHTML = '';
       Object.keys(SVC).forEach(function (k) {
         var isSenior = k === 'senior', dd = sel.day ? sel.day.getDay() : 1;
-        sc.appendChild(chip(SVC[k][0], '£' + SVC[k][1] + ' · ' + SVC[k][2] + ' min', sel.svc === k, function () { sel.svc = k; sel.time = null; render(); }, isSenior && dd > 3));
+        sc.appendChild(chip(SVC[k][0], '£' + SVC[k][1] + ' · ' + SVC[k][2] + ' min', sel.svc === k, function () { sel.svc = k; sel.time = null; render(true); }, isSenior && dd > 3));
       });
       var bc = $('barberChips'); bc.innerHTML = '';
-      BARBERS.forEach(function (n) { bc.appendChild(chip(n === 'Any' ? 'First free' : n, '', sel.barber === n, function () { sel.barber = n; sel.time = null; render(); })); });
+      BARBERS.forEach(function (n) { bc.appendChild(chip(n === 'Any' ? 'First free' : n, '', sel.barber === n, function () { sel.barber = n; sel.time = null; render(true); })); });
       var dc = $('dayChips'); dc.innerHTML = '';
       DAYS.forEach(function (x, i) {
         dc.appendChild(chip(i === 0 && x.toDateString() === curNow.toDateString() ? 'Today' : DAYN[x.getDay()], x.getDate(), sel.day && x.getTime() === sel.day.getTime(), function () {
-          sel.day = x; sel.time = null; if (sel.svc === 'senior' && x.getDay() > 3) sel.svc = null; render();
+          sel.day = x; sel.time = null; if (sel.svc === 'senior' && x.getDay() > 3) sel.svc = null; render(true);
         }));
       });
       var tc = $('timeChips'); tc.innerHTML = '';
       var hr = HOURS[sel.day.getDay()], isToday = sel.day.toDateString() === curNow.toDateString(), nowH = curNow.getHours() + curNow.getMinutes() / 60;
-      var dur = sel.svc ? SVC[sel.svc][2] : 30, slot = 0;
+      var dur = sel.svc ? SVC[sel.svc][2] : 30, slot = 0, visIdx = 0;
       for (var m = hr[0] * 60; m + dur <= hr[1] * 60; m += 30, slot++) {
         (function (m, slot) {
           var label = Math.floor(m / 60) + ':' + (m % 60 ? '30' : '00');
           var past = isToday && m / 60 <= nowH + 0.25;
           var full = sel.barber === 'Any' ? (taken(sel.day, slot, 'Danny') && taken(sel.day, slot, 'Amir') && taken(sel.day, slot, 'Jess')) : taken(sel.day, slot, sel.barber);
-          tc.appendChild(chip(label, '', sel.time === label, function () { sel.time = label; render(); }, past || full));
+          var btnSlot = chip(label, '', sel.time === label, function () { sel.time = label; render(false); }, past || full);
+          if (waveTimes && !reduced) { btnSlot.classList.add('slot-in'); btnSlot.style.setProperty('--sd', (Math.min(visIdx, 12) * 0.024) + 's'); }
+          visIdx++;
+          tc.appendChild(btnSlot);
         })(m, slot);
       }
       if (!tc.children.length || Array.prototype.every.call(tc.children, function (c) { return c.disabled; })) {
@@ -378,14 +460,20 @@
       }
       // Summary
       var btn = $('confirmBtn'), ready = sel.svc && sel.time;
+      var totEl = $('sumTotal');
+      var curPrice = sel.svc ? SVC[sel.svc][1] : 0;
       if (sel.svc) {
         var s = SVC[sel.svc];
         $('sumLine').textContent = s[0] + ' with ' + (sel.barber === 'Any' ? 'the first free barber' : sel.barber) + ', ' + DAYN[sel.day.getDay()] + ' ' + sel.day.getDate() + (sel.time ? ' at ' + sel.time : ' (pick a time)');
-        $('sumTotal').innerHTML = '£' + s[1] + '<small>' + s[2] + ' min · pay in the shop</small>';
-      } else { $('sumLine').textContent = 'Choose a service to start.'; $('sumTotal').innerHTML = '£0<small></small>'; }
+        totEl.innerHTML = '£' + s[1] + '<small>' + s[2] + ' min · pay in the shop</small>';
+      } else { $('sumLine').textContent = 'Choose a service to start.'; totEl.innerHTML = '£0<small></small>'; }
+      if (curPrice !== lastPrice && lastPrice !== -1 && !reduced) {
+        totEl.classList.remove('pop'); void totEl.offsetWidth; totEl.classList.add('pop');
+      }
+      lastPrice = curPrice;
       btn.disabled = !ready; btn.style.opacity = ready ? 1 : .5;
     }
-    render();
+    render(false);
 
     $('confirmBtn').addEventListener('click', function () {
       var m = $('confirmMsg');
@@ -394,8 +482,8 @@
     });
 
     function goBook() { var b = document.querySelector('.booker'); document.getElementById('book').scrollIntoView({ behavior: 'smooth' }); b.classList.remove('flash'); void b.offsetWidth; b.classList.add('flash'); }
-    document.querySelectorAll('.svc').forEach(function (b) { b.addEventListener('click', function () { sel.svc = b.dataset.svc; if (sel.svc === 'senior' && sel.day.getDay() > 3) sel.day = DAYS.filter(function (x) { return x.getDay() <= 3 && x.getDay() > 0; })[0] || sel.day; sel.time = null; render(); goBook(); }); });
-    document.querySelectorAll('[data-barber]').forEach(function (b) { b.addEventListener('click', function () { sel.barber = b.dataset.barber; sel.time = null; render(); goBook(); }); });
+    document.querySelectorAll('.svc').forEach(function (b) { b.addEventListener('click', function () { sel.svc = b.dataset.svc; if (sel.svc === 'senior' && sel.day.getDay() > 3) sel.day = DAYS.filter(function (x) { return x.getDay() <= 3 && x.getDay() > 0; })[0] || sel.day; sel.time = null; render(true); goBook(); }); });
+    document.querySelectorAll('[data-barber]').forEach(function (b) { b.addEventListener('click', function () { sel.barber = b.dataset.barber; sel.time = null; render(true); goBook(); }); });
 
     // Sticky bar appears after the hero
     var bar = $('bar'), hero = document.querySelector('.hero');
